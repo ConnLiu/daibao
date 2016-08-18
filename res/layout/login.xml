@@ -48,7 +48,6 @@
             android:layout_marginTop="35dp"
             android:gravity="center"
             android:textSize="18sp"
-          
             android:textColor="@color/black"
             android:background="@drawable/login_shape_conerconer"
             android:text="登&#x0009;&#x0009;录" />

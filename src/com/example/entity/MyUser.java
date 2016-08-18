@@ -3,7 +3,7 @@ package com.example.entity;
 import cn.bmob.v3.BmobUser;
 
 public class MyUser extends BmobUser{
-	private Boolean gender;
+	private String gender;
     private String nickname;
     private Integer age;
     private String school;
@@ -13,14 +13,6 @@ public class MyUser extends BmobUser{
     private String head_path;
     private String dorm;
     private String birthday;
-    public boolean getSex() {
-        return this.gender;
-    }
-
-    public void setSex(boolean sex) {
-        this.gender = sex;
-    }
-
     public String getNick() {
         return this.nickname;
     }
@@ -91,5 +83,13 @@ public class MyUser extends BmobUser{
 
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 }

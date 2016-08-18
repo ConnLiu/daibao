@@ -43,7 +43,6 @@ public class Register extends Activity implements OnClickListener{
 		btn_register=(Button)findViewById(R.id.btn_register);
 		btn_register.setOnClickListener(this);
 	}
-
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub

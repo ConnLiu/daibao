@@ -1,5 +1,8 @@
 package com.example.easyshop;
 
+import com.example.entity.MyUser;
+import com.example.singleton.UserSingleton;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -12,7 +15,7 @@ public class SelfIntroduction extends Activity {
 
 	private EditText EtSelf;
 	private Button BtSelf_save;
-	
+	MyUser user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,7 +27,8 @@ public class SelfIntroduction extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				
+				user = UserSingleton.getInstance();
+				user.setMotto(EtSelf.getText().toString());
 				finish();
 			}
 		});

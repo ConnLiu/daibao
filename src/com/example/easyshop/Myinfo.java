@@ -6,13 +6,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Calendar;
 
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
+
 import com.example.customview.DomitoryDialog;
 import com.example.customview.GenderDialog;
+import com.example.entity.MyUser;
+import com.example.singleton.UserSingleton;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,14 +47,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 public class Myinfo extends Activity implements OnClickListener{
-
 	private final int REQUESTCODE_PICK=0,REQUESTCODE_TAKE=1,REQUESTCODE_CUTTING=2;
 	private final String IMAGE_FILE_NAME = "temphead.png";
     private Context mContext = null;
-	private TextView TvMyinfo_gender,TvMyinfo_birth,TvMyinfo_domi,TvMyinfo_qianming;
+	private TextView TvMyinfo_gender,TvMyinfo_birth,TvMyinfo_domi,TvMyinfo_id,Tv_realname,TvMyinfo_qianming;
 	private ImageView IvMyinfo_head,IbMyinfo_rb;
 	private DatePickerDialog datedialog;
 	private int year,monthOfYear,dayOfMonth;
+	MyUser user = UserSingleton.getInstance();;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,7 +78,14 @@ public class Myinfo extends Activity implements OnClickListener{
 		TvMyinfo_gender =(TextView) findViewById(R.id.TvMyinfo_gender);
 		TvMyinfo_birth =(TextView) findViewById(R.id.TvMyinfo_birth);
 		TvMyinfo_domi =(TextView) findViewById(R.id.TvMyinfo_domi);
+		TvMyinfo_id =(TextView) findViewById(R.id.TvMyinfo_id);
+		Tv_realname =(TextView) findViewById(R.id.TvMyinfo_name);
 		TvMyinfo_qianming =(TextView) findViewById(R.id.TvMyinfo_qianming);
+		TvMyinfo_gender.setText(user.getGender());
+		TvMyinfo_birth.setText(user.getBirthday());
+		TvMyinfo_domi.setText(user.getDorm());
+		Tv_realname.setText(user.getRealname());
+		TvMyinfo_id.setText(user.getNumberID());
 		
 		IvMyinfo_head.setOnClickListener(this);
 		IbMyinfo_rb.setOnClickListener(this);
@@ -86,7 +99,28 @@ public class Myinfo extends Activity implements OnClickListener{
 		}
 		else IvMyinfo_head.setImageResource(R.drawable.tip_selected);
 	}
-
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		user.setGender(TvMyinfo_gender.getText().toString());
+        user.setValue("gender", TvMyinfo_gender.getText().toString());
+		user.setDorm(TvMyinfo_domi.getText().toString());
+		user.setValue("dorm", TvMyinfo_domi.getText().toString());
+		Log.d("MyInfo",user.getGender());
+		user.update(user.getObjectId(),new UpdateListener() {
+			@Override
+			public void done(BmobException e) {
+				// TODO Auto-generated method stub
+				if(e==null){
+					Log.i("Myinfo","onstop,更新成功");
+				}else{
+					Log.i("Myinfo","onstop,更新失败");
+				}
+			}
+		});
+		super.onStop();
+	}
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -113,6 +147,7 @@ public class Myinfo extends Activity implements OnClickListener{
             	}
             }); 
             builder.create().show();
+            
 			break;
 		case R.id.TvMyinfo_birth:
 			datedialog = new DatePickerDialog(this, new OnDateSetListener() {
@@ -121,9 +156,12 @@ public class Myinfo extends Activity implements OnClickListener{
 				public void onDateSet(DatePicker v, int year, int monthOfYear, int dayOfMonth) {
 					
 					TvMyinfo_birth.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+					user.setBirthday(TvMyinfo_birth.getText().toString());
+					user.setValue("birthday", TvMyinfo_birth.getText().toString());
 				}
 			}, year, monthOfYear, dayOfMonth);
 			datedialog.show();
+			
 			break;
 		case R.id.TvMyinfo_domi:
 			DomitoryDialog.Builder dombuilder=new DomitoryDialog.Builder(Myinfo.this);
@@ -158,12 +196,14 @@ public class Myinfo extends Activity implements OnClickListener{
             	}
             });
 			dombuilder.create().show();
+			
 			break;
 		case R.id.TvMyinfo_qianming:
 			intent.setClass(Myinfo.this, SelfIntroduction.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			break;
 		}
+		
 	}
 
     private void showPopupWindow(View view) {
