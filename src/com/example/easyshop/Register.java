@@ -33,6 +33,7 @@ public class Register extends Activity implements OnClickListener{
 		et_account=(EditText)findViewById(R.id.account);
 		et_nickname=(EditText)findViewById(R.id.nickname);
 		et_passwd=(EditText)findViewById(R.id.input_passwd);
+		et_cfm_passwd = (EditText)findViewById(R.id.confirm_passwd);
 		et_nickname=(EditText)findViewById(R.id.nickname);
 		et_numberID=(EditText)findViewById(R.id.numberID);
 		et_realname=(EditText)findViewById(R.id.realname);
@@ -46,9 +47,6 @@ public class Register extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		if(!check()){
-			return ;
-		}
 		Intent intent = new Intent();
 		switch(v.getId()){
 		case R.id.btn_login:
@@ -56,6 +54,9 @@ public class Register extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;
 		case R.id.btn_register:
+			if(!check()){
+				return ;
+			}
 			register();
 			intent.setClass(Register.this, Login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
