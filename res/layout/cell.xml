@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#ffffff">
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/hometop_bg" />
+
+        <LinearLayout 
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+            <TextView 
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hometop_bg"/>
+            <LinearLayout 
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1">
+        <TextView
+            android:id="@+id/TvCell_topfind"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="发现"
+            android:textColor="#c57257"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/TvCell_topmine"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="我的"
+            android:textColor="#ffffff"
+            android:background="@drawable/hometop_bg"
+            android:gravity="center"
+            android:textSize="18sp" />
+        </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hometop_bg" />
+
+        <ImageButton
+            android:id="@+id/IbCell_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hometop_bg"
+            android:src="@drawable/search" />
+        
+    </LinearLayout>
+    <ListView 
+        android:id="@+id/LvCell_cell"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="11.5">
+        
+    </ListView>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_weight="1.5"
+        android:layout_height="0dp"
+        android:background="#00ffffff"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            android:background="#00ffffff"
+            android:orientation="vertical">
+            
+            <View 
+            android:layout_width="match_parent"
+            android:background="#00ffffff"
+            android:layout_height="30dp"/>
+        <ImageButton
+            android:id="@+id/IbCell_home"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="bottom"
+            android:background="@drawable/homebottom_bg"
+            android:src="@drawable/home_black" />
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="首页"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="#898f91"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            android:background="#00ffffff"
+            android:orientation="vertical">
+
+            <View 
+            android:layout_width="match_parent"
+            android:background="#00ffffff"
+            android:layout_height="30dp"/>
+        <ImageButton
+            android:id="@+id/IbCell_cell"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="bottom"
+            android:background="@drawable/homebottom_bg"
+            android:src="@drawable/door_red" />
+
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="机舱"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="#ff5555"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            android:background="#00ffffff"
+            android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/IbCell_add"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@drawable/homebottom_bg"
+            android:src="@drawable/add_red" />
+
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="发布"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="#898f91"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            android:background="#00ffffff"
+            android:orientation="vertical">
+
+            <View 
+            android:layout_width="match_parent"
+            android:background="#00ffffff"
+            android:layout_height="30dp"/>
+        <ImageButton
+            android:id="@+id/IbCell_message"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="bottom"
+            android:background="@drawable/homebottom_bg"
+            android:src="@drawable/message_black" />
+
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="消息"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="#898f91"/>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            android:background="#00ffffff"
+            android:orientation="vertical">
+
+            <View 
+            android:layout_width="match_parent"
+            android:background="#00ffffff"
+            android:layout_height="30dp"/>
+        <ImageButton
+            android:id="@+id/IbCell_mine"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="bottom"
+            android:background="@drawable/homebottom_bg"
+            android:src="@drawable/person_black" />
+
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="我"
+            android:gravity="center_horizontal"
+            android:textSize="10dp"
+            android:textColor="#898f91"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    </LinearLayout>

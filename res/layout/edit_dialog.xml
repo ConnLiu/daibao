@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditDialog" >
+
+  
+        <LinearLayout
+        android:id="@+id/LlEdit_content"
+        android:layout_width="250dp"  
+        android:layout_height="140dp"  
+        android:layout_centerInParent="true"  
+        android:background="#ffffff" 
+        android:orientation="vertical" >
+  
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="#ffffff" >
+                
+                <View 
+                    android:layout_width="fill_parent"
+                    android:layout_height="20dp"
+                    android:background="#00000000"/>
+                <View 
+                    android:layout_width="230dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#50ff5555"/>
+               <EditText
+                android:id="@+id/edit"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:paddingLeft="10dp"
+                android:background="#ffffff"/>
+                <View 
+                    android:layout_width="230dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="1dp"
+                    android:background="#50ff5555"/>
+                
+            </LinearLayout>
+   
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:orientation="horizontal" >
+
+                <LinearLayout 
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                <Button 
+                    android:id="@+id/BtDialog_cancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:textColor="#ff5555"
+                    android:background="@drawable/dialog_cancel"
+                    android:textSize="25sp"
+                    android:text="取消"/>
+                </LinearLayout>
+                <LinearLayout 
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                <Button 
+                    android:id="@+id/BtDialog_ok"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:background="@drawable/dialog_ok"
+                    android:textSize="25sp"
+                    android:text="确定"/>
+                </LinearLayout>
+        </LinearLayout>  
+        </LinearLayout>  
+
+</RelativeLayout>

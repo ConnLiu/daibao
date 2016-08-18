@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/IbHome_code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hometop_bg"
+            android:src="@drawable/code" />
+
+        <TextView
+            android:id="@+id/TvHome_top"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:text="首页"
+            android:textColor="#ffffff"
+            android:background="@drawable/hometop_bg"
+            android:gravity="center"
+            android:textSize="25sp" />
+
+        <ImageButton
+            android:id="@+id/IbHome_class"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hometop_bg"
+            android:src="@drawable/category" />
+        
+    </LinearLayout>
+
+ <ScrollView
+     android:id="@+id/SvHome"
+     android:layout_width="match_parent"
+     android:layout_height="0dp"
+     android:layout_weight="11.5" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical">
+    
+  <android.support.v4.view.ViewPager
+      android:id="@+id/VpHome_hotgoods"
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      android:background="#5072c557" >
+
+  </android.support.v4.view.ViewPager>
+    
+
+  <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/viewGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal" >
+</LinearLayout>
+  </RelativeLayout>
+  <View 
+      android:layout_width="fill_parent"
+      android:layout_height="1dp"
+      android:background="#aaaaaa"/>
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="8"
+    android:background="#ffffff">
+
+    <com.example.customview.ListViewForScrollView
+        android:id="@+id/LvHome_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#aaaaaa" >
+
+    </com.example.customview.ListViewForScrollView>
+</LinearLayout>
+</LinearLayout>
+</ScrollView>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_weight="1.5"
+        android:layout_height="0dp"
+        android:background="#00ffffff"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            android:background="#00ffffff"
+            android:orientation="vertical">
+
+            <View 
+            android:layout_width="match_parent"
+            android:background="#00ffffff"
+            android:layout_height="30dp"/>
+        <ImageButton
+            android:id="@+id/IbHome_home"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="bottom"
+            android:background="@drawable/homebottom_bg"
+            android:src="@drawable/home_red" />
+
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="首页"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="#ff5555"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            android:background="#00ffffff"
+            android:orientation="vertical">
+
+            <View 
+            android:layout_width="match_parent"
+            android:background="#00ffffff"
+            android:layout_height="30dp"/>
+        <ImageButton
+            android:id="@+id/IbHome_cell"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="bottom"
+            android:background="@drawable/homebottom_bg"
+            android:src="@drawable/door_black" />
+
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="机舱"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="#898f91"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            android:background="#00ffffff"
+            android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/IbHome_add"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@drawable/homebottom_bg"
+            android:src="@drawable/add_red" />
+
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="发布"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="#898f91"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            android:background="#00ffffff"
+            android:orientation="vertical">
+
+            <View 
+            android:layout_width="match_parent"
+            android:background="#00ffffff"
+            android:layout_height="30dp"/>
+        <ImageButton
+            android:id="@+id/IbHome_message"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="bottom"
+            android:background="@drawable/homebottom_bg"
+            android:src="@drawable/message_black" />
+
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="消息"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="#898f91"/>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            android:background="#00ffffff"
+            android:orientation="vertical">
+
+            <View 
+            android:layout_width="match_parent"
+            android:background="#00ffffff"
+            android:layout_height="30dp"/>
+        <ImageButton
+            android:id="@+id/IbHome_mine"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_gravity="bottom"
+            android:background="@drawable/homebottom_bg"
+            android:src="@drawable/person_black" />
+
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="我"
+            android:gravity="center_horizontal"
+            android:textSize="10dp"
+            android:textColor="#898f91"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

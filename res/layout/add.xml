@@ -1,0 +1,233 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/back_bg"
+    tools:context=".Add" >
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/hometop_bg">
+        
+        <ImageView 
+            android:id="@+id/IvAdd_rb"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/jiantou_left"/>
+        <TextView 
+            android:layout_weight="6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="发布"
+            android:textSize="25dp"
+            android:gravity="center"
+            android:textColor="#ffffff"/>
+        <ImageView 
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="13">
+
+        <EditText
+            android:id="@+id/EtAdd_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:paddingLeft="5dp"
+            android:background="#ffffff"
+            android:hint="标题"/>
+
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#50ff5555"/>
+        <EditText
+            android:id="@+id/EtAdd_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingLeft="5dp"
+            android:minHeight="150dp"
+            android:background="#ffffff"
+            android:hint="描述一下你的物品"
+            android:gravity="top">
+
+        </EditText>
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            
+            <ImageView 
+                android:id="@+id/IvAdd_image1"
+                android:layout_width="70dp"
+                android:layout_marginLeft="15dp"
+                android:layout_height="70dp"
+                android:src="@drawable/add"/>
+            <ImageView 
+                android:id="@+id/IvAdd_image2"
+                android:layout_width="70dp"
+                android:layout_marginLeft="15dp"
+                android:layout_height="70dp"/>
+            <ImageView 
+                android:id="@+id/IvAdd_image3"
+                android:layout_width="70dp"
+                android:layout_marginLeft="15dp"
+                android:layout_height="70dp"/>
+            <ImageView 
+                android:id="@+id/IvAdd_image4"
+                android:layout_width="70dp"
+                android:layout_marginLeft="15dp"
+                android:layout_height="70dp"/>
+        </LinearLayout>
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffff"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/RbAdd_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:textColor="#ff5555"
+                android:checked="true"
+                android:text="一口价" />
+
+            <RadioButton
+                android:id="@+id/RbAdd_auction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textColor="#aaaaaa"
+                android:text="拍卖" />
+
+            <RadioButton
+                android:id="@+id/RbAdd_noprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textColor="#aaaaaa"
+                android:text="不开价" />
+
+        </LinearLayout>
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffff"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal" >
+            <TextView 
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="原价     ¥"
+                android:textSize="18dp"
+                android:textColor="#000000"/>
+            <TextView 
+                android:id="@+id/TvAdd_oldprice"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="60"
+                android:textSize="18dp"
+                android:textColor="#000000"/>
+            <ImageView 
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/jiantou_grey"/>
+        </LinearLayout>
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffff"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal" >
+            <TextView 
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="价格     ¥"
+                android:textSize="18dp"
+                android:textColor="#000000"/>
+            <TextView 
+                android:id="@+id/TvAdd_price"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="55"
+                android:textSize="18dp"
+                android:textColor="#000000"/>
+            <ImageView 
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/jiantou_grey"/>
+        </LinearLayout>
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffff"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal" >
+            <TextView 
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="分类"
+                android:textSize="18dp"
+                android:textColor="#000000"/>
+            <TextView 
+                android:id="@+id/TvAdd_class"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:hint="书籍"
+                android:paddingLeft="5dp"
+                android:textSize="18dp"
+                android:textColor="#000000"/>
+            <ImageView 
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/jiantou_grey"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

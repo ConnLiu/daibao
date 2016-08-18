@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+     >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:paddingTop="56dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="账号" />
+      
+       <EditText android:id="@+id/account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:inputType="textCapWords"
+                android:hint="请输入账号" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+          android:textColor="@color/black"
+            android:text="密码" />
+
+      <EditText
+          android:id="@+id/input_passwd"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:layout_marginTop="8dp"
+          android:ems="10"
+          android:hint="请输入密码"
+          android:inputType="textPassword" />
+      
+      <EditText
+          android:id="@+id/confirm_passwd"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="8dp"
+          android:layout_marginTop="8dp"
+          android:ems="10"
+          android:hint="确认密码"
+          android:inputType="textPassword" />
+       <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="用户名" />
+      
+       <EditText
+           		android:id="@+id/nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:inputType="textCapWords"
+                android:hint="请输入昵称" />
+       <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="学号" />
+      
+       <EditText
+           		android:id="@+id/numberID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:inputType="textCapWords"
+                android:hint="请输入学号" />
+       <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="真实姓名" />
+      
+       <EditText
+           		android:id="@+id/realname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:inputType="textCapWords"
+                android:hint="请输入姓名" />
+        <TextView
+            android:id="@+id/school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="学校" />
+
+        <Spinner android:id="@+id/input_school"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:inputType="textCapWords"
+            android:background="#ffffff"
+            android:paddingLeft="10sp"
+            android:entries="@array/school"
+            android:hint="南京航空航天大学" />
+
+      <Button
+            android:id="@+id/btn_register"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="54dp"
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:background="@drawable/login_shape_conerconer"
+            android:gravity="center"
+            android:text="注&#x0009;&#x0009;册"/>
+      
+      <Button android:id="@+id/btn_login"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:text="Already a menber? login"
+           android:textColor="@color/gray"
+           android:background="#00000000"
+            android:gravity="center"
+            android:textSize="16sp"/>
+        
+    </LinearLayout> 
+    
+
+</ScrollView>
