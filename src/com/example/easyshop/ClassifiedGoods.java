@@ -20,7 +20,7 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 
 	private ListView LvClassified;
 	private TextView TvClassfied_class;
-	private ImageView IvClass_rb;
+	private ImageView IvClass_rb,IvClassified_search;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +31,10 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 		LvClassified = (ListView)findViewById(R.id.LvClassified);
 		TvClassfied_class =(TextView) findViewById(R.id.TvClassfied_class);
 		IvClass_rb =(ImageView) findViewById(R.id.IvClass_rb);
+		IvClassified_search =(ImageView) findViewById(R.id.IvClassified_search);
 		
 		IvClass_rb.setOnClickListener(this);
+		IvClassified_search.setOnClickListener(this);
 		
 		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, getData());
 		LvClassified.setAdapter(goodslistadapter);
@@ -46,15 +48,6 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 			for(int i = 0 ; i <4; i ++ )
 			{
 				Map<String, Object> map = new HashMap<String, Object>();
-				/*try {
-					map.put("newstext",java.net.URLDecoder.decode(news_Info.get(i).getNewsTitle().toString(),"utf-8"));
-					
-					map.put("newsimage", java.net.URLDecoder.decode(news_Info.get(i).getPictureURL().toString(),"utf-8"));
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-				
 				map.put("goodsname", "ÉÌÆ·Ãû³Æ");
 				map.put("goodsmoney", "0.00");
 				map.put("goodslikenum", "88");
@@ -67,10 +60,14 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 		 
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
+			Intent intent = new Intent();
 			switch(v.getId()){
 			case R.id.IvClass_rb:
 				finish();
+				break;
+			case R.id.IvClassified_search:
+				intent.setClass(ClassifiedGoods.this, Search.class);
+				startActivity(intent);
 				break;
 			}
 			

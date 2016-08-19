@@ -17,6 +17,9 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     
+    <style name="AppNotitleBarTheme" parent="android:style/Theme.NoTitleBar">
+    </style>
+    
     <style name="Dialog" parent="android:style/Theme.Dialog" >  
       <item name="android:windowBackground">@color/white</item>  
       <item name="android:windowFrame">@null</item>  

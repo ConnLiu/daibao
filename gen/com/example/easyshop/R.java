@@ -460,53 +460,56 @@ public final class R {
         public static final int camera=0x7f020004;
         public static final int category=0x7f020005;
         public static final int code=0x7f020006;
-        public static final int dialog_cancel=0x7f020007;
-        public static final int dialog_ok=0x7f020008;
-        public static final int door_black=0x7f020009;
-        public static final int door_red=0x7f02000a;
-        public static final int edit=0x7f02000b;
-        public static final int home_black=0x7f02000c;
-        public static final int home_red=0x7f02000d;
-        public static final int homebottom_bg=0x7f02000e;
-        public static final int hometop_bg=0x7f02000f;
-        public static final int ic_launcher=0x7f020010;
-        public static final int icon=0x7f020011;
-        public static final int jiantou_grey=0x7f020012;
-        public static final int jiantou_left=0x7f020013;
-        public static final int jiantou_right=0x7f020014;
-        public static final int list_shape=0x7f020015;
-        public static final int listitem_bg=0x7f020016;
-        public static final int listitem_normal=0x7f020017;
-        public static final int listitem_pressed=0x7f020018;
-        public static final int login_shape_conerconer=0x7f020019;
-        public static final int message_black=0x7f02001a;
-        public static final int message_red=0x7f02001b;
-        public static final int news1=0x7f02001c;
-        public static final int news2=0x7f02001d;
-        public static final int news3=0x7f02001e;
-        public static final int news4=0x7f02001f;
-        public static final int news5=0x7f020020;
-        public static final int news6=0x7f020021;
-        public static final int news7=0x7f020022;
-        public static final int news8=0x7f020023;
-        public static final int person_black=0x7f020024;
-        public static final int person_red=0x7f020025;
-        public static final int search=0x7f020026;
-        public static final int shape_coner_without_line=0x7f020027;
-        public static final int tip_normal=0x7f020028;
-        public static final int tip_selected=0x7f020029;
-        public static final int transparent=0x7f02002a;
-        public static final int zan=0x7f02002b;
-        public static final int zan_red=0x7f02002c;
+        public static final int delete=0x7f020007;
+        public static final int dialog_cancel=0x7f020008;
+        public static final int dialog_ok=0x7f020009;
+        public static final int door_black=0x7f02000a;
+        public static final int door_red=0x7f02000b;
+        public static final int edit=0x7f02000c;
+        public static final int home_black=0x7f02000d;
+        public static final int home_red=0x7f02000e;
+        public static final int homebottom_bg=0x7f02000f;
+        public static final int hometop_bg=0x7f020010;
+        public static final int ic_launcher=0x7f020011;
+        public static final int icon=0x7f020012;
+        public static final int jiantou_grey=0x7f020013;
+        public static final int jiantou_left=0x7f020014;
+        public static final int jiantou_right=0x7f020015;
+        public static final int list_shape=0x7f020016;
+        public static final int listitem_bg=0x7f020017;
+        public static final int listitem_normal=0x7f020018;
+        public static final int listitem_pressed=0x7f020019;
+        public static final int login_shape_conerconer=0x7f02001a;
+        public static final int message_black=0x7f02001b;
+        public static final int message_red=0x7f02001c;
+        public static final int news1=0x7f02001d;
+        public static final int news2=0x7f02001e;
+        public static final int news3=0x7f02001f;
+        public static final int news4=0x7f020020;
+        public static final int news5=0x7f020021;
+        public static final int news6=0x7f020022;
+        public static final int news7=0x7f020023;
+        public static final int news8=0x7f020024;
+        public static final int person_black=0x7f020025;
+        public static final int person_red=0x7f020026;
+        public static final int search=0x7f020027;
+        public static final int search_frame=0x7f020028;
+        public static final int shape_coner_without_line=0x7f020029;
+        public static final int tip_normal=0x7f02002a;
+        public static final int tip_selected=0x7f02002b;
+        public static final int transparent=0x7f02002c;
+        public static final int zan=0x7f02002d;
+        public static final int zan_red=0x7f02002e;
     }
     public static final class id {
         public static final int BtDialog_cancel=0x7f0a0034;
         public static final int BtDialog_ok=0x7f0a0035;
-        public static final int BtSelf_save=0x7f0a00a3;
-        public static final int Btlogout=0x7f0a00ad;
+        public static final int BtSelf_save=0x7f0a00a9;
+        public static final int Btlogout=0x7f0a00b3;
         public static final int EtAdd_content=0x7f0a0002;
         public static final int EtAdd_title=0x7f0a0001;
-        public static final int EtSelf=0x7f0a00a2;
+        public static final int EtSearch_content=0x7f0a0095;
+        public static final int EtSelf=0x7f0a00a8;
         public static final int IbCategory_search=0x7f0a000e;
         public static final int IbCell_add=0x7f0a0021;
         public static final int IbCell_cell=0x7f0a0020;
@@ -514,7 +517,6 @@ public final class R {
         public static final int IbCell_message=0x7f0a0022;
         public static final int IbCell_mine=0x7f0a0023;
         public static final int IbCell_search=0x7f0a001d;
-        public static final int IbClassified_search=0x7f0a002a;
         public static final int IbHome_add=0x7f0a0049;
         public static final int IbHome_cell=0x7f0a0048;
         public static final int IbHome_class=0x7f0a0042;
@@ -533,7 +535,7 @@ public final class R {
         public static final int IbMine_me=0x7f0a007b;
         public static final int IbMine_message=0x7f0a007a;
         public static final int IbMyinfo_rb=0x7f0a0080;
-        public static final int IbSelectc_search=0x7f0a0094;
+        public static final int IbSelectc_search=0x7f0a009a;
         public static final int IvAdd_image1=0x7f0a0003;
         public static final int IvAdd_image2=0x7f0a0004;
         public static final int IvAdd_image3=0x7f0a0005;
@@ -541,6 +543,8 @@ public final class R {
         public static final int IvAdd_rb=0x7f0a0000;
         public static final int IvCategory_rb=0x7f0a000d;
         public static final int IvClass_rb=0x7f0a0028;
+        public static final int IvClassified_search=0x7f0a002a;
+        public static final int IvDeleteText=0x7f0a0096;
         public static final int IvMe_edit=0x7f0a0051;
         public static final int IvMe_head=0x7f0a0052;
         public static final int IvMe_rb=0x7f0a0050;
@@ -549,21 +553,21 @@ public final class R {
         public static final int IvMinegoods_rb=0x7f0a007c;
         public static final int IvMinegoods_search=0x7f0a007e;
         public static final int IvMyinfo_head=0x7f0a0083;
-        public static final int IvSelectc_class1=0x7f0a0095;
-        public static final int IvSelectc_class10=0x7f0a009e;
-        public static final int IvSelectc_class11=0x7f0a009f;
-        public static final int IvSelectc_class12=0x7f0a00a0;
-        public static final int IvSelectc_class2=0x7f0a0096;
-        public static final int IvSelectc_class3=0x7f0a0097;
-        public static final int IvSelectc_class4=0x7f0a0098;
-        public static final int IvSelectc_class5=0x7f0a0099;
-        public static final int IvSelectc_class6=0x7f0a009a;
-        public static final int IvSelectc_class7=0x7f0a009b;
-        public static final int IvSelectc_class8=0x7f0a009c;
-        public static final int IvSelectc_class9=0x7f0a009d;
-        public static final int IvSelectc_rb=0x7f0a0093;
-        public static final int IvSelf_rb=0x7f0a00a1;
-        public static final int IvSet_rb=0x7f0a00a4;
+        public static final int IvSelectc_class1=0x7f0a009b;
+        public static final int IvSelectc_class10=0x7f0a00a4;
+        public static final int IvSelectc_class11=0x7f0a00a5;
+        public static final int IvSelectc_class12=0x7f0a00a6;
+        public static final int IvSelectc_class2=0x7f0a009c;
+        public static final int IvSelectc_class3=0x7f0a009d;
+        public static final int IvSelectc_class4=0x7f0a009e;
+        public static final int IvSelectc_class5=0x7f0a009f;
+        public static final int IvSelectc_class6=0x7f0a00a0;
+        public static final int IvSelectc_class7=0x7f0a00a1;
+        public static final int IvSelectc_class8=0x7f0a00a2;
+        public static final int IvSelectc_class9=0x7f0a00a3;
+        public static final int IvSelectc_rb=0x7f0a0099;
+        public static final int IvSelf_rb=0x7f0a00a7;
+        public static final int IvSet_rb=0x7f0a00aa;
         public static final int Iv_class1=0x7f0a000f;
         public static final int Iv_class10=0x7f0a0018;
         public static final int Iv_class11=0x7f0a0019;
@@ -576,6 +580,7 @@ public final class R {
         public static final int Iv_class7=0x7f0a0015;
         public static final int Iv_class8=0x7f0a0016;
         public static final int Iv_class9=0x7f0a0017;
+        public static final int Ivsearch_return=0x7f0a0094;
         public static final int LlDom=0x7f0a002c;
         public static final int LlEdit_content=0x7f0a0032;
         public static final int LvCell_cell=0x7f0a001e;
@@ -584,6 +589,7 @@ public final class R {
         public static final int LvMe_comment=0x7f0a0056;
         public static final int LvMessage_list=0x7f0a005b;
         public static final int LvMineGoods=0x7f0a007f;
+        public static final int LvSearch=0x7f0a0098;
         public static final int RbAdd_auction=0x7f0a0008;
         public static final int RbAdd_noprice=0x7f0a0009;
         public static final int RbAdd_price=0x7f0a0007;
@@ -638,17 +644,18 @@ public final class R {
         public static final int TvMyinfo_name=0x7f0a0089;
         public static final int TvMyinfo_qianming=0x7f0a0087;
         public static final int TvMyinfo_top=0x7f0a0081;
-        public static final int TvSet_about=0x7f0a00aa;
-        public static final int TvSet_alarm=0x7f0a00a9;
-        public static final int TvSet_cache=0x7f0a00ac;
-        public static final int TvSet_dark=0x7f0a00a7;
-        public static final int TvSet_info=0x7f0a00a6;
-        public static final int TvSet_quality=0x7f0a00a8;
-        public static final int TvSet_rule=0x7f0a00ab;
-        public static final int TvSet_top=0x7f0a00a5;
+        public static final int TvSearch=0x7f0a0097;
+        public static final int TvSet_about=0x7f0a00b0;
+        public static final int TvSet_alarm=0x7f0a00af;
+        public static final int TvSet_cache=0x7f0a00b2;
+        public static final int TvSet_dark=0x7f0a00ad;
+        public static final int TvSet_info=0x7f0a00ac;
+        public static final int TvSet_quality=0x7f0a00ae;
+        public static final int TvSet_rule=0x7f0a00b1;
+        public static final int TvSet_top=0x7f0a00ab;
         public static final int VpHome_hotgoods=0x7f0a0044;
         public static final int account=0x7f0a008a;
-        public static final int action_settings=0x7f0a00ae;
+        public static final int action_settings=0x7f0a00b4;
         public static final int btn_login=0x7f0a004e;
         public static final int btn_register=0x7f0a0092;
         public static final int cellimage=0x7f0a0024;
@@ -674,6 +681,7 @@ public final class R {
         public static final int publishnum=0x7f0a0027;
         public static final int realname=0x7f0a008f;
         public static final int school=0x7f0a0090;
+        public static final int top=0x7f0a0093;
         public static final int viewGroup=0x7f0a0045;
     }
     public static final class layout {
@@ -699,9 +707,10 @@ public final class R {
         public static final int mine_goods=0x7f030013;
         public static final int myinfo=0x7f030014;
         public static final int register=0x7f030015;
-        public static final int select_class=0x7f030016;
-        public static final int self_introduction=0x7f030017;
-        public static final int set=0x7f030018;
+        public static final int search=0x7f030016;
+        public static final int select_class=0x7f030017;
+        public static final int self_introduction=0x7f030018;
+        public static final int set=0x7f030019;
     }
     public static final class menu {
         public static final int about=0x7f090000;
@@ -719,9 +728,10 @@ public final class R {
         public static final int mine_onsale=0x7f09000c;
         public static final int mine_sold=0x7f09000d;
         public static final int myinfo=0x7f09000e;
-        public static final int select_class=0x7f09000f;
-        public static final int self_introduction=0x7f090010;
-        public static final int set=0x7f090011;
+        public static final int search=0x7f09000f;
+        public static final int select_class=0x7f090010;
+        public static final int self_introduction=0x7f090011;
+        public static final int set=0x7f090012;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
@@ -741,6 +751,7 @@ public final class R {
         public static final int title_activity_mine_onsale=0x7f070006;
         public static final int title_activity_mine_sold=0x7f070009;
         public static final int title_activity_myinfo=0x7f07000b;
+        public static final int title_activity_search=0x7f070014;
         public static final int title_activity_select_class=0x7f070013;
         public static final int title_activity_self_introduction=0x7f070012;
         public static final int title_activity_set=0x7f07000a;
@@ -768,10 +779,11 @@ public final class R {
  API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f080000;
+        public static final int AppNotitleBarTheme=0x7f080002;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
-        public static final int Dialog=0x7f080002;
+        public static final int Dialog=0x7f080003;
     }
 }

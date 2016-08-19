@@ -21,5 +21,6 @@
     <string name="title_activity_auction">Auction</string>
     <string name="title_activity_self_introduction">SelfIntroduction</string>
     <string name="title_activity_select_class">SelectClass</string>
+    <string name="title_activity_search">Search</string>
 
 </resources>

@@ -7,130 +7,114 @@
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="17" />
-	<!--允许联网 --> 
-	<uses-permission android:name="android.permission.INTERNET" /> 
-	<!--获取GSM（2g）、WCDMA（联通3g）等网络状态的信息  --> 
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
-	<!--获取wifi网络状态的信息 --> 
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> 
-	<!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
-	<uses-permission android:name="android.permission.WAKE_LOCK" /> 
-	<!--获取sd卡写的权限，用于文件上传和下载-->
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<!--允许读取手机状态 用于创建BmobInstallation--> 
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许联网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取wifi网络状态的信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 获取sd卡写的权限，用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppNotitleBarTheme" >
         <activity
             android:name="com.example.easyshop.Home"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar" >
-             <intent-filter>
+            android:label="@string/app_name" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <activity
-            android:name="com.example.easyshop.Register"
-            android:theme="@android:style/Theme.Light.NoTitleBar" 
-             >
+        <activity
+            android:name="com.example.easyshop.Register" >
         </activity>
         <activity
-            android:name="com.example.easyshop.Login"
-            android:theme="@android:style/Theme.NoTitleBar" >
-           
+            android:name="com.example.easyshop.Login" >
         </activity>
         <activity
             android:name="com.example.easyshop.Cell"
-            android:label="@string/title_activity_cell"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_cell" >
         </activity>
         <activity
             android:name="com.example.easyshop.Message"
-            android:label="@string/title_activity_message"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_message">
         </activity>
         <activity
             android:name="com.example.easyshop.Mine"
-            android:label="@string/title_activity_me"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_me" >
         </activity>
         <activity
             android:name="com.example.easyshop.Mine_onsale"
-            android:label="@string/title_activity_mine_onsale"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_mine_onsale" >
         </activity>
         <activity
             android:name="com.example.easyshop.Mine_goods"
-            android:label="@string/title_activity_mine_bought"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_mine_bought">
         </activity>
         <activity
             android:name="com.example.easyshop.Mine_favor"
-            android:label="@string/title_activity_mine_favor"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_mine_favor">
         </activity>
         <activity
             android:name="com.example.easyshop.Mine_sold"
-            android:label="@string/title_activity_mine_sold"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_mine_sold">
         </activity>
         <activity
             android:name="com.example.easyshop.Set"
-            android:label="@string/title_activity_set"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_set">
         </activity>
         <activity
             android:name="com.example.easyshop.Myinfo"
-            android:label="@string/title_activity_myinfo"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_myinfo">
         </activity>
         <activity
             android:name="com.example.easyshop.Me"
-            android:label="@string/title_activity_me"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_me">
         </activity>
         <activity
             android:name="com.example.easyshop.Category"
-            android:label="@string/title_activity_category"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_category">
         </activity>
         <activity
             android:name="com.example.easyshop.ClassifiedGoods"
-            android:label="@string/title_activity_classified_goods"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_classified_goods">
         </activity>
         <activity
             android:name="com.example.easyshop.Add"
-            android:label="@string/title_activity_add"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_add">
         </activity>
         <activity
             android:name="com.example.easyshop.About"
-            android:label="@string/title_activity_about"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_about">
         </activity>
         <activity
             android:name="com.example.easyshop.Help"
-            android:label="@string/title_activity_help"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_help">
         </activity>
         <activity
             android:name="com.example.easyshop.Auction"
-            android:label="@string/title_activity_auction"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_auction">
         </activity>
         <activity
             android:name="com.example.easyshop.SelfIntroduction"
-            android:label="@string/title_activity_self_introduction"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:label="@string/title_activity_self_introduction">
         </activity>
         <activity
             android:name="com.example.easyshop.SelectClass"
             android:label="@string/title_activity_select_class" >
+        </activity>
+        <activity
+            android:name="com.example.easyshop.Search"
+            android:label="@string/title_activity_search" >
         </activity>
     </application>
 

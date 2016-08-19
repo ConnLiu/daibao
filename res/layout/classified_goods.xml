@@ -32,12 +32,12 @@
             android:textSize="25dp"
             android:textColor="#ffffff"/>
 
-        <ImageButton
-            android:id="@+id/IbClassified_search"
+        <ImageView
+            android:id="@+id/IvClassified_search"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:background="@drawable/hometop_bg"
             android:src="@drawable/search" />
         
     </LinearLayout>
