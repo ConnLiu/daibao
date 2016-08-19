@@ -15,7 +15,7 @@ public class SelfIntroduction extends Activity {
 
 	private EditText EtSelf;
 	private Button BtSelf_save;
-	MyUser user;
+	MyUser user = UserSingleton.getInstance();;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,11 +23,11 @@ public class SelfIntroduction extends Activity {
 		
 		EtSelf =(EditText) findViewById(R.id.EtSelf);
 		BtSelf_save =(Button) findViewById(R.id.BtSelf_save);
+		EtSelf.setText(user.getMotto());
 		BtSelf_save.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				user = UserSingleton.getInstance();
 				user.setMotto(EtSelf.getText().toString());
 				finish();
 			}

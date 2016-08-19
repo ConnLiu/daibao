@@ -13,6 +13,9 @@ public class MyUser extends BmobUser{
     private String head_path;
     private String dorm;
     private String birthday;
+    private Integer credit;
+    private String grade;
+    private Integer gold;
     public String getNick() {
         return this.nickname;
     }
@@ -91,5 +94,29 @@ public class MyUser extends BmobUser{
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public Integer getCredit() {
+		return credit;
+	}
+
+	public void setCredit(Integer credit) {
+		this.credit = credit;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public Integer getGold() {
+		return gold;
+	}
+
+	public void setGold(Integer gold) {
+		this.gold = gold;
 	}
 }

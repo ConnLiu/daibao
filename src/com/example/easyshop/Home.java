@@ -1,12 +1,18 @@
 package com.example.easyshop;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.listener.DownloadFileListener;
+
 import com.example.assist.GoodslistAdapter;
 import com.example.customview.ListViewForScrollView;
+import com.example.entity.MyUser;
+import com.example.singleton.UserSingleton;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -17,6 +23,7 @@ import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -25,6 +32,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 public class Home extends Activity implements OnPageChangeListener,OnClickListener{
 
@@ -37,7 +45,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	private ImageView[] mImageViews = null;
 	private ImageView[] mTips = null;
 	private int index = 0; 
-	
+	MyUser user = UserSingleton.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,9 +109,41 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	    VpHome_hotgoods.setAdapter(new MyPagerAdapter());
 	    VpHome_hotgoods.setOnPageChangeListener(this);
 	    onPageSelected(0);
+	    Intent intent = getIntent();
+	    System.out.println(intent.getStringExtra("from"));
+	    if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("login"))
+	    	download();
     }
-    
-
+    void download(){
+		if(user.getHead_path()==null||user.getHead_path().equals("")){
+			return;
+		}
+		Log.i("path:",user.getHead_path());
+		BmobFile file =new BmobFile(user.getObjectId()+"_temphead.png","",
+				user.getHead_path());
+		 //允许设置下载文件的存储路径，默认下载文件的目录为：context.getApplicationContext().getCacheDir()+"/bmob/"
+	    File saveFile = new File(getFilesDir(), file.getFilename());
+	    file.download(saveFile, new DownloadFileListener() {
+	        @Override
+	        public void onStart() {
+//	            toast("开始下载...");
+	        }
+	        @Override
+	        public void done(String savePath,cn.bmob.v3.exception.BmobException e) {
+	            if(e==null){
+	            	Log.i("download:",savePath);
+	                toast("下载成功");
+	            }else{
+	//                toast("下载失败："+e.getErrorCode()+","+e.getMessage());
+	            }
+	        }
+	        @Override
+	        public void onProgress(Integer value, long newworkSpeed) {
+	//            Log.i("bmob","下载进度："+value+","+newworkSpeed);
+	        }
+	    });
+	}
+	
     
     class MyPagerAdapter extends PagerAdapter
     {
@@ -273,4 +313,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     	}
     	
     }
+    void toast(String s){
+		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+	}
 }

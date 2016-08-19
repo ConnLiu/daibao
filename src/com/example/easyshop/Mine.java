@@ -27,14 +27,15 @@ public class Mine extends Activity implements OnClickListener{
 	private TextView TvMine_motto,TvMine_name,TvMine_gold,TvMine_soldnum,TvMine_addnum,TvMine_boughtnum,TvMine_likenum;
 	private TextView TvMine_sold,TvMine_add,TvMine_bought,TvMine_like,TvMine_auction,TvMine_help,TvMine_about,TvMine_set;
 	private String minegoods[] = {"我发布的","我卖出的","我买到的","我赞过的"};
-	MyUser user;
+	MyUser user = UserSingleton.getInstance();
+	private final String IMAGE_FILE_NAME = user.getObjectId()+"_temphead.png";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mine);
         FileInputStream localstream = null;
 		try {
-			localstream = openFileInput("temphead.png");
+			localstream = openFileInput(IMAGE_FILE_NAME);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,7 +63,7 @@ public class Mine extends Activity implements OnClickListener{
 	    TvMine_motto =(TextView) findViewById(R.id.TvMine_motto);
 	    TvMine_name =(TextView) findViewById(R.id.TvMine_name);
 
-	    user = UserSingleton.getInstance();
+	    
 	    TvMine_name.setText(user.getNick());
 	    TvMine_motto.setText(user.getMotto());
         IbMine_add.setOnClickListener(this);
