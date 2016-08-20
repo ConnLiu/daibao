@@ -42,6 +42,12 @@
             android:name="com.example.easyshop.Login" >
         </activity>
         <activity
+            android:name="com.example.easyshop.Words" >
+        </activity>
+        <activity
+            android:name="com.example.easyshop.Zan" >
+        </activity>
+        <activity
             android:name="com.example.easyshop.Cell"
             android:label="@string/title_activity_cell" >
         </activity>
