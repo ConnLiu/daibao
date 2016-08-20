@@ -38,8 +38,7 @@
             android:name="com.example.easyshop.Register"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        <activity
-            android:name="com.example.easyshop.Login" >
+        <activity android:name="com.example.easyshop.Login" >
         </activity>
         <activity
             android:name="com.example.easyshop.Cell"
@@ -47,7 +46,7 @@
         </activity>
         <activity
             android:name="com.example.easyshop.Message"
-            android:label="@string/title_activity_message">
+            android:label="@string/title_activity_message" >
         </activity>
         <activity
             android:name="com.example.easyshop.Mine"
@@ -59,55 +58,55 @@
         </activity>
         <activity
             android:name="com.example.easyshop.Mine_goods"
-            android:label="@string/title_activity_mine_bought">
+            android:label="@string/title_activity_mine_bought" >
         </activity>
         <activity
             android:name="com.example.easyshop.Mine_favor"
-            android:label="@string/title_activity_mine_favor">
+            android:label="@string/title_activity_mine_favor" >
         </activity>
         <activity
             android:name="com.example.easyshop.Mine_sold"
-            android:label="@string/title_activity_mine_sold">
+            android:label="@string/title_activity_mine_sold" >
         </activity>
         <activity
             android:name="com.example.easyshop.Set"
-            android:label="@string/title_activity_set">
+            android:label="@string/title_activity_set" >
         </activity>
         <activity
             android:name="com.example.easyshop.Myinfo"
-            android:label="@string/title_activity_myinfo">
+            android:label="@string/title_activity_myinfo" >
         </activity>
         <activity
             android:name="com.example.easyshop.Me"
-            android:label="@string/title_activity_me">
+            android:label="@string/title_activity_me" >
         </activity>
         <activity
             android:name="com.example.easyshop.Category"
-            android:label="@string/title_activity_category">
+            android:label="@string/title_activity_category" >
         </activity>
         <activity
             android:name="com.example.easyshop.ClassifiedGoods"
-            android:label="@string/title_activity_classified_goods">
+            android:label="@string/title_activity_classified_goods" >
         </activity>
         <activity
             android:name="com.example.easyshop.Add"
-            android:label="@string/title_activity_add">
+            android:label="@string/title_activity_add" >
         </activity>
         <activity
             android:name="com.example.easyshop.About"
-            android:label="@string/title_activity_about">
+            android:label="@string/title_activity_about" >
         </activity>
         <activity
             android:name="com.example.easyshop.Help"
-            android:label="@string/title_activity_help">
+            android:label="@string/title_activity_help" >
         </activity>
         <activity
             android:name="com.example.easyshop.Auction"
-            android:label="@string/title_activity_auction">
+            android:label="@string/title_activity_auction" >
         </activity>
         <activity
             android:name="com.example.easyshop.SelfIntroduction"
-            android:label="@string/title_activity_self_introduction">
+            android:label="@string/title_activity_self_introduction" >
         </activity>
         <activity
             android:name="com.example.easyshop.SelectClass"
@@ -116,6 +115,10 @@
         <activity
             android:name="com.example.easyshop.Search"
             android:label="@string/title_activity_search" >
+        </activity>
+        <activity
+            android:name="com.example.easyshop.GoodsDetail"
+            android:label="@string/title_activity_goods_detail" >
         </activity>
     </application>
 

@@ -28,6 +28,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -67,6 +69,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         IbHome_add.setOnClickListener(this);
         IbHome_message.setOnClickListener(this);
         IbHome_mine.setOnClickListener(this);
+        LvHome_goods.setOnItemClickListener(itemListener);
 
 		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, getData());
 		LvHome_goods.setAdapter(goodslistadapter);
@@ -282,6 +285,20 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 		}
 		return list;
 	}
+
+    OnItemClickListener itemListener = new OnItemClickListener() {  
+        
+        public void onItemClick(AdapterView<?> parent, View view, int position,  
+                long id) {  
+            // 这里的view是我们在list.xml中定义的LinearLayout对象.  
+            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 
+        	Intent intent = new Intent();
+        	intent.setClass(Home.this, GoodsDetail.class);
+        	intent.putExtra("position", position);
+        	startActivity(intent);
+        }
+
+    };  
 	
     @Override
     public void onClick(View v) {

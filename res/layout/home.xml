@@ -57,7 +57,7 @@
       android:id="@+id/VpHome_hotgoods"
       android:layout_width="match_parent"
       android:layout_height="200dp"
-      android:background="#5072c557" >
+      android:background="#50ff5555" >
 
   </android.support.v4.view.ViewPager>
     
