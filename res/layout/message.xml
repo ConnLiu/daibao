@@ -44,10 +44,11 @@
             android:background="@drawable/list_shape">
             
             <ImageView 
+                android:id="@+id/img_zan"
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/tip_selected"/>
+                android:src="@drawable/zan"/>
             <TextView 
                 android:id="@+id/TvMessage_like"
                 android:layout_height="match_parent"
@@ -75,6 +76,7 @@
             android:background="@drawable/list_shape">
             
             <ImageView 
+                android:id="@+id/img_words"
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_weight="1"

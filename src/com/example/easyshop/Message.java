@@ -16,12 +16,15 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 public class Message extends Activity implements OnClickListener{
 
 	private ImageButton IbMessage_cell,IbMessage_add,IbMessage_home,IbMessage_mine;
-    
+    private TextView TvMessage_like,TvMessage_message;
+    private ImageView img_words,img_zan;
 	private ScrollView SvMessage;
 	private ListViewForScrollView LvMessage_list;
 	@Override
@@ -35,12 +38,20 @@ public class Message extends Activity implements OnClickListener{
 	    IbMessage_home =(ImageButton) findViewById(R.id.IbMessage_home);
 	    IbMessage_mine =(ImageButton) findViewById(R.id.IbMessage_mine);
         IbMessage_cell =(ImageButton) findViewById(R.id.IbMessage_cell);
+        TvMessage_like = (TextView) findViewById(R.id.TvMessage_like);
+        TvMessage_message = (TextView) findViewById(R.id.TvMessage_message);
+        img_words = (ImageView) findViewById(R.id.img_words);
+        img_zan = (ImageView) findViewById(R.id.img_zan);
 
         SvMessage.smoothScrollTo(0, 0);
         IbMessage_add.setOnClickListener(this);
         IbMessage_home.setOnClickListener(this);
         IbMessage_mine.setOnClickListener(this);
         IbMessage_cell.setOnClickListener(this);
+        img_zan.setOnClickListener(this);
+        img_words.setOnClickListener(this);
+        TvMessage_like.setOnClickListener(this);
+        TvMessage_message.setOnClickListener(this);
         
 		MessagelistAdapter goodslistadapter = new MessagelistAdapter(this, getData());
 		LvMessage_list.setAdapter(goodslistadapter);
@@ -95,6 +106,16 @@ public class Message extends Activity implements OnClickListener{
     		intent.setClass(Message.this, Mine.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
     		break;
+    	case R.id.img_zan:
+    	case R.id.TvMessage_like:
+    		intent.setClass(Message.this, Zan.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    		startActivity(intent);
+    		break;
+    	case R.id.img_words:
+    	case R.id.TvMessage_message:
+    		intent.setClass(Message.this, Words.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    		startActivity(intent);
+    		break;	
     	default:
     		break;
     	}

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/back_bg"/>
+     <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    <ImageView 
+        android:id="@+id/img_userHead"
+        android:layout_weight="1"
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:src="@drawable/ic_launcher"/>
+    <LinearLayout 
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="10"
+        android:orientation="vertical">
+        <TextView 
+            android:id="@+id/tv_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textSize="27sp"
+            android:text="赞了我"/>
+        <TextView
+            android:id="@+id/tv_time" 
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:textSize="9sp"
+            android:text="2010-10-10"/>
+    </LinearLayout>
+   
+     </LinearLayout>
+     <TextView 
+         android:id="@+id/tv_content"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="12dp"
+        android:paddingLeft="10dp"
+        android:text="这里是留言内容"
+        android:lines="2"
+        android:textSize="20sp"
+        />
+    <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:orientation="horizontal" >
+    <ImageView 
+        android:id="@+id/goodsimage"
+        android:layout_weight="1"
+        android:layout_height="90dp"
+        android:layout_width="0dp"
+        android:src="@drawable/ic_launcher"/>
+    <LinearLayout 
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+        
+        <TextView
+            android:id="@+id/goodsname"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:text="书籍"
+            android:textSize="25dp" />
+
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="¥"/>
+            <TextView 
+                android:id="@+id/goodsmoney"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:text="20.00"/>
+            <LinearLayout 
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+            <ImageView 
+                android:id="@+id/goodslike"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/zan_red"/>
+            <TextView 
+                android:id="@+id/goodslikenum"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="99"/>
+                
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+ </LinearLayout>
+  <View 
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/back_bg"/>
+</LinearLayout>
