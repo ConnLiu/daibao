@@ -54,14 +54,6 @@ public class Cell extends Activity implements OnClickListener{
 		for(int i = 0 ; i <4; i ++ )
 		{
 			Map<String, Object> map = new HashMap<String, Object>();
-			/*try {
-				map.put("newstext",java.net.URLDecoder.decode(news_Info.get(i).getNewsTitle().toString(),"utf-8"));
-				
-				map.put("newsimage", java.net.URLDecoder.decode(news_Info.get(i).getPictureURL().toString(),"utf-8"));
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
 			
 			map.put("cellname", "lalala");
 			map.put("publishnum", "234");
@@ -78,15 +70,6 @@ public class Cell extends Activity implements OnClickListener{
 		for(int i = 0 ; i <4; i ++ )
 		{
 			Map<String, Object> map = new HashMap<String, Object>();
-			/*try {
-				map.put("newstext",java.net.URLDecoder.decode(news_Info.get(i).getNewsTitle().toString(),"utf-8"));
-				
-				map.put("newsimage", java.net.URLDecoder.decode(news_Info.get(i).getPictureURL().toString(),"utf-8"));
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
-			
 			map.put("cellname", "lololo");
 			map.put("publishnum", "555");
 			map.put("peoplenum", "99");
@@ -99,7 +82,6 @@ public class Cell extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
     	Intent intent = new Intent();
 		Resources resource = (Resources) getBaseContext().getResources(); 
 		ColorStateList whitecsl = (ColorStateList) resource.getColorStateList(R.color.white);

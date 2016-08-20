@@ -36,21 +36,6 @@ public class EditDialog extends Dialog {
 	    	  public Builder(Context context){
 	    		  this.context = context;
 	    	  }
-	    	  /*
-	    	  public Builder setMessage(String message){
-	    		  this.message = message;
-	    		  return this;
-	    	  }
-	    	  
-	    	  public Builder setMessage(int message){
-	    		  this.message =(String) context.getText(message);
-	    		  return this;
-	    	  }
-
-	    	  public Builder setTitle(String title){
-	    		  this.title = title;
-	    		  return this;
-	    	  }*/
 	    	  
 	    	  public Builder setContentView(View v){
 	    		  this.contentview = v;

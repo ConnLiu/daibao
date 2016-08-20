@@ -17,7 +17,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     
-    <style name="AppNotitleBarTheme" parent="android:style/Theme.NoTitleBar">
+    <style name="AppNotitleBarTheme" parent="android:style/Theme.Light.NoTitleBar">
     </style>
     
     <style name="Dialog" parent="android:style/Theme.Dialog" >  

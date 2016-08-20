@@ -44,7 +44,6 @@ public class Set extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		Intent intent = new Intent();
 		switch(v.getId()){
 		case R.id.IvSet_rb:

@@ -133,6 +133,14 @@ public class Mine extends Activity implements OnClickListener{
     		intent.putExtras(bundle);
     		startActivity(intent);
     		break;
+    	case R.id.TvMine_add:
+    		if(!check_user())
+    			return;
+    		intent.setClass(Mine.this, Mine_goods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    		bundle.putString("minegoods", minegoods[0]);
+    		intent.putExtras(bundle);
+    		startActivity(intent);
+    		break;
     	case R.id.TvMine_like:
     		if(!check_user())
     			return;

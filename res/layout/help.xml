@@ -1,16 +1,141 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/back_bg"
+    android:orientation="vertical"
     tools:context=".Help" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/home"
+        android:orientation="horizontal">
+        <ImageView 
+            android:id="@+id/IvHelp_rb"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/jiantou_left"/>
+        <TextView 
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="帮助与反馈"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textColor="#ffffff"/>
+        <TextView 
+            android:id="@+id/TvHelp_feedback"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="意见反馈"
+            android:textSize="12dp"
+            android:textColor="#ffffff"
+            android:gravity="center_vertical"/>
+        
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="13">
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/list_shape">
+    <TextView 
+        android:id="@+id/TvHelp_qeust1"
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:textColor="@color/textcolor"
+        android:text="怎么联系卖家？"/>
+    <ImageView 
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/jiantou_grey"/>
+        
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/list_shape">
+    <TextView 
+        android:id="@+id/TvHelp_qeust2"
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:textColor="@color/textcolor"
+        android:text="怎么联系卖家2？"/>
+    <ImageView 
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/jiantou_grey"/>
+        
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/list_shape">
+    <TextView 
+        android:id="@+id/TvHelp_qeust3"
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:textColor="@color/textcolor"
+        android:text="没收到货怎么办？"/>
+    <ImageView 
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/jiantou_grey"/>
+        
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/list_shape">
+    <TextView 
+        android:id="@+id/TvHelp_qeust4"
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:textColor="@color/textcolor"
+        android:text="怎么联系我们？"/>
+    <ImageView 
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/jiantou_grey"/>
+        
+    </LinearLayout>
+        
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
