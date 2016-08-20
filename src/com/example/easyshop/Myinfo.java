@@ -6,8 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Calendar;
 
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 import com.example.customview.DomitoryDialog;
 import com.example.customview.GenderDialog;
@@ -48,13 +50,13 @@ import android.graphics.drawable.Drawable;
 
 public class Myinfo extends Activity implements OnClickListener{
 	private final int REQUESTCODE_PICK=0,REQUESTCODE_TAKE=1,REQUESTCODE_CUTTING=2;
-	private final String IMAGE_FILE_NAME = "temphead.png";
     private Context mContext = null;
 	private TextView TvMyinfo_gender,TvMyinfo_birth,TvMyinfo_domi,TvMyinfo_id,Tv_realname,TvMyinfo_qianming;
 	private ImageView IvMyinfo_head,IbMyinfo_rb;
 	private DatePickerDialog datedialog;
 	private int year,monthOfYear,dayOfMonth;
 	MyUser user = UserSingleton.getInstance();;
+	private final String IMAGE_FILE_NAME = user.getObjectId()+"_temphead.png";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class Myinfo extends Activity implements OnClickListener{
         mContext = this;   
         FileInputStream localstream = null;
 		try {
-			localstream = openFileInput("temphead.png");
+			localstream = openFileInput(IMAGE_FILE_NAME);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -186,7 +188,7 @@ public class Myinfo extends Activity implements OnClickListener{
 			dombuilder.setSuiButton(new DialogInterface.OnClickListener(){
             	public void onClick( DialogInterface dialog,int which){
             		dialog.dismiss();
-            		TvMyinfo_domi.setText("随园");
+            		TvMyinfo_domi.setText("东区");
             	}
             });
 			dombuilder.setHeButton(new DialogInterface.OnClickListener(){
@@ -310,7 +312,42 @@ public class Myinfo extends Activity implements OnClickListener{
 			}
 	        photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
 	        IvMyinfo_head.setImageDrawable(drawable);
-	 
+	        //=====================================================================
+	        if(user.getHead_path()!=null&&!user.getHead_path().equals("")){
+	        	BmobFile file = new BmobFile();
+	        	file.setUrl(user.getHead_path());//此url是上传文件成功之后通过bmobFile.getUrl()方法获取的。
+	        	file.delete(new UpdateListener() {
+	        	    @Override
+	        	    public void done(BmobException e) {
+	        	        if(e==null){
+	        	        	System.out.println("文件删除成功");	        	        
+	        	        }else{
+	        	        	System.out.println("文件删除失败："+e.getErrorCode()+","+e.getMessage());	  
+	        	            
+	        	        }
+	        	    }
+	        	});
+	        }
+	        String picPath = getFilesDir()+"/"+IMAGE_FILE_NAME;
+	        final BmobFile bmobFile = new BmobFile(new File(picPath));
+	        bmobFile.uploadblock(new UploadFileListener() {
+	            @Override
+	            public void done(BmobException e) {
+	                if(e==null){
+	                    //bmobFile.getFileUrl()--返回的上传文件的完整地址
+	                	user.setHead_path(bmobFile.getFileUrl());
+	                	user.setValue("head_path", bmobFile.getFileUrl());
+	                    toast("更改头像成功" );
+	                }else{
+	                    toast("更改头像失败,未上传到服务器！" );
+	                }
+	            }
+
+	            @Override
+	            public void onProgress(Integer value) {
+	                // 返回的上传进度（百分比）
+	            }
+	        });
 	    }
 	}   /**
      * 把bitmap转成圆形
@@ -342,5 +379,7 @@ public class Myinfo extends Activity implements OnClickListener{
             canvas.drawBitmap(bitmap, null, rect, p);
             return backgroundBm;
     }
-	
+    void toast(String s){
+		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+	}
 }

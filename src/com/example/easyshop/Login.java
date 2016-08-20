@@ -1,10 +1,14 @@
 package com.example.easyshop;
 
+import java.io.File;
+
 import com.example.entity.MyUser;
 import com.example.singleton.UserSingleton;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.SaveListener;
 import android.app.Activity;
 import android.content.Intent;
@@ -21,6 +25,7 @@ public class Login extends Activity implements OnClickListener{
 	Button btn_register;
 	EditText et_account;
 	EditText et_passwd;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,8 +83,10 @@ public class Login extends Activity implements OnClickListener{
 					//通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
 		            //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
 					UserSingleton.setInstance(BmobUser.getCurrentUser(MyUser.class));
+					
 					Intent intent = new Intent();
 					intent.setClass(Login.this, Home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					intent.putExtra("from",	"login");
 					startActivity(intent);
 				}else{
 					toast("登陆失败！");

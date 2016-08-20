@@ -1,5 +1,10 @@
 package com.example.easyshop;
 
+import java.io.File;
+
+import com.example.entity.MyUser;
+import com.example.singleton.UserSingleton;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +21,8 @@ public class Set extends Activity implements OnClickListener{
 	private ImageView IvSet_rb;
 	private Button Btlogout;
 	private TextView TvSet_info,TvSet_dark,TvSet_quality,TvSet_alarm,TvSet_about,TvSet_rule,TvSet_cache;
+	MyUser user = UserSingleton.getInstance();
+	private final String IMAGE_FILE_NAME = user.getObjectId()+"_temphead.png";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -75,6 +82,9 @@ public class Set extends Activity implements OnClickListener{
 			break;
 		case R.id.Btlogout:
 			Toast.makeText(getApplicationContext(), "ÍË³öµÇÂ¼", Toast.LENGTH_SHORT).show();
+			File file = new File(IMAGE_FILE_NAME);
+			file.delete();
+			UserSingleton.setInstance(null);
 			intent.setClass(Set.this, Login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			break;

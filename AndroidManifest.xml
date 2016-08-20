@@ -35,7 +35,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.easyshop.Register" >
+            android:name="com.example.easyshop.Register"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
             android:name="com.example.easyshop.Login" >

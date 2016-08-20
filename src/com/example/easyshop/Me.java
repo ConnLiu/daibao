@@ -3,6 +3,9 @@ package com.example.easyshop;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import com.example.entity.MyUser;
+import com.example.singleton.UserSingleton;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -16,14 +19,15 @@ import android.widget.ImageView;
 public class Me extends Activity implements OnClickListener{
 
 	private ImageView IvMe_rb,IvMe_edit,IvMe_head;
-	
+	MyUser user = UserSingleton.getInstance();
+	private final String IMAGE_FILE_NAME = user.getObjectId()+"_temphead.png";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.me);
         FileInputStream localstream = null;
 		try {
-			localstream = openFileInput("temphead.png");
+			localstream = openFileInput(IMAGE_FILE_NAME);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
