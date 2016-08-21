@@ -62,7 +62,8 @@ public class Set extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;
 		case R.id.TvSet_dark:
-			Toast.makeText(getApplicationContext(), "Çë²¹³ä", Toast.LENGTH_SHORT).show();
+			intent.setClass(Set.this, BlackName.class);
+			startActivity(intent);
 			break;
 		case R.id.TvSet_quality:
 			Toast.makeText(getApplicationContext(), "Çë²¹³ä", Toast.LENGTH_SHORT).show();

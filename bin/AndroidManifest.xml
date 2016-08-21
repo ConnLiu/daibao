@@ -43,11 +43,9 @@
         </activity>
         <activity android:name="com.example.easyshop.Login" >
         </activity>
-        <activity
-            android:name="com.example.easyshop.Words" >
+        <activity android:name="com.example.easyshop.Words" >
         </activity>
-        <activity
-            android:name="com.example.easyshop.Zan" >
+        <activity android:name="com.example.easyshop.Zan" >
         </activity>
         <activity
             android:name="com.example.easyshop.Cell"
@@ -128,6 +126,10 @@
         <activity
             android:name="com.example.easyshop.GoodsDetail"
             android:label="@string/title_activity_goods_detail" >
+        </activity>
+        <activity
+            android:name="com.example.easyshop.BlackName"
+            android:label="@string/title_activity_black_name" >
         </activity>
     </application>
 
