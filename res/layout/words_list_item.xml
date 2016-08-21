@@ -44,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="12dp"
+        android:background="#eeeeee"
         android:paddingLeft="10dp"
         android:text="这里是留言内容"
         android:lines="2"
@@ -112,6 +113,6 @@
  </LinearLayout>
   <View 
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         android:background="@drawable/back_bg"/>
 </LinearLayout>

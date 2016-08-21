@@ -80,7 +80,7 @@
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/tip_selected"/>
+                android:src="@drawable/message_red"/>
             <TextView 
                 android:id="@+id/TvMessage_message"
                 android:layout_height="match_parent"

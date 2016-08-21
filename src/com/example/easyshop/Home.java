@@ -328,7 +328,6 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     	default:
     		break;
     	}
-    	
     }
     void toast(String s){
 		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
