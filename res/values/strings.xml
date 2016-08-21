@@ -23,5 +23,6 @@
     <string name="title_activity_select_class">SelectClass</string>
     <string name="title_activity_search">Search</string>
     <string name="title_activity_goods_detail">GoodsDetail</string>
+    <string name="title_activity_black_name">BlackName</string>
 
 </resources>
