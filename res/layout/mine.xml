@@ -295,7 +295,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
         android:textColor="@color/textcolor"
-        android:text="关于呆宝"/>
+        android:text="关于我们"/>
     <ImageView 
         android:layout_width="0dp"
         android:layout_weight="1"

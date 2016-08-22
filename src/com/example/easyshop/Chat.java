@@ -13,6 +13,7 @@ import com.example.customview.ListViewForScrollView;
 import com.example.entity.ChatMsgEntity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,11 +22,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Chat extends Activity implements OnClickListener{
 	private Button mBtnSend;  
-	private Button mBtnBack;  
 	private EditText mEditTextContent;  
 	    //聊天内容的适配器  
 	private ChatMsgViewAdapater mAdapter;  
@@ -33,6 +34,7 @@ public class Chat extends Activity implements OnClickListener{
 	    //聊天的内容  
 	private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>(); 
 	private ImageView IvSet_rb;
+	private TextView tv_confrmBuy;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
  
@@ -41,12 +43,13 @@ public class Chat extends Activity implements OnClickListener{
 		setContentView(R.layout.chat);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		LvChat_list = (ListViewForScrollView)findViewById(R.id.LvChat_list);
-		
+		tv_confrmBuy = (TextView)findViewById(R.id.tv_confrmBuy);
 	    mBtnSend = (Button) findViewById(R.id.btn_send);  
 	    mBtnSend.setOnClickListener(this);  
 	    mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
 		IvSet_rb = (ImageView)findViewById(R.id.IvSet_rb);
 		IvSet_rb.setOnClickListener(this);
+		tv_confrmBuy.setOnClickListener(this);
 		initData();
 		
 	}
@@ -117,6 +120,7 @@ public class Chat extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		Intent intent = new Intent();
 		switch (v.getId()) {
 		case R.id.IvSet_rb:
 			finish();
@@ -124,6 +128,10 @@ public class Chat extends Activity implements OnClickListener{
 		case R.id.btn_send:
 			toast("发送信息");
 			send();
+			break;
+		case R.id.tv_confrmBuy:
+			intent.setClass(Chat.this, Buy.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    		startActivity(intent);
 			break;
 		default:
 			break;

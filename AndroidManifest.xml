@@ -38,8 +38,11 @@
             android:name="com.example.easyshop.Register"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-        
-         <activity android:name="com.example.easyshop.Chat" >
+         <activity android:name="com.example.easyshop.Buy" 
+             >
+        </activity>
+         <activity android:name="com.example.easyshop.Chat" 
+             >
         </activity>
         <activity android:name="com.example.easyshop.Login" >
         </activity>
