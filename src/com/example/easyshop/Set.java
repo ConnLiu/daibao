@@ -2,6 +2,7 @@ package com.example.easyshop;
 
 import java.io.File;
 
+import com.example.customview.GenderDialog;
 import com.example.entity.MyUser;
 import com.example.singleton.UserSingleton;
 
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 public class Set extends Activity implements OnClickListener{
@@ -66,10 +68,37 @@ public class Set extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;
 		case R.id.TvSet_quality:
-			Toast.makeText(getApplicationContext(), "Çë²¹³ä", Toast.LENGTH_SHORT).show();
+			GenderDialog.Builder builder1=new GenderDialog.Builder(Set.this);
+            builder1.setNegativeButton("µÍ",new DialogInterface.OnClickListener(){
+            	public void onClick( DialogInterface dialog,int which){
+            		dialog.dismiss();
+        			Toast.makeText(getApplicationContext(), "µÍ", Toast.LENGTH_SHORT).show();
+            	}
+            });
+            builder1.setPositiveButton("¸ß",new DialogInterface.OnClickListener(){
+            	public void onClick( DialogInterface dialog,int which){
+            		dialog.dismiss();
+        			Toast.makeText(getApplicationContext(), "¸ß", Toast.LENGTH_SHORT).show();
+            	}
+            }); 
+            builder1.create().show();
 			break;
 		case R.id.TvSet_alarm:
-			Toast.makeText(getApplicationContext(), "Çë²¹³ä", Toast.LENGTH_SHORT).show();
+			GenderDialog.Builder builder=new GenderDialog.Builder(Set.this);
+            builder.setNegativeButton("²»ÌáÐÑ",new DialogInterface.OnClickListener(){
+            	public void onClick( DialogInterface dialog,int which){
+            		dialog.dismiss();
+        			Toast.makeText(getApplicationContext(), "²»ÌáÐÑ", Toast.LENGTH_SHORT).show();
+            	}
+            });
+            builder.setPositiveButton("ÌáÐÑ",new DialogInterface.OnClickListener(){
+            	public void onClick( DialogInterface dialog,int which){
+            		dialog.dismiss();
+        			Toast.makeText(getApplicationContext(), "ÌáÐÑ", Toast.LENGTH_SHORT).show();
+            	}
+            }); 
+            builder.create().show();
+            
 			break;
 		case R.id.TvSet_about:
 			intent.setClass(Set.this, About.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

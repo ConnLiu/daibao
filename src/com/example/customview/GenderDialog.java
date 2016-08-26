@@ -73,7 +73,7 @@ public class GenderDialog extends Dialog{
               //((TextView) layout.findViewById(R.id.TvDialog_title)).setText(title);
               // set the confirm button 
               if (boyButtonText != null) {  
-                  //((Button) layout.findViewById(R.id.TvGender_boy)).setText(boyButtonText);  
+                  ((TextView) layout.findViewById(R.id.TvGender_boy)).setText(boyButtonText);  
                   if (positiveButtonClickListener != null) {
                       ((TextView) layout.findViewById(R.id.TvGender_boy)).setOnClickListener(new View.OnClickListener() {  
                                   public void onClick(View v) {  
@@ -87,9 +87,8 @@ public class GenderDialog extends Dialog{
                           View.GONE);  
               }  
               // set the cancel button  
-              if (girlButtonText != null) {  /*
-                  ((Button) layout.findViewById(R.id.TvGender_girl))  
-                          .setText(girlButtonText);  */
+              if (girlButtonText != null) {  
+                  ((TextView) layout.findViewById(R.id.TvGender_girl)).setText(girlButtonText);
                   if (negativeButtonClickListener != null) {  
                       ((TextView) layout.findViewById(R.id.TvGender_girl))  
                               .setOnClickListener(new View.OnClickListener(){  

@@ -8,8 +8,7 @@
     <LinearLayout android:id="@+id/top"
     	android:layout_width="fill_parent"
     	android:background="@drawable/hometop_bg"
-    	android:layout_height="0dp"
-    	android:layout_weight="1">
+    	android:layout_height="47dp">
     	<ImageView
     	    android:id="@+id/Ivsearch_return"
         	android:layout_width="0dp"
