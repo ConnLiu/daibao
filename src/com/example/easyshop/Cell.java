@@ -10,9 +10,11 @@ import com.example.assist.CelllistAdapter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -47,7 +49,22 @@ public class Cell extends Activity implements OnClickListener{
 		IbCell_search.setOnClickListener(this);
 		CelllistAdapter celllistadapter = new CelllistAdapter(this, getDataFind());
 		LvCell_cell.setAdapter(celllistadapter);
+		LvCell_cell.setOnItemClickListener(itemListener);
 	}
+	
+    OnItemClickListener itemListener = new OnItemClickListener() {  
+        
+        public void onItemClick(AdapterView<?> parent, View view, int position,  
+                long id) {  
+            // 这里的view是我们在list.xml中定义的LinearLayout对象.  
+            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 
+        	Intent intent = new Intent();
+        	intent.setClass(Cell.this, CellDetail.class);
+        	intent.putExtra("position", position);
+        	startActivity(intent);
+        }
+
+    };  
 
 	private List<Map<String,Object>> getDataFind() {
 		

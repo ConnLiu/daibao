@@ -136,6 +136,10 @@
             android:name="com.example.easyshop.SearchCell"
             android:label="@string/title_activity_search_cell" >
         </activity>
+        <activity
+            android:name="com.example.easyshop.CellDetail"
+            android:label="@string/title_activity_cell_detail" >
+        </activity>
     </application>
 
 </manifest>
