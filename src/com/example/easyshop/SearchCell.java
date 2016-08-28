@@ -11,14 +11,17 @@ import com.example.customview.ListViewForScrollView;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class SearchCell extends Activity implements OnClickListener{
 
@@ -40,6 +43,19 @@ public class SearchCell extends Activity implements OnClickListener{
 		LvSearchCell =(ListViewForScrollView) findViewById(R.id.LvSearchCell);
 		
 		IvSearchCell_return.setOnClickListener(this);
+		LvSearchCell.setOnItemClickListener(new OnItemClickListener() {  
+	        
+	        public void onItemClick(AdapterView<?> parent, View view, int position,  
+	                long id) {  
+	            // 这里的view是我们在list.xml中定义的LinearLayout对象.  
+	            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 
+	        	Intent intent = new Intent();
+	        	intent.setClass(SearchCell.this, CellDetail.class);
+	        	intent.putExtra("position", position);
+	        	startActivity(intent);
+	        }
+
+	    });
 		
 		EtSearchCell_content.addTextChangedListener(new TextWatcher() {  
             
