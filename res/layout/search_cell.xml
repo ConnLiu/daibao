@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchCell" >
+
+    <LinearLayout android:id="@+id/top"
+    	android:layout_width="fill_parent"
+    	android:background="@drawable/hometop_bg"
+    	android:layout_height="47dp">
+    	<ImageView
+    	    android:id="@+id/IvSearchCell_return"
+        	android:layout_width="0dp"
+        	android:layout_weight="1"
+        	android:layout_height="30dp"
+        	android:layout_gravity="center_vertical"
+        	android:src="@drawable/jiantou_left"/>
+        
+        <LinearLayout
+        	android:layout_width="0dp"
+        	android:layout_weight="5"
+            android:layout_height="35dp"
+            android:paddingLeft="30dp"
+        	android:layout_gravity="center_vertical"
+		    android:background="@drawable/search_frame"
+			android:gravity="center_vertical">
+            
+		    	<EditText
+		    	    android:id="@+id/EtSearchCell_content"
+		    	    android:layout_width="0dp"
+		    	    android:layout_height="wrap_content"
+		    	    android:layout_weight="6"
+		    	    android:background="#00ffffff"
+		    	    android:hint="热门圈子任你搜..."
+		    	    android:singleLine="true"
+		    	    android:textSize="15sp" />
+		    	
+		      <ImageView 
+		            android:id="@+id/IvSearchCell_DeleteText"
+		    	    android:layout_width="30dp"
+		    	    android:layout_height="20dp"
+		    	    android:layout_gravity="center_vertical"
+		    	    android:src="@drawable/delete"
+		    	    android:paddingRight="10dp"
+		    	    android:visibility="gone"/>
+            
+        </LinearLayout>
+        
+        <TextView android:id="@+id/TvSearchCell"
+        	android:layout_width="0dp"
+        	android:layout_weight="1"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:layout_gravity="center_vertical"
+        	android:textSize="18sp"
+        	android:textColor="#ffffff"
+        	android:text="搜索"/>
+    	
+    </LinearLayout>
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="13">
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.example.customview.ListViewForScrollView 
+	        android:id="@+id/LvSearchCell"
+	        android:layout_width="match_parent"
+	        android:layout_height="fill_parent"
+	        android:divider="#ffffff"
+	        android:textFilterEnabled="true" >
+            
+        </com.example.customview.ListViewForScrollView>
+    </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

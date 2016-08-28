@@ -509,12 +509,13 @@ public final class R {
     public static final class id {
         public static final int BtDialog_cancel=0x7f0a0057;
         public static final int BtDialog_ok=0x7f0a0058;
-        public static final int BtSelf_save=0x7f0a00ed;
-        public static final int Btlogout=0x7f0a00f5;
+        public static final int BtSelf_save=0x7f0a00f2;
+        public static final int Btlogout=0x7f0a00fa;
         public static final int EtAdd_content=0x7f0a0007;
         public static final int EtAdd_title=0x7f0a0006;
+        public static final int EtSearchCell_content=0x7f0a00de;
         public static final int EtSearch_content=0x7f0a00d9;
-        public static final int EtSelf=0x7f0a00ec;
+        public static final int EtSelf=0x7f0a00f1;
         public static final int IbCategory_search=0x7f0a0029;
         public static final int IbCell_add=0x7f0a003c;
         public static final int IbCell_cell=0x7f0a003b;
@@ -540,7 +541,7 @@ public final class R {
         public static final int IbMine_me=0x7f0a00bf;
         public static final int IbMine_message=0x7f0a00be;
         public static final int IbMyinfo_rb=0x7f0a00c4;
-        public static final int IbSelectc_search=0x7f0a00de;
+        public static final int IbSelectc_search=0x7f0a00e3;
         public static final int IvAbout_rb=0x7f0a0000;
         public static final int IvAdd_image1=0x7f0a0008;
         public static final int IvAdd_image2=0x7f0a0009;
@@ -572,20 +573,22 @@ public final class R {
         public static final int IvMinegoods_rb=0x7f0a00c0;
         public static final int IvMinegoods_search=0x7f0a00c2;
         public static final int IvMyinfo_head=0x7f0a00c7;
-        public static final int IvSelectc_class1=0x7f0a00df;
-        public static final int IvSelectc_class10=0x7f0a00e8;
-        public static final int IvSelectc_class11=0x7f0a00e9;
-        public static final int IvSelectc_class12=0x7f0a00ea;
-        public static final int IvSelectc_class2=0x7f0a00e0;
-        public static final int IvSelectc_class3=0x7f0a00e1;
-        public static final int IvSelectc_class4=0x7f0a00e2;
-        public static final int IvSelectc_class5=0x7f0a00e3;
-        public static final int IvSelectc_class6=0x7f0a00e4;
-        public static final int IvSelectc_class7=0x7f0a00e5;
-        public static final int IvSelectc_class8=0x7f0a00e6;
-        public static final int IvSelectc_class9=0x7f0a00e7;
-        public static final int IvSelectc_rb=0x7f0a00dd;
-        public static final int IvSelf_rb=0x7f0a00eb;
+        public static final int IvSearchCell_DeleteText=0x7f0a00df;
+        public static final int IvSearchCell_return=0x7f0a00dd;
+        public static final int IvSelectc_class1=0x7f0a00e4;
+        public static final int IvSelectc_class10=0x7f0a00ed;
+        public static final int IvSelectc_class11=0x7f0a00ee;
+        public static final int IvSelectc_class12=0x7f0a00ef;
+        public static final int IvSelectc_class2=0x7f0a00e5;
+        public static final int IvSelectc_class3=0x7f0a00e6;
+        public static final int IvSelectc_class4=0x7f0a00e7;
+        public static final int IvSelectc_class5=0x7f0a00e8;
+        public static final int IvSelectc_class6=0x7f0a00e9;
+        public static final int IvSelectc_class7=0x7f0a00ea;
+        public static final int IvSelectc_class8=0x7f0a00eb;
+        public static final int IvSelectc_class9=0x7f0a00ec;
+        public static final int IvSelectc_rb=0x7f0a00e2;
+        public static final int IvSelf_rb=0x7f0a00f0;
         public static final int IvSet_rb=0x7f0a001e;
         public static final int Iv_class1=0x7f0a002a;
         public static final int Iv_class10=0x7f0a0033;
@@ -615,8 +618,9 @@ public final class R {
         public static final int LvMessage_list=0x7f0a009f;
         public static final int LvMineGoods=0x7f0a00c3;
         public static final int LvSearch=0x7f0a00dc;
-        public static final int LvWord_list=0x7f0a00f6;
-        public static final int LvZan_list=0x7f0a00fb;
+        public static final int LvSearchCell=0x7f0a00e1;
+        public static final int LvWord_list=0x7f0a00fb;
+        public static final int LvZan_list=0x7f0a0100;
         public static final int RbAdd_auction=0x7f0a000d;
         public static final int RbAdd_noprice=0x7f0a000e;
         public static final int RbAdd_price=0x7f0a000c;
@@ -697,18 +701,19 @@ public final class R {
         public static final int TvMyinfo_top=0x7f0a00c5;
         public static final int TvName_top=0x7f0a001f;
         public static final int TvSearch=0x7f0a00db;
-        public static final int TvSet_about=0x7f0a00f2;
-        public static final int TvSet_alarm=0x7f0a00f1;
-        public static final int TvSet_cache=0x7f0a00f4;
-        public static final int TvSet_dark=0x7f0a00f0;
-        public static final int TvSet_info=0x7f0a00ef;
+        public static final int TvSearchCell=0x7f0a00e0;
+        public static final int TvSet_about=0x7f0a00f7;
+        public static final int TvSet_alarm=0x7f0a00f6;
+        public static final int TvSet_cache=0x7f0a00f9;
+        public static final int TvSet_dark=0x7f0a00f5;
+        public static final int TvSet_info=0x7f0a00f4;
         public static final int TvSet_quality=0x7f0a0026;
-        public static final int TvSet_rule=0x7f0a00f3;
-        public static final int TvSet_top=0x7f0a00ee;
+        public static final int TvSet_rule=0x7f0a00f8;
+        public static final int TvSet_top=0x7f0a00f3;
         public static final int Tv_phone=0x7f0a0025;
         public static final int VpHome_hotgoods=0x7f0a0086;
         public static final int account=0x7f0a00ce;
-        public static final int action_settings=0x7f0a00fc;
+        public static final int action_settings=0x7f0a0101;
         public static final int answer_content=0x7f0a0012;
         public static final int btn_buy=0x7f0a0027;
         public static final int btn_login=0x7f0a0090;
@@ -731,7 +736,7 @@ public final class R {
         public static final int imageView1=0x7f0a0001;
         public static final int imageView2=0x7f0a007b;
         public static final int img_good=0x7f0a0020;
-        public static final int img_userHead=0x7f0a00f7;
+        public static final int img_userHead=0x7f0a00fc;
         public static final int img_words=0x7f0a009d;
         public static final int img_zan=0x7f0a009b;
         public static final int input_account=0x7f0a008e;
@@ -752,13 +757,13 @@ public final class R {
         public static final int tv_address=0x7f0a0023;
         public static final int tv_chatcontent=0x7f0a0048;
         public static final int tv_confrmBuy=0x7f0a0043;
-        public static final int tv_content=0x7f0a00fa;
+        public static final int tv_content=0x7f0a00ff;
         public static final int tv_goodName=0x7f0a0021;
         public static final int tv_price=0x7f0a0022;
         public static final int tv_sendtime=0x7f0a0047;
-        public static final int tv_time=0x7f0a00f9;
+        public static final int tv_time=0x7f0a00fe;
         public static final int tv_trade=0x7f0a0024;
-        public static final int tv_userName=0x7f0a00f8;
+        public static final int tv_userName=0x7f0a00fd;
         public static final int viewGroup=0x7f0a0087;
     }
     public static final class layout {
@@ -795,13 +800,14 @@ public final class R {
         public static final int myinfo=0x7f03001e;
         public static final int register=0x7f03001f;
         public static final int search=0x7f030020;
-        public static final int select_class=0x7f030021;
-        public static final int self_introduction=0x7f030022;
-        public static final int set=0x7f030023;
-        public static final int words=0x7f030024;
-        public static final int words_list_item=0x7f030025;
-        public static final int zan=0x7f030026;
-        public static final int zans_list_item=0x7f030027;
+        public static final int search_cell=0x7f030021;
+        public static final int select_class=0x7f030022;
+        public static final int self_introduction=0x7f030023;
+        public static final int set=0x7f030024;
+        public static final int words=0x7f030025;
+        public static final int words_list_item=0x7f030026;
+        public static final int zan=0x7f030027;
+        public static final int zans_list_item=0x7f030028;
     }
     public static final class menu {
         public static final int about=0x7f090000;
@@ -822,9 +828,10 @@ public final class R {
         public static final int mine_sold=0x7f09000f;
         public static final int myinfo=0x7f090010;
         public static final int search=0x7f090011;
-        public static final int select_class=0x7f090012;
-        public static final int self_introduction=0x7f090013;
-        public static final int set=0x7f090014;
+        public static final int search_cell=0x7f090012;
+        public static final int select_class=0x7f090013;
+        public static final int self_introduction=0x7f090014;
+        public static final int set=0x7f090015;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
@@ -847,6 +854,7 @@ public final class R {
         public static final int title_activity_mine_sold=0x7f070009;
         public static final int title_activity_myinfo=0x7f07000b;
         public static final int title_activity_search=0x7f070014;
+        public static final int title_activity_search_cell=0x7f070017;
         public static final int title_activity_select_class=0x7f070013;
         public static final int title_activity_self_introduction=0x7f070012;
         public static final int title_activity_set=0x7f07000a;

@@ -20,7 +20,7 @@ import android.content.res.Resources;
 
 public class Cell extends Activity implements OnClickListener{
 
-	private ImageButton IbCell_message,IbCell_add,IbCell_home,IbCell_mine;
+	private ImageButton IbCell_message,IbCell_add,IbCell_home,IbCell_mine,IbCell_search;
     private ListView LvCell_cell;
 	private TextView TvCell_topfind,TvCell_topmine;
 	
@@ -36,6 +36,7 @@ public class Cell extends Activity implements OnClickListener{
 	    IbCell_home =(ImageButton) findViewById(R.id.IbCell_home);
 	    IbCell_mine =(ImageButton) findViewById(R.id.IbCell_mine);
         IbCell_message =(ImageButton) findViewById(R.id.IbCell_message);
+        IbCell_search =(ImageButton) findViewById(R.id.IbCell_search);
 
         IbCell_add.setOnClickListener(this);
         IbCell_home.setOnClickListener(this);
@@ -43,6 +44,7 @@ public class Cell extends Activity implements OnClickListener{
         IbCell_message.setOnClickListener(this);
 		TvCell_topfind.setOnClickListener(this);
 		TvCell_topmine.setOnClickListener(this);
+		IbCell_search.setOnClickListener(this);
 		CelllistAdapter celllistadapter = new CelllistAdapter(this, getDataFind());
 		LvCell_cell.setAdapter(celllistadapter);
 	}
@@ -54,7 +56,6 @@ public class Cell extends Activity implements OnClickListener{
 		for(int i = 0 ; i <4; i ++ )
 		{
 			Map<String, Object> map = new HashMap<String, Object>();
-			
 			map.put("cellname", "lalala");
 			map.put("publishnum", "234");
 			map.put("peoplenum", "88");
@@ -87,6 +88,7 @@ public class Cell extends Activity implements OnClickListener{
 		ColorStateList whitecsl = (ColorStateList) resource.getColorStateList(R.color.white);
 		ColorStateList backcsl = (ColorStateList) resource.getColorStateList(R.color.home); 
 		switch(v.getId()){
+		
 		case R.id.TvCell_topfind:  
 		if (whitecsl != null && backcsl != null) {  
 			TvCell_topmine.setTextColor(whitecsl);  
@@ -97,6 +99,7 @@ public class Cell extends Activity implements OnClickListener{
 		CelllistAdapter celllistadapter = new CelllistAdapter(this, getDataFind());
 		LvCell_cell.setAdapter(celllistadapter);
 		break;
+		
 		case R.id.TvCell_topmine: 
 		if (whitecsl != null && backcsl != null) {  
 			TvCell_topfind.setTextColor(whitecsl); 
@@ -121,6 +124,10 @@ public class Cell extends Activity implements OnClickListener{
     		break;
     	case R.id.IbCell_mine:
     		intent.setClass(Cell.this, Mine.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    		startActivity(intent);
+    		break;
+    	case R.id.IbCell_search:
+    		intent.setClass(Cell.this, SearchCell.class);
     		startActivity(intent);
     		break;
     	default:
