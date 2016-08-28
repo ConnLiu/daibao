@@ -40,6 +40,8 @@
         </activity>
          <activity android:name="com.example.easyshop.Order" >
         </activity>
+         <activity android:name="com.example.easyshop.Order_com" >
+        </activity>
         <activity android:name="com.example.easyshop.Buy" >
         </activity>
         <activity android:name="com.example.easyshop.Chat" >

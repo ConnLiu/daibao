@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="意见反馈"
+            android:text="问题求助"
             android:textSize="12dp"
             android:textColor="#ffffff"
             android:gravity="center_vertical"/>
@@ -43,6 +43,14 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:layout_weight="13">
+        <TextView 
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black"
+        android:text="常见问题"/>
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -135,7 +143,43 @@
         android:src="@drawable/jiantou_grey"/>
         
     </LinearLayout>
-        
+   	<TextView 
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black"
+        android:text="意见反馈"/>
+     <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/list_shape">
+    <EditText
+        android:id="@+id/TvHelp_qeust4"
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="match_parent"
+        android:lines="4"
+        android:paddingLeft="20dp"
+        android:textColor="@color/textcolor"
+        android:text=""/>        
+    </LinearLayout>   
+    <Button 
+        android:id="@+id/btn_buy"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:background="#ff5555"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:text="发送"/> 
     </LinearLayout>
 
 </LinearLayout>

@@ -7,24 +7,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.app.Activity;
-import android.content.Intent;
 
-public class Order extends Activity {
-	private Button btn_cfm_get;
+public class Order_com extends Activity {
+	private Button Bt_save;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.order);
-		btn_cfm_get = (Button) findViewById(R.id.btn_cfm_get);
-		btn_cfm_get.setOnClickListener(new OnClickListener() {
+		setContentView(R.layout.order_com);
+		Bt_save = (Button) findViewById(R.id.Bt_save);
+		Bt_save.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				toast("¹ºÂò³É¹¦!");
 				finish();
-				Intent intent = new Intent(Order.this,Order_com.class);
-				startActivity(intent);
 			}
 		});
 	}
