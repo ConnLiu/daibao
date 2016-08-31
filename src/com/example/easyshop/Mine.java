@@ -100,7 +100,6 @@ public class Mine extends Activity implements OnClickListener{
     	Bundle bundle = new Bundle();
 		switch(v.getId()){
     	case R.id.IbMine_message:
-    		
     		intent.setClass(Mine.this, Message.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
     		break;
@@ -151,7 +150,6 @@ public class Mine extends Activity implements OnClickListener{
     		startActivity(intent);
     		break;
     	case R.id.TvMine_help:
-    		
     		intent.setClass(Mine.this, Help.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
     		break;

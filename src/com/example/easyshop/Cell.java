@@ -5,7 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
+
 import com.example.assist.CelllistAdapter;
+import com.example.entity.CellInfo;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -25,11 +32,13 @@ public class Cell extends Activity implements OnClickListener{
 	private ImageButton IbCell_message,IbCell_add,IbCell_home,IbCell_mine,IbCell_search;
     private ListView LvCell_cell;
 	private TextView TvCell_topfind,TvCell_topmine;
+	private String objectId[] = {"9VvS4445"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cell);
+        Bmob.initialize(this, "79f7c1d79f0db04370bf7b20720440db");
 		
 		LvCell_cell = (ListView)findViewById(R.id.LvCell_cell);
 		TvCell_topfind = (TextView)findViewById(R.id.TvCell_topfind);
@@ -68,16 +77,35 @@ public class Cell extends Activity implements OnClickListener{
 
 	private List<Map<String,Object>> getDataFind() {
 		
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		final List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		BmobQuery<CellInfo> c = new BmobQuery<CellInfo>();
 		
-		for(int i = 0 ; i <4; i ++ )
+		for(int i = 0 ; i < 1; i ++ )
 		{
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("cellname", "lalala");
-			map.put("publishnum", "234");
-			map.put("peoplenum", "88");
-			map.put("cellimage", R.drawable.tip_selected);
-			list.add(map);
+			c.getObject(objectId[i], new QueryListener<CellInfo>() {
+				
+				@Override
+				public void done(CellInfo object, BmobException e) {
+					if(e == null){
+						Map<String, Object> map = new HashMap<String, Object>();
+						map.put("cellname", object.getName().toString());
+						map.put("publishnum", object.getPublish().toString());
+						map.put("peoplenum", object.getPeople().toString());
+						map.put("cellimage", R.drawable.tip_selected);
+						list.add(map);
+						map = new HashMap<String, Object>();
+						map.put("cellname", "name");
+						map.put("publishnum", "123");
+						map.put("peoplenum", "88");
+						map.put("cellimage", R.drawable.tip_selected);
+						list.add(map);
+						Toast.makeText(Cell.this, "查询成功", Toast.LENGTH_SHORT).show();
+					}else{
+						Toast.makeText(Cell.this, "查询失败", Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
+			
 		}
 		return list;
 	}

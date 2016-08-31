@@ -54,7 +54,7 @@ public class Myinfo extends Activity implements OnClickListener{
 	private ImageView IvMyinfo_head,IbMyinfo_rb;
 	private DatePickerDialog datedialog;
 	private int year,monthOfYear,dayOfMonth;
-	MyUser user = UserSingleton.getInstance();;
+	MyUser user = UserSingleton.getInstance();
 	private final String IMAGE_FILE_NAME = user.getObjectId()+"_temphead.png";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -1,14 +1,10 @@
 package com.example.easyshop;
 
-import java.io.File;
-
 import com.example.entity.MyUser;
 import com.example.singleton.UserSingleton;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.SaveListener;
 import android.app.Activity;
 import android.content.Intent;
