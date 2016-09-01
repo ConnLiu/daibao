@@ -8,12 +8,14 @@ import java.util.Map;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 
 import com.example.assist.CelllistAdapter;
 import com.example.entity.CellInfo;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -79,34 +81,26 @@ public class Cell extends Activity implements OnClickListener{
 		
 		final List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		BmobQuery<CellInfo> c = new BmobQuery<CellInfo>();
+		c.setLimit(20);
 		
-		for(int i = 0 ; i < 1; i ++ )
-		{
-			c.getObject(objectId[i], new QueryListener<CellInfo>() {
-				
-				@Override
-				public void done(CellInfo object, BmobException e) {
-					if(e == null){
-						Map<String, Object> map = new HashMap<String, Object>();
-						map.put("cellname", object.getName().toString());
-						map.put("publishnum", object.getPublish().toString());
-						map.put("peoplenum", object.getPeople().toString());
-						map.put("cellimage", R.drawable.tip_selected);
-						list.add(map);
-						map = new HashMap<String, Object>();
-						map.put("cellname", "name");
-						map.put("publishnum", "123");
-						map.put("peoplenum", "88");
-						map.put("cellimage", R.drawable.tip_selected);
-						list.add(map);
-						Toast.makeText(Cell.this, "查询成功", Toast.LENGTH_SHORT).show();
-					}else{
-						Toast.makeText(Cell.this, "查询失败", Toast.LENGTH_SHORT).show();
-					}
-				}
-			});
+		c.findObjects(new FindListener<CellInfo>() {
 			
-		}
+			@Override
+			public void done(List<CellInfo> object, BmobException e) {
+				if(e==null){
+					for(CellInfo ci : object){
+						Map<String, Object> map = new HashMap<String, Object>();
+						map.put("cellname", ci.getName().toString());
+						map.put("publishnum", ci.getPublish().toString());
+						map.put("peoplenum", ci.getPeople().toString());
+						map.put("cellimage", R.drawable.tip_selected);
+						list.add(map);
+					}
+				}else{
+					Log.i("bmob", "failed");
+				}
+			}
+		});
 		return list;
 	}
 	private List<Map<String,Object>> getDataMine() {
