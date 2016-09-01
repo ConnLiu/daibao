@@ -9,8 +9,6 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
-
 import com.example.assist.CelllistAdapter;
 import com.example.entity.CellInfo;
 
@@ -23,7 +21,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -34,7 +31,6 @@ public class Cell extends Activity implements OnClickListener{
 	private ImageButton IbCell_message,IbCell_add,IbCell_home,IbCell_mine,IbCell_search;
     private ListView LvCell_cell;
 	private TextView TvCell_topfind,TvCell_topmine;
-	private String objectId[] = {"9VvS4445"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,17 +102,28 @@ public class Cell extends Activity implements OnClickListener{
 	}
 	private List<Map<String,Object>> getDataMine() {
 		
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		final List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		BmobQuery<CellInfo> c = new BmobQuery<CellInfo>();
+		c.setLimit(20);
 		
-		for(int i = 0 ; i <4; i ++ )
-		{
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("cellname", "lololo");
-			map.put("publishnum", "555");
-			map.put("peoplenum", "99");
-			map.put("cellimage", R.drawable.tip_normal);
-			list.add(map);
-		}
+		c.findObjects(new FindListener<CellInfo>() {
+			
+			@Override
+			public void done(List<CellInfo> object, BmobException e) {
+				if(e==null){
+					for(CellInfo ci : object){
+						Map<String, Object> map = new HashMap<String, Object>();
+						map.put("cellname", ci.getName().toString());
+						map.put("publishnum", ci.getPublish().toString());
+						map.put("peoplenum", ci.getPeople().toString());
+						map.put("cellimage", R.drawable.tip_selected);
+						list.add(map);
+					}
+				}else{
+					Log.i("bmob", "failed");
+				}
+			}
+		});
 		return list;
 	}
 	  
