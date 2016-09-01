@@ -54,10 +54,8 @@ public class Cell extends Activity implements OnClickListener{
 		TvCell_topfind.setOnClickListener(this);
 		TvCell_topmine.setOnClickListener(this);
 		IbCell_search.setOnClickListener(this);
-		CelllistAdapter celllistadapter = new CelllistAdapter(this, getDataFind());
-		LvCell_cell.setAdapter(celllistadapter);
-		LvCell_cell.setDividerHeight(0);
-		LvCell_cell.setOnItemClickListener(itemListener);
+		getDataFind();
+		
 	}
 	
     OnItemClickListener itemListener = new OnItemClickListener() {  
@@ -71,15 +69,13 @@ public class Cell extends Activity implements OnClickListener{
         	intent.putExtra("position", position);
         	startActivity(intent);
         }
-
     };  
-
-	private List<Map<String,Object>> getDataFind() {
+    final List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+	private void getDataFind() {
 		
-		final List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
 		BmobQuery<CellInfo> c = new BmobQuery<CellInfo>();
 		c.setLimit(20);
-		
 		c.findObjects(new FindListener<CellInfo>() {
 			
 			@Override
@@ -93,12 +89,16 @@ public class Cell extends Activity implements OnClickListener{
 						map.put("cellimage", R.drawable.tip_selected);
 						list.add(map);
 					}
+					CelllistAdapter celllistadapter = new CelllistAdapter(Cell.this,list);
+					LvCell_cell.setAdapter(celllistadapter);
+					LvCell_cell.setDividerHeight(0);
+					LvCell_cell.setOnItemClickListener(itemListener);
 				}else{
 					Log.i("bmob", "failed");
 				}
 			}
 		});
-		return list;
+		
 	}
 	private List<Map<String,Object>> getDataMine() {
 		
@@ -143,7 +143,7 @@ public class Cell extends Activity implements OnClickListener{
 		}  
 		TvCell_topmine.setBackgroundResource(R.drawable.hometop_bg);
 		TvCell_topfind.setBackgroundResource(R.color.white);
-		CelllistAdapter celllistadapter = new CelllistAdapter(this, getDataFind());
+		CelllistAdapter celllistadapter = new CelllistAdapter(this, list);
 		LvCell_cell.setAdapter(celllistadapter);
 		break;
 		
