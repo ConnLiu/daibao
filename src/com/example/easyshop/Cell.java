@@ -66,16 +66,46 @@ public class Cell extends Activity implements OnClickListener{
             // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 
         	Intent intent = new Intent();
         	intent.setClass(Cell.this, CellDetail.class);
-        	intent.putExtra("position", position);
+        	intent.putExtra("id",list.get(position).get("objectId").toString());
         	startActivity(intent);
         }
     };  
+    
     final List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    
 	private void getDataFind() {
-		
-		
 		BmobQuery<CellInfo> c = new BmobQuery<CellInfo>();
 		c.setLimit(20);
+		c.findObjects(new FindListener<CellInfo>() {
+			
+			@Override
+			public void done(List<CellInfo> object, BmobException e) {
+				if(e==null){
+					for(CellInfo ci : object){
+						Map<String, Object> map = new HashMap<String, Object>();
+						map.put("cellname", ci.getName().toString());
+						map.put("publishnum", ci.getPublish().toString());
+						map.put("peoplenum", ci.getPeople().toString());
+						map.put("objectId", ci.getObjectId());
+						map.put("cellimage", R.drawable.tip_selected);
+						list.add(map);
+					}
+					CelllistAdapter celllistadapter = new CelllistAdapter(Cell.this,list);
+					LvCell_cell.setAdapter(celllistadapter);
+					LvCell_cell.setDividerHeight(0);
+					LvCell_cell.setOnItemClickListener(itemListener);
+				}else{
+					Log.i("bmob", "failed");
+				}
+			}
+		});
+	}
+
+	private void getDataMine() {
+		list.clear();
+		BmobQuery<CellInfo> c = new BmobQuery<CellInfo>();
+		c.setLimit(20);
+		
 		c.findObjects(new FindListener<CellInfo>() {
 			
 			@Override
@@ -98,33 +128,6 @@ public class Cell extends Activity implements OnClickListener{
 				}
 			}
 		});
-		
-	}
-	private List<Map<String,Object>> getDataMine() {
-		
-		final List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		BmobQuery<CellInfo> c = new BmobQuery<CellInfo>();
-		c.setLimit(20);
-		
-		c.findObjects(new FindListener<CellInfo>() {
-			
-			@Override
-			public void done(List<CellInfo> object, BmobException e) {
-				if(e==null){
-					for(CellInfo ci : object){
-						Map<String, Object> map = new HashMap<String, Object>();
-						map.put("cellname", ci.getName().toString());
-						map.put("publishnum", ci.getPublish().toString());
-						map.put("peoplenum", ci.getPeople().toString());
-						map.put("cellimage", R.drawable.tip_selected);
-						list.add(map);
-					}
-				}else{
-					Log.i("bmob", "failed");
-				}
-			}
-		});
-		return list;
 	}
 	  
 
@@ -154,7 +157,8 @@ public class Cell extends Activity implements OnClickListener{
 		}  
 		TvCell_topfind.setBackgroundResource(R.drawable.hometop_bg);
 		TvCell_topmine.setBackgroundResource(R.color.white);
-		celllistadapter = new CelllistAdapter(this, getDataMine());
+		getDataMine();
+		celllistadapter = new CelllistAdapter(this, list);
 		LvCell_cell.setAdapter(celllistadapter);
 		break;
     	case R.id.IbCell_message:

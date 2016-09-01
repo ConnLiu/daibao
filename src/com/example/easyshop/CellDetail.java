@@ -5,16 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
+
 import com.example.assist.GoodslistAdapter;
 import com.example.customview.ListViewForScrollView;
+import com.example.entity.CellInfo;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.app.Activity;
+import android.content.Intent;
 
 public class CellDetail extends Activity implements OnClickListener{
 
@@ -39,12 +46,34 @@ public class CellDetail extends Activity implements OnClickListener{
 		TvCellD_peoplenum =(TextView) findViewById(R.id.TvCellD_peoplenum);
 		TvCellD_addnum =(TextView) findViewById(R.id.TvCellD_addnum);
 		
+    	Intent intent = getIntent();
+    	getCellInfo(intent.getStringExtra("id"));
+		
 		SvCellD.smoothScrollTo(0, 0);
 		IvCellD_rb.setOnClickListener(this);
 		IvCellD_search.setOnClickListener(this);
 		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, getData());
 		LvCellD.setAdapter(goodslistadapter);
 		LvCellD.setDividerHeight(0);
+	}
+	
+	private void getCellInfo(String objectId){
+		BmobQuery<CellInfo> c = new BmobQuery<CellInfo>();
+		c.getObject(objectId, new QueryListener<CellInfo>() {
+			
+			@Override
+			public void done(CellInfo object, BmobException e) {
+				if(e==null){
+				TvCellD_name.setText(object.getName().toString());
+				TvCellD_rank.setText("Lv."+object.getGrade().toString());
+				TvCellD_publishnum.setText(object.getPublish().toString());
+				TvCellD_peoplenum.setText(object.getPeople().toString());
+				TvCellD_addnum.setText(object.getAdd().toString());
+				}else{
+					Log.i("getcellinfo", "failed");
+				}
+			}
+		});
 	}
 
 	private List<Map<String,Object>> getData() {
