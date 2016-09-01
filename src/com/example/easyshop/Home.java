@@ -6,11 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
+import cn.bmob.v3.listener.FindListener;
 
+import com.example.assist.CelllistAdapter;
 import com.example.assist.GoodslistAdapter;
 import com.example.customview.ListViewForScrollView;
+import com.example.entity.CellInfo;
+import com.example.entity.Goods;
 import com.example.entity.MyUser;
 import com.example.singleton.UserSingleton;
 
@@ -52,7 +59,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-
+        Bmob.initialize(this, "79f7c1d79f0db04370bf7b20720440db");
         SvHome = (ScrollView) findViewById(R.id.SvHome);
         IbHome_cell =(ImageButton) findViewById(R.id.IbHome_cell);
         IbHome_class =(ImageButton) findViewById(R.id.IbHome_class);
@@ -70,13 +77,10 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         IbHome_message.setOnClickListener(this);
         IbHome_mine.setOnClickListener(this);
         LvHome_goods.setOnItemClickListener(itemListener);
-
-		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, getData());
-		LvHome_goods.setAdapter(goodslistadapter);
+        SetGoods();
+        //=================================================
 		initResources();
 		mTips = new ImageView[resId.length];
-	    
-		
 	    for(int i = 0; i < mTips.length; i++)
 	    {
 	      ImageView iv = new ImageView(this);
@@ -113,10 +117,48 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	    VpHome_hotgoods.setOnPageChangeListener(this);
 	    onPageSelected(0);
 	    Intent intent = getIntent();
-	    System.out.println(intent.getStringExtra("from"));
 	    if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("login"))
 	    	download();
     }
+
+	private void SetGoods() {
+		final List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		BmobQuery<Goods> c = new BmobQuery<Goods>();
+		c.setLimit(20);
+		c.findObjects(new FindListener<Goods>() {
+			@Override
+			public void done(List<Goods> object, BmobException e) {
+				if(e==null){
+					for(Goods i : object){
+						Map<String, Object> map = new HashMap<String, Object>();
+						map.put("goodsname", i.getName().toString());
+						map.put("goodsmoney", String.valueOf(i.getPrice()));
+						map.put("goodslikenum",String.valueOf(i.getLike_num()));
+						map.put("goodsimage", R.drawable.tip_selected);
+						map.put("goodslike", R.drawable.zan);
+						list.add(map);
+					}
+					GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this, list);
+					LvHome_goods.setAdapter(goodslistadapter);
+				}else{
+					Log.i("bmob", "failed"+e.getMessage()+","+e.getErrorCode());
+				}
+			}
+		});
+	}
+
+    OnItemClickListener itemListener = new OnItemClickListener() {     
+        public void onItemClick(AdapterView<?> parent, View view, int position,  
+                long id) {  
+            // 这里的view是我们在list.xml中定义的LinearLayout对象.  
+            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 
+        	Intent intent = new Intent();
+        	intent.setClass(Home.this, GoodsDetail.class);
+        	intent.putExtra("position", position);
+        	startActivity(intent);
+        }
+
+    };  
     void download(){
 		if(user.getHead_path()==null||user.getHead_path().equals("")){
 			return;
@@ -259,46 +301,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 		    resId[7] = R.drawable.news8;
 		    resId[8] = R.drawable.news6;
 		  }
-	  
-	private List<Map<String,Object>> getData() {
-		
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		
-		for(int i = 0 ; i <4; i ++ )
-		{
-			Map<String, Object> map = new HashMap<String, Object>();
-			/*try {
-				map.put("newstext",java.net.URLDecoder.decode(news_Info.get(i).getNewsTitle().toString(),"utf-8"));
-				
-				map.put("newsimage", java.net.URLDecoder.decode(news_Info.get(i).getPictureURL().toString(),"utf-8"));
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
-			
-			map.put("goodsname", "商品名称");
-			map.put("goodsmoney", "0.00");
-			map.put("goodslikenum", "88");
-			map.put("goodsimage", R.drawable.tip_selected);
-			map.put("goodslike", R.drawable.zan);
-			list.add(map);
-		}
-		return list;
-	}
-
-    OnItemClickListener itemListener = new OnItemClickListener() {  
-        
-        public void onItemClick(AdapterView<?> parent, View view, int position,  
-                long id) {  
-            // 这里的view是我们在list.xml中定义的LinearLayout对象.  
-            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 
-        	Intent intent = new Intent();
-        	intent.setClass(Home.this, GoodsDetail.class);
-        	intent.putExtra("position", position);
-        	startActivity(intent);
-        }
-
-    };  
+	
 	
     @Override
     public void onClick(View v) {

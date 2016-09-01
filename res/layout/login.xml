@@ -23,7 +23,7 @@
             android:layout_marginTop="35dp"
             android:layout_weight="0.09"
             android:scaleType="centerCrop"
-            android:src="@drawable/icon" />
+            android:src="@drawable/login" />
 
         <EditText
             android:id="@+id/input_account"
