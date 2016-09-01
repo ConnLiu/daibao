@@ -60,6 +60,7 @@ public class Cell extends Activity implements OnClickListener{
 		IbCell_search.setOnClickListener(this);
 		CelllistAdapter celllistadapter = new CelllistAdapter(this, getDataFind());
 		LvCell_cell.setAdapter(celllistadapter);
+		LvCell_cell.setDividerHeight(0);
 		LvCell_cell.setOnItemClickListener(itemListener);
 	}
 	
