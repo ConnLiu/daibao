@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.example.assist.GoodslistAdapter;
 import com.example.customview.ListViewForScrollView;
+import com.example.singleton.GoodsSingleton;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -76,7 +77,7 @@ public class Search extends Activity implements OnClickListener{
 	            			list.add(map);
           			}
           		}
-          		GoodslistAdapter listviewadapter = new GoodslistAdapter(Search.this, list);
+          		GoodslistAdapter listviewadapter = new GoodslistAdapter(Search.this, GoodsSingleton.getInstance());
       			LvSearch.setAdapter(listviewadapter);
   			}
           }  

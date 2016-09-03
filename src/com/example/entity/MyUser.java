@@ -16,6 +16,13 @@ public class MyUser extends BmobUser{
     private Integer credit;
     private String grade;
     private Integer gold;
+    public MyUser(String nick,String moto){
+    	this.nickname=nick;
+    	this.motto=moto;
+    }
+    public MyUser(){
+    	
+    }
     public String getNick() {
         return this.nickname;
     }

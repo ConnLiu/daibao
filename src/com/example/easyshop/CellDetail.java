@@ -12,6 +12,7 @@ import cn.bmob.v3.listener.QueryListener;
 import com.example.assist.GoodslistAdapter;
 import com.example.customview.ListViewForScrollView;
 import com.example.entity.CellInfo;
+import com.example.singleton.GoodsSingleton;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -52,7 +53,7 @@ public class CellDetail extends Activity implements OnClickListener{
 		SvCellD.smoothScrollTo(0, 0);
 		IvCellD_rb.setOnClickListener(this);
 		IvCellD_search.setOnClickListener(this);
-		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, getData());
+		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, GoodsSingleton.getInstance());
 		LvCellD.setAdapter(goodslistadapter);
 		LvCellD.setDividerHeight(0);
 	}

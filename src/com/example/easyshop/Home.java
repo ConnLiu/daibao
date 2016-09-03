@@ -19,6 +19,8 @@ import com.example.customview.ListViewForScrollView;
 import com.example.entity.CellInfo;
 import com.example.entity.Goods;
 import com.example.entity.MyUser;
+import com.example.manager.GoodsManager;
+import com.example.singleton.GoodsSingleton;
 import com.example.singleton.UserSingleton;
 
 import android.os.Bundle;
@@ -60,6 +62,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
         Bmob.initialize(this, "79f7c1d79f0db04370bf7b20720440db");
+        
         SvHome = (ScrollView) findViewById(R.id.SvHome);
         IbHome_cell =(ImageButton) findViewById(R.id.IbHome_cell);
         IbHome_class =(ImageButton) findViewById(R.id.IbHome_class);
@@ -69,7 +72,6 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	    IbHome_add =(ImageButton) findViewById(R.id.IbHome_add);
 	    IbHome_message =(ImageButton) findViewById(R.id.IbHome_message);
 	    IbHome_mine =(ImageButton) findViewById(R.id.IbHome_mine);
-
         SvHome.smoothScrollTo(0, 0);
         IbHome_cell.setOnClickListener(this);
         IbHome_class.setOnClickListener(this);
@@ -77,7 +79,14 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         IbHome_message.setOnClickListener(this);
         IbHome_mine.setOnClickListener(this);
         LvHome_goods.setOnItemClickListener(itemListener);
-        SetGoods();
+        //=====================================================================
+        if(GoodsSingleton.getInstance()!=null) 	//判断是否已经保存了数据
+        {
+        	GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,GoodsSingleton.getInstance());
+    		LvHome_goods.setAdapter(goodslistadapter);
+        }else{
+        	getGoods();
+        }
         //=================================================
 		initResources();
 		mTips = new ImageView[resId.length];
@@ -99,9 +108,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	      
 	      lp.leftMargin = 5;
 	      lp.rightMargin = 5;
-	      
 	      viewGroup.addView(iv,lp);
-	      
 	    }
 	    mImageViews = new ImageView[resId.length];
 	    for(index = 0; index < mImageViews.length; index++)
@@ -120,31 +127,21 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	    if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("login"))
 	    	download();
     }
-
-	private void SetGoods() {
-		final List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+    public void getGoods(){
 		BmobQuery<Goods> c = new BmobQuery<Goods>();
 		c.setLimit(20);
 		c.findObjects(new FindListener<Goods>() {
 			@Override
 			public void done(List<Goods> object, BmobException e) {
 				if(e==null){
-					for(Goods i : object){
-						Map<String, Object> map = new HashMap<String, Object>();
-						map.put("goodsname", i.getName().toString());
-						map.put("goodsmoney", String.valueOf(i.getPrice()));
-						map.put("goodslikenum",String.valueOf(i.getLike_num()));
-						map.put("goodsimage", R.drawable.tip_selected);
-						map.put("goodslike", R.drawable.zan);
-						list.add(map);
-					}
-					GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this, list);
-					LvHome_goods.setAdapter(goodslistadapter);
+					GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,object);
+		    		LvHome_goods.setAdapter(goodslistadapter);
+					GoodsSingleton.setInstance(object);   //将得到数据保存到单例对象中，后面数据量大可以考虑保存到本地数据库
 				}else{
 					Log.i("bmob", "failed"+e.getMessage()+","+e.getErrorCode());
 				}
 			}
-		});
+		});		
 	}
 
     OnItemClickListener itemListener = new OnItemClickListener() {     
@@ -189,7 +186,6 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	    });
 	}
 	
-    
     class MyPagerAdapter extends PagerAdapter
     {
       @Override

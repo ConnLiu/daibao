@@ -53,7 +53,6 @@ public class Login extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent();
-		Log.d("1","id:"+v.getId()+"regist:"+btn_register);
 		switch(v.getId()){
 		case R.id.btn_login:
 			login();
@@ -79,7 +78,6 @@ public class Login extends Activity implements OnClickListener{
 					//通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
 		            //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
 					UserSingleton.setInstance(BmobUser.getCurrentUser(MyUser.class));
-					
 					Intent intent = new Intent();
 					intent.setClass(Login.this, Home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					intent.putExtra("from",	"login");

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.assist.GoodslistAdapter;
+import com.example.singleton.GoodsSingleton;
 
 import android.os.Bundle;
 import android.view.View;
@@ -36,7 +37,7 @@ public class Mine_goods extends Activity implements OnClickListener{
 		IvMinegoods_rb.setOnClickListener(this);
 		IvMinegoods_search.setOnClickListener(this);
 
-		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, getData());
+		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, GoodsSingleton.getInstance());
 		LvMineGoods.setAdapter(goodslistadapter);
 		LvMineGoods.setOnItemClickListener(itemListener);
 		TvMinegoods_top.setText(getIntent().getExtras().getString("minegoods"));

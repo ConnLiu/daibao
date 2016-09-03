@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.example.assist.CelllistAdapter;
 import com.example.assist.GoodslistAdapter;
+import com.example.singleton.GoodsSingleton;
 
 import android.os.Bundle;
 import android.view.View;
@@ -41,25 +42,8 @@ public class Auction extends Activity implements OnClickListener{
 		TvAuction_bill.setOnClickListener(this);
 		IvAuction_rb.setOnClickListener(this);
 
-		GoodslistAdapter listadapter = new GoodslistAdapter(this, getData(JOIN_CODE));
+		GoodslistAdapter listadapter = new GoodslistAdapter(this, GoodsSingleton.getInstance());
 		LvAuction_list.setAdapter(listadapter);
-	}
-
-	private List<Map<String,Object>> getData(int code) {
-		
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		
-		for(int i = 0 ; i <4; i ++ )
-		{
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("goodsname", "ÉÌÆ·Ãû³Æ"+code);
-			map.put("goodsmoney", "0.00");
-			map.put("goodslikenum", "88");
-			map.put("goodsimage", R.drawable.tip_selected);
-			map.put("goodslike", R.drawable.zan);
-			list.add(map);
-		}
-		return list;
 	}
 	
 	@Override
@@ -80,7 +64,7 @@ public class Auction extends Activity implements OnClickListener{
 			TvAuction_join.setBackgroundResource(R.drawable.hometop_bg);
 			TvAuction_bill.setBackgroundResource(R.color.white);
 			TvAuction_end.setBackgroundResource(R.color.white);
-			GoodslistAdapter listadapter = new GoodslistAdapter(this, getData(JOIN_CODE));
+			GoodslistAdapter listadapter = new GoodslistAdapter(this,GoodsSingleton.getInstance());
 			LvAuction_list.setAdapter(listadapter);
 			break;
 		case R.id.TvAuction_end:
@@ -92,7 +76,7 @@ public class Auction extends Activity implements OnClickListener{
 			TvAuction_end.setBackgroundResource(R.drawable.hometop_bg);
 			TvAuction_join.setBackgroundResource(R.color.white);
 			TvAuction_bill.setBackgroundResource(R.color.white);
-			GoodslistAdapter listadapter1 = new GoodslistAdapter(this, getData(END_CODE));
+			GoodslistAdapter listadapter1 = new GoodslistAdapter(this, GoodsSingleton.getInstance());
 			LvAuction_list.setAdapter(listadapter1);
 			break;
 		case R.id.TvAuction_bill:
@@ -104,7 +88,7 @@ public class Auction extends Activity implements OnClickListener{
 			TvAuction_bill.setBackgroundResource(R.drawable.hometop_bg);
 			TvAuction_join.setBackgroundResource(R.color.white);
 			TvAuction_end.setBackgroundResource(R.color.white);
-			GoodslistAdapter listadapter2 = new GoodslistAdapter(this, getData(BILL_CODE));
+			GoodslistAdapter listadapter2 = new GoodslistAdapter(this, GoodsSingleton.getInstance());
 			LvAuction_list.setAdapter(listadapter2);
 			break;
 		}

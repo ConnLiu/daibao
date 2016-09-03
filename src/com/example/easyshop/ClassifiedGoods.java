@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.assist.GoodslistAdapter;
+import com.example.singleton.GoodsSingleton;
 
 import android.os.Bundle;
 import android.view.View;
@@ -39,7 +40,7 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 		IvClassified_search.setOnClickListener(this);
 		LvClassified.setOnItemClickListener(itemListener);
 		
-		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, getData());
+		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, GoodsSingleton.getInstance());
 		LvClassified.setAdapter(goodslistadapter);
 		TvClassfied_class.setText(getIntent().getExtras().getString("classname"));
 	}

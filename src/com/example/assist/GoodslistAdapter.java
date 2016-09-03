@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.easyshop.R;
+import com.example.entity.Goods;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,10 +18,10 @@ import android.widget.TextView;
 public class GoodslistAdapter extends BaseAdapter{
 
 	
-	private List<Map<String, Object>> list;
+	private List<Goods> list;
 	private LayoutInflater inflater;
 
-	public GoodslistAdapter(Context context, List<Map<String, Object>> list) {
+	public GoodslistAdapter(Context context, List<Goods> list) {
 		super();
 		this.list = list;
 	}
@@ -56,13 +57,12 @@ public class GoodslistAdapter extends BaseAdapter{
 			viewholder = (ViewHolder) convertview.getTag();
 		}
 		
-		viewholder.goodsname.setText(list.get(position).get("goodsname").toString());
-		viewholder.goodsmoney.setText(list.get(position).get("goodsmoney").toString());
-		viewholder.goodslikenum.setText(list.get(position).get("goodslikenum").toString());
+		viewholder.goodsname.setText(list.get(position).getName());
+		viewholder.goodsmoney.setText(String.valueOf(list.get(position).getPrice()));
+		viewholder.goodslikenum.setText(String.valueOf(list.get(position).getLike_num()));
 		//Log.d("Home", list.get(position).get("newsimage").toString());
-		viewholder.goodsimage.setImageResource(Integer.parseInt(list.get(position).get("goodsimage").toString())); 
-		viewholder.goodslike.setImageResource(Integer.parseInt(list.get(position).get("goodslike").toString())); 
-		
+		viewholder.goodsimage.setImageResource(R.drawable.tip_selected); 
+		viewholder.goodslike.setImageResource(R.drawable.zan_red); 
 		return convertview;
 	}
 	class ViewHolder{
