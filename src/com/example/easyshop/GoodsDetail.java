@@ -8,12 +8,16 @@ import java.util.Map;
 import com.example.assist.CelllistAdapter;
 import com.example.assist.CommentlistAdapter;
 import com.example.customview.ListViewForScrollView;
+import com.example.entity.Goods;
+import com.example.singleton.GoodsSingleton;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.app.Activity;
 
 public class GoodsDetail extends Activity implements OnClickListener{
@@ -21,12 +25,27 @@ public class GoodsDetail extends Activity implements OnClickListener{
 	private ListViewForScrollView LvGoodsDetail;
 	private ScrollView SvGoodsDetail;
 	private ImageView IvGoodsDetail_rb;
-	
+	private TextView TvGoodsDetail_newp;
+	private TextView TvGoods_name;
+	private TextView TvGoodsDetail_oldp;
+	private Goods good;
+	private TextView tv_goodsintro;	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.goods_detail);
-		
+		int position = getIntent().getIntExtra("position",0);
+		Log.d("fenlei","come:"+position);
+		good = GoodsSingleton.getInstance().get(position);
+		Log.d("fenlei",""+good.getName());
+		TvGoodsDetail_newp = (TextView) findViewById(R.id.TvGoodsDetail_newp);
+		TvGoodsDetail_newp.setText(String.valueOf(good.getPrice()));
+		TvGoodsDetail_oldp = (TextView) findViewById(R.id.TvGoodsDetail_oldp);
+		TvGoodsDetail_oldp.setText(String.valueOf(good.getOld_price()));
+		tv_goodsintro = (TextView) findViewById(R.id.tv_goodsintro);
+		tv_goodsintro.setText(good.getIntro());
+		TvGoods_name = (TextView) findViewById(R.id.TvGoods_name);
+		TvGoods_name.setText(good.getName());
 		LvGoodsDetail =(ListViewForScrollView) findViewById(R.id.LvGoodsDetail);
 		SvGoodsDetail =(ScrollView) findViewById(R.id.SvGoodsDetail);
 		IvGoodsDetail_rb =(ImageView) findViewById(R.id.IvGoodsDetail_rb);

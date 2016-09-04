@@ -152,6 +152,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         	Intent intent = new Intent();
         	intent.setClass(Home.this, GoodsDetail.class);
         	intent.putExtra("position", position);
+        	Log.d("fenlei","form:"+position);
         	startActivity(intent);
         }
 
@@ -174,7 +175,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	        public void done(String savePath,cn.bmob.v3.exception.BmobException e) {
 	            if(e==null){
 	            	Log.i("download:",savePath);
-	                toast("下载成功");
+	                //toast("下载成功");
 	            }else{
 	//                toast("下载失败："+e.getErrorCode()+","+e.getMessage());
 	            }
