@@ -10,7 +10,11 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import com.example.assist.CelllistAdapter;
+import com.example.assist.GoodslistAdapter;
 import com.example.entity.CellInfo;
+import com.example.singleton.CellSingleton;
+import com.example.singleton.GoodsSingleton;
+import com.example.singleton.MyCellSingleton;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -54,8 +58,18 @@ public class Cell extends Activity implements OnClickListener{
 		TvCell_topfind.setOnClickListener(this);
 		TvCell_topmine.setOnClickListener(this);
 		IbCell_search.setOnClickListener(this);
-		getDataFind();
-		
+		LvCell_cell.setDividerHeight(0);
+		LvCell_cell.setOnItemClickListener(itemListener);
+        //=====================================================================
+        if(CellSingleton.getInstance()!=null) 	//判断是否已经保存了数据
+        {
+			CelllistAdapter celllistadapter = new CelllistAdapter(Cell.this,CellSingleton.getInstance());
+			LvCell_cell.setAdapter(celllistadapter);
+        }else{
+        	getDataFind();
+			Log.i("cellsingleton", "null");
+        }
+        //=================================================
 	}
 	
     OnItemClickListener itemListener = new OnItemClickListener() {  
@@ -77,23 +91,12 @@ public class Cell extends Activity implements OnClickListener{
 		BmobQuery<CellInfo> c = new BmobQuery<CellInfo>();
 		c.setLimit(20);
 		c.findObjects(new FindListener<CellInfo>() {
-			
 			@Override
 			public void done(List<CellInfo> object, BmobException e) {
 				if(e==null){
-					for(CellInfo ci : object){
-						Map<String, Object> map = new HashMap<String, Object>();
-						map.put("cellname", ci.getName().toString());
-						map.put("publishnum", ci.getPublish().toString());
-						map.put("peoplenum", ci.getPeople().toString());
-						map.put("objectId", ci.getObjectId());
-						map.put("cellimage", R.drawable.tip_selected);
-						list.add(map);
-					}
-					CelllistAdapter celllistadapter = new CelllistAdapter(Cell.this,list);
+					CelllistAdapter celllistadapter = new CelllistAdapter(Cell.this,object);
 					LvCell_cell.setAdapter(celllistadapter);
-					LvCell_cell.setDividerHeight(0);
-					LvCell_cell.setOnItemClickListener(itemListener);
+					CellSingleton.setInstance(object);
 				}else{
 					Log.i("bmob", "failed");
 				}
@@ -111,18 +114,9 @@ public class Cell extends Activity implements OnClickListener{
 			@Override
 			public void done(List<CellInfo> object, BmobException e) {
 				if(e==null){
-					for(CellInfo ci : object){
-						Map<String, Object> map = new HashMap<String, Object>();
-						map.put("cellname", ci.getName().toString());
-						map.put("publishnum", ci.getPublish().toString());
-						map.put("peoplenum", ci.getPeople().toString());
-						map.put("cellimage", R.drawable.tip_selected);
-						list.add(map);
-					}
-					CelllistAdapter celllistadapter = new CelllistAdapter(Cell.this,list);
+					CelllistAdapter celllistadapter = new CelllistAdapter(Cell.this,object);
 					LvCell_cell.setAdapter(celllistadapter);
-					LvCell_cell.setDividerHeight(0);
-					LvCell_cell.setOnItemClickListener(itemListener);
+					MyCellSingleton.setInstance(object);
 				}else{
 					Log.i("bmob", "failed");
 				}
@@ -146,8 +140,14 @@ public class Cell extends Activity implements OnClickListener{
 		}  
 		TvCell_topmine.setBackgroundResource(R.drawable.hometop_bg);
 		TvCell_topfind.setBackgroundResource(R.color.white);
-		CelllistAdapter celllistadapter = new CelllistAdapter(this, list);
-		LvCell_cell.setAdapter(celllistadapter);
+        if(CellSingleton.getInstance()!=null) 	//判断是否已经保存了数据
+        {
+			CelllistAdapter celllistadapter = new CelllistAdapter(Cell.this,CellSingleton.getInstance());
+			LvCell_cell.setAdapter(celllistadapter);
+        }else{
+        	getDataFind();
+			Log.i("cellsingleton", "null");
+        }
 		break;
 		
 		case R.id.TvCell_topmine: 
@@ -157,9 +157,14 @@ public class Cell extends Activity implements OnClickListener{
 		}  
 		TvCell_topfind.setBackgroundResource(R.drawable.hometop_bg);
 		TvCell_topmine.setBackgroundResource(R.color.white);
-		getDataMine();
-		celllistadapter = new CelllistAdapter(this, list);
-		LvCell_cell.setAdapter(celllistadapter);
+        if(MyCellSingleton.getInstance()!=null) 	//判断是否已经保存了数据
+        {
+			CelllistAdapter listadapter = new CelllistAdapter(Cell.this,MyCellSingleton.getInstance());
+			LvCell_cell.setAdapter(listadapter);
+        }else{
+        	getDataMine();
+			Log.i("cellsingleton", "null");
+        }
 		break;
     	case R.id.IbCell_message:
     		intent.setClass(Cell.this, Message.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

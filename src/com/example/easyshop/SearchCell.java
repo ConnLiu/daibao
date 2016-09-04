@@ -8,6 +8,7 @@ import java.util.Map;
 import com.example.assist.CelllistAdapter;
 import com.example.assist.GoodslistAdapter;
 import com.example.customview.ListViewForScrollView;
+import com.example.singleton.CellSingleton;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -93,7 +94,7 @@ public class SearchCell extends Activity implements OnClickListener{
 	            			list.add(map);
           			}
           		}
-          		CelllistAdapter listviewadapter = new CelllistAdapter(SearchCell.this, list);
+          		CelllistAdapter listviewadapter = new CelllistAdapter(SearchCell.this, CellSingleton.getInstance());
       			LvSearchCell.setAdapter(listviewadapter);
   			}
           }  

@@ -212,10 +212,6 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
       	   @Override
       	   public void onClick(View v) {
       		   Intent intent = new Intent();
-      		   //intent.putExtra("url", "http://www.baidu.com");
-     		   //intent.putExtra("Title","baidu");
-     		   //intent.setClass(Home.this,Web_News.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-     		  //startActivity(intent);
       	   }
       	  });
       	  ViewPager viewPager = (ViewPager) container;

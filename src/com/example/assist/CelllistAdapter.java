@@ -13,13 +13,14 @@ import android.widget.TextView;
 
 import com.example.assist.GoodslistAdapter.ViewHolder;
 import com.example.easyshop.R;
+import com.example.entity.CellInfo;
 
 public class CelllistAdapter extends BaseAdapter{
 
-	private List<Map<String, Object>> list;
+	private List<CellInfo> list;
 	private LayoutInflater inflater;
 
-	public CelllistAdapter(Context context, List<Map<String, Object>> list) {
+	public CelllistAdapter(Context context, List<CellInfo> list) {
 		super();
 		this.list = list;
 	}
@@ -54,10 +55,10 @@ public class CelllistAdapter extends BaseAdapter{
 			viewholder = (ViewHolder) convertview.getTag();
 		}
 		
-		viewholder.cellname.setText(list.get(position).get("cellname").toString());
-		viewholder.publishnum.setText(list.get(position).get("publishnum").toString());
-		viewholder.peoplenum.setText(list.get(position).get("peoplenum").toString());
-		viewholder.cellimage.setImageResource(Integer.parseInt(list.get(position).get("cellimage").toString())); 
+		viewholder.cellname.setText(list.get(position).getName());
+		viewholder.publishnum.setText(String.valueOf(list.get(position).getPublish()));
+		viewholder.peoplenum.setText(String.valueOf(list.get(position).getPeople()));
+		viewholder.cellimage.setImageResource(R.drawable.tip_selected); 
 		
 		return convertview;
 	}
