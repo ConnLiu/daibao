@@ -5,7 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+
 import com.example.customview.EditDialog;
+import com.example.entity.Goods;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,10 +30,12 @@ import android.graphics.Bitmap.Config;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -45,6 +51,8 @@ public class Add extends Activity implements OnClickListener{
 	private String classname[] = {"书籍","首饰","玩具","鞋包","服装","化妆品","卡券","工艺品","数码","运动用品","小电器","生活用品"};
     private ImageView IvAdd_rb,IvAdd_image1,IvAdd_image2,IvAdd_image3,IvAdd_image4;
 	private RadioButton RbAdd_price,RbAdd_auction,RbAdd_noprice;
+	private Button Btn_cfmbuy;
+	private EditText EtAdd_title,EtAdd_content;
 	private TextView TvAdd_oldprice,TvAdd_price,TvAdd_class;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +60,13 @@ public class Add extends Activity implements OnClickListener{
 		setContentView(R.layout.add);
 		
 		IvAdd_rb =(ImageView) findViewById(R.id.IvAdd_rb);
+		EtAdd_title = (EditText)findViewById(R.id.EtAdd_title);
+		EtAdd_content = (EditText)findViewById(R.id.EtAdd_content);
 		IvAdd_image1 =(ImageView) findViewById(R.id.IvAdd_image1);
 		IvAdd_image2 =(ImageView) findViewById(R.id.IvAdd_image2);
 		IvAdd_image3 =(ImageView) findViewById(R.id.IvAdd_image3);
 		IvAdd_image4 =(ImageView) findViewById(R.id.IvAdd_image4);
+		Btn_cfmbuy = (Button) findViewById(R.id.Btn_cfmbuy);
 		RbAdd_price =(RadioButton) findViewById(R.id.RbAdd_price);
 		RbAdd_auction =(RadioButton) findViewById(R.id.RbAdd_auction);
 		RbAdd_noprice =(RadioButton) findViewById(R.id.RbAdd_noprice);
@@ -64,6 +75,7 @@ public class Add extends Activity implements OnClickListener{
 		TvAdd_class =(TextView) findViewById(R.id.TvAdd_class);
 		
 		IvAdd_rb.setOnClickListener(this);
+		Btn_cfmbuy.setOnClickListener(this);
 		RbAdd_price.setOnClickListener(this);
 		RbAdd_auction.setOnClickListener(this);
 		RbAdd_noprice.setOnClickListener(this);
@@ -75,7 +87,6 @@ public class Add extends Activity implements OnClickListener{
 		IvAdd_image3.setOnClickListener(this);
 		IvAdd_image4.setOnClickListener(this);
 	}
-
 	@Override
 	public void onClick(View v) {
 		Intent intent = new Intent();
@@ -84,6 +95,25 @@ public class Add extends Activity implements OnClickListener{
 		ColorStateList greycsl = (ColorStateList) resource.getColorStateList(R.color.lightgrey);
 		ColorStateList backcsl = (ColorStateList) resource.getColorStateList(R.color.home); 
 		switch(v.getId()){
+		case R.id.Btn_cfmbuy:
+			Goods good = new Goods();
+			good.setName(EtAdd_title.getText().toString());
+			good.setIntro(EtAdd_content.getText().toString());
+			good.setPrice(Float.valueOf(TvAdd_oldprice.getText().toString()));
+			good.setPrice(Float.valueOf(TvAdd_price.getText().toString()));
+			good.save(new SaveListener<String>(){
+				@Override
+				public void done(String objectId, cn.bmob.v3.exception.BmobException e) {
+					// TODO Auto-generated method stub
+					if(e==null){
+			            toast("发布成功！");
+			            finish();
+			        }else{
+			            Log.i("bmob","发布失败："+e.getMessage()+","+e.getErrorCode());
+			        }
+				}
+			});
+			break;
 		case R.id.IvAdd_rb:
 			finish();
 			break;
@@ -259,5 +289,7 @@ public class Add extends Activity implements OnClickListener{
 			}
 	    }
 	}  
-	
+	void toast(String s){
+		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+	}
 }

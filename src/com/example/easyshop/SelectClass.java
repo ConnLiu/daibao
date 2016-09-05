@@ -16,21 +16,21 @@ public class SelectClass extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.select_class);
+		setContentView(R.layout.category);
 		
-		Iv_class1 = (ImageView)findViewById(R.id.IvSelectc_class1);
-		Iv_class2 = (ImageView)findViewById(R.id.IvSelectc_class2);
-		Iv_class3 = (ImageView)findViewById(R.id.IvSelectc_class3);
-		Iv_class4 = (ImageView)findViewById(R.id.IvSelectc_class4);
-		Iv_class5 = (ImageView)findViewById(R.id.IvSelectc_class5);
-		Iv_class6 = (ImageView)findViewById(R.id.IvSelectc_class6);
-		Iv_class7 = (ImageView)findViewById(R.id.IvSelectc_class7);
-		Iv_class8 = (ImageView)findViewById(R.id.IvSelectc_class8);
-		Iv_class9 = (ImageView)findViewById(R.id.IvSelectc_class9);
-		Iv_class10 = (ImageView)findViewById(R.id.IvSelectc_class10);
-		Iv_class11 = (ImageView)findViewById(R.id.IvSelectc_class11);
-		Iv_class12 = (ImageView)findViewById(R.id.IvSelectc_class12);
-		IvSelectc_rb = (ImageView)findViewById(R.id.IvSelectc_rb);
+		Iv_class1 = (ImageView)findViewById(R.id.Iv_class1);
+		Iv_class2 = (ImageView)findViewById(R.id.Iv_class2);
+		Iv_class3 = (ImageView)findViewById(R.id.Iv_class3);
+		Iv_class4 = (ImageView)findViewById(R.id.Iv_class4);
+		Iv_class5 = (ImageView)findViewById(R.id.Iv_class5);
+		Iv_class6 = (ImageView)findViewById(R.id.Iv_class6);
+		Iv_class7 = (ImageView)findViewById(R.id.Iv_class7);
+		Iv_class8 = (ImageView)findViewById(R.id.Iv_class8);
+		Iv_class9 = (ImageView)findViewById(R.id.Iv_class9);
+		Iv_class10 = (ImageView)findViewById(R.id.Iv_class10);
+		Iv_class11 = (ImageView)findViewById(R.id.Iv_class11);
+		Iv_class12 = (ImageView)findViewById(R.id.Iv_class12);
+		IvSelectc_rb = (ImageView)findViewById(R.id.IvCategory_rb);
 		
 		Iv_class1.setOnClickListener(this);
 		Iv_class2.setOnClickListener(this);
@@ -50,54 +50,54 @@ public class SelectClass extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-		case R.id.IvSelectc_rb:
+		case R.id.IvCategory_rb:
 			finish();
 			break;
-		case R.id.IvSelectc_class1:
+		case R.id.Iv_class1:
 			setResult(1);
 			finish();
 			break;
-		case R.id.IvSelectc_class2:
+		case R.id.Iv_class2:
 			setResult(2);
 			finish();
 			break;
-		case R.id.IvSelectc_class3:
+		case R.id.Iv_class3:
 			setResult(3);
 			finish();
 			break;
-		case R.id.IvSelectc_class4:
+		case R.id.Iv_class4:
 			setResult(4);
 			finish();
 			break;
-		case R.id.IvSelectc_class5:
+		case R.id.Iv_class5:
 			setResult(5);
 			finish();
 			break;
-		case R.id.IvSelectc_class6:
+		case R.id.Iv_class6:
 			setResult(6);
 			finish();
 			break;
-		case R.id.IvSelectc_class7:
+		case R.id.Iv_class7:
 			setResult(7);
 			finish();
 			break;
-		case R.id.IvSelectc_class8:
+		case R.id.Iv_class8:
 			setResult(8);
 			finish();
 			break;
-		case R.id.IvSelectc_class9:
+		case R.id.Iv_class9:
 			setResult(9);
 			finish();
 			break;
-		case R.id.IvSelectc_class10:
+		case R.id.Iv_class10:
 			setResult(10);
 			finish();
 			break;
-		case R.id.IvSelectc_class11:
+		case R.id.Iv_class11:
 			setResult(11);
 			finish();
 			break;
-		case R.id.IvSelectc_class12:
+		case R.id.Iv_class12:
 			setResult(12);
 			finish();
 			break;

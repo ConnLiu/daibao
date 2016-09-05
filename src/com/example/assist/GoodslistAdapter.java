@@ -56,7 +56,7 @@ public class GoodslistAdapter extends BaseAdapter{
 		}else {
 			viewholder = (ViewHolder) convertview.getTag();
 		}
-		
+		Log.i("bmob----goodsadapter", "goods getName:"+list.get(position).getName());
 		viewholder.goodsname.setText(list.get(position).getName());
 		viewholder.goodsmoney.setText(String.valueOf(list.get(position).getPrice()));
 		viewholder.goodslikenum.setText(String.valueOf(list.get(position).getLike_num()));

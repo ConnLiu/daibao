@@ -44,8 +44,16 @@ public class GoodsSingleton {
 	}
 	 
 	public static List<Goods> getTypeGoods(String type){
-		List<Goods> list = new ArrayList<Goods>();
 		
+		List<Goods> list = new ArrayList<Goods>();
+		if(type.equals("13")){
+			if(SingletonHolder.instance.size()<=20)
+				return SingletonHolder.instance;
+			else{
+				list=SingletonHolder.instance.subList(0,20);
+				return list;
+			}
+		}
 		for(int i:SingletonHolder.type.get(type)){
 			list.add(SingletonHolder.instance.get(i));
 		}

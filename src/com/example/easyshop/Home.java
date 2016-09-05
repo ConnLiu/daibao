@@ -22,7 +22,6 @@ import com.example.entity.MyUser;
 import com.example.manager.GoodsManager;
 import com.example.singleton.GoodsSingleton;
 import com.example.singleton.UserSingleton;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -32,6 +31,8 @@ import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,10 +46,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-public class Home extends Activity implements OnPageChangeListener,OnClickListener{
+public class Home extends Activity implements OnPageChangeListener,OnClickListener, OnRefreshListener{
 
 	private ImageButton IbHome_cell,IbHome_class,IbHome_add,IbHome_message,IbHome_mine;
 	private ScrollView SvHome;
+	private SwipeRefreshLayout mSwipeLayout; 
 	private ListViewForScrollView LvHome_goods;
 	private ViewPager VpHome_hotgoods = null; 
 	private LinearLayout viewGroup = null;
@@ -72,6 +74,11 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	    IbHome_add =(ImageButton) findViewById(R.id.IbHome_add);
 	    IbHome_message =(ImageButton) findViewById(R.id.IbHome_message);
 	    IbHome_mine =(ImageButton) findViewById(R.id.IbHome_mine);
+	    mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.id_swipe_ly); 
+	    mSwipeLayout.setOnRefreshListener(this);  
+        mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,  
+                android.R.color.holo_orange_light, android.R.color.holo_red_light); 
+   
         SvHome.smoothScrollTo(0, 0);
         IbHome_cell.setOnClickListener(this);
         IbHome_class.setOnClickListener(this);
@@ -80,13 +87,15 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         IbHome_mine.setOnClickListener(this);
         LvHome_goods.setOnItemClickListener(itemListener);
         //=====================================================================
-        if(GoodsSingleton.getInstance()!=null) 	//判断是否已经保存了数据
+        if(GoodsSingleton.getInstance()==null) 	//判断是否已经保存了数据
         {
-        	GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,GoodsSingleton.getInstance());
-    		LvHome_goods.setAdapter(goodslistadapter);
+        	getNewGoods();
+        	getAllGoods();
         }else{
-        	getGoods();
+        	GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,GoodsSingleton.getTypeGoods("13"));
+    		LvHome_goods.setAdapter(goodslistadapter);
         }
+        
         //=================================================
 		initResources();
 		mTips = new ImageView[resId.length];
@@ -127,23 +136,60 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	    if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("login"))
 	    	download();
     }
-    public void getGoods(){
-		BmobQuery<Goods> c = new BmobQuery<Goods>();
+    public void onRefresh()  
+    {  
+        // Log.e("xxx", Thread.currentThread().getName());  
+        // UI Thread  
+    	BmobQuery<Goods> c = new BmobQuery<Goods>();
 		c.setLimit(20);
+		c.order("-createdAt");
 		c.findObjects(new FindListener<Goods>() {
 			@Override
 			public void done(List<Goods> object, BmobException e) {
 				if(e==null){
 					GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,object);
 		    		LvHome_goods.setAdapter(goodslistadapter);
-					GoodsSingleton.setInstance(object);   //将得到数据保存到单例对象中，后面数据量大可以考虑保存到本地数据库
+		    		mSwipeLayout.setRefreshing(false);
+		    		toast("数据刷新完毕");
 				}else{
-					Log.i("bmob", "failed"+e.getMessage()+","+e.getErrorCode());
+					Log.i("bmob----getGoods", "failed"+e.getMessage()+","+e.getErrorCode());
+				}
+			}
+		});
+    	getAllGoods();
+    }  
+    public void getNewGoods(){
+		BmobQuery<Goods> c = new BmobQuery<Goods>();
+		c.setLimit(20);
+		c.order("-createdAt");
+		c.findObjects(new FindListener<Goods>() {
+			@Override
+			public void done(List<Goods> object, BmobException e) {
+				if(e==null){
+					GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,object);
+		    		LvHome_goods.setAdapter(goodslistadapter);
+		    		
+				}else{
+					Log.i("bmob----getGoods", "failed"+e.getMessage()+","+e.getErrorCode());
 				}
 			}
 		});		
 	}
-
+    public void getAllGoods(){
+    	BmobQuery<Goods> c = new BmobQuery<Goods>();
+		c.setLimit(10000);
+		c.order("-createdAt");
+		c.findObjects(new FindListener<Goods>() {
+			@Override
+			public void done(List<Goods> object, BmobException e) {
+				if(e==null){
+					GoodsSingleton.setInstance(object);   //将得到数据保存到单例对象中，后面数据量大可以考虑保存到本地数据库
+				}else{
+					Log.i("bmob----getAllGoods", "failed"+e.getMessage()+","+e.getErrorCode());
+				}
+			}
+		});	
+    }
     OnItemClickListener itemListener = new OnItemClickListener() {     
         public void onItemClick(AdapterView<?> parent, View view, int position,  
                 long id) {  
