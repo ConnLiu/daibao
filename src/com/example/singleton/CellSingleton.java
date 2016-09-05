@@ -1,9 +1,6 @@
 package com.example.singleton;
-
 import java.util.List;
-
 import com.example.entity.CellInfo;
-
 public class CellSingleton {
 	private CellSingleton(){
 	}

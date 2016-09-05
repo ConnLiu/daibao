@@ -24,7 +24,8 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 	private ListView LvClassified;
 	private TextView TvClassfied_class;
 	private ImageView IvClass_rb,IvClassified_search;
-	
+	private String type;
+	private String classname[] = {"书籍","首饰","玩具","鞋包","服装","化妆品","卡券","工艺品","数码","运动用品","小电器","生活用品"};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,28 +40,14 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 		IvClass_rb.setOnClickListener(this);
 		IvClassified_search.setOnClickListener(this);
 		LvClassified.setOnItemClickListener(itemListener);
-		
-		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, GoodsSingleton.getInstance());
+		type=getIntent().getExtras().getString("type");
+		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, GoodsSingleton.getTypeGoods(type));
 		LvClassified.setAdapter(goodslistadapter);
-		TvClassfied_class.setText(getIntent().getExtras().getString("classname"));
+		
+		TvClassfied_class.setText(classname[Integer.valueOf(type)]);
+		
 	}
-
-		private List<Map<String,Object>> getData() {
-			
-			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-			
-			for(int i = 0 ; i <4; i ++ )
-			{
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("goodsname", "商品名称");
-				map.put("goodsmoney", "0.00");
-				map.put("goodslikenum", "88");
-				map.put("goodsimage", R.drawable.tip_selected);
-				map.put("goodslike", R.drawable.zan);
-				list.add(map);
-			}
-			return list;
-		}
+		
 
 	    OnItemClickListener itemListener = new OnItemClickListener() {  
 	        
@@ -70,7 +57,7 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 	            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 
 	        	Intent intent = new Intent();
 	        	intent.setClass(ClassifiedGoods.this, GoodsDetail.class);
-	        	intent.putExtra("position", position);
+	        	intent.putExtra("position",GoodsSingleton.getCentGood(type, position));
 	        	startActivity(intent);
 	        }
 

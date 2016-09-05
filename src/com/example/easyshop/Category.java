@@ -12,7 +12,7 @@ public class Category extends Activity implements OnClickListener{
 
 	private ImageView Iv_class1,Iv_class2,Iv_class3,Iv_class4,Iv_class5,Iv_class6,Iv_class7,Iv_class8,Iv_class9,Iv_class10,Iv_class11,Iv_class12;
 	private ImageView IvCategory_rb;
-	private String classname[] = {"书籍","首饰","玩具","鞋包","服装","化妆品","卡券","工艺品","数码","运动用品","小电器","生活用品"};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,73 +58,73 @@ public void onClick(View v) {
 		break;
 	case R.id.Iv_class1:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[0]);
+		bundle.putString("type","0");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class2:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[1]);
+		bundle.putString("type","1");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class3:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[2]);
+		bundle.putString("type","2");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class4:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[3]);
+		bundle.putString("type","3");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class5:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[4]);
+		bundle.putString("type","4");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class6:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[5]);
+		bundle.putString("type","5");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class7:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[6]);
+		bundle.putString("type","6");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class8:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[7]);
+		bundle.putString("type","7");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class9:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[8]);
+		bundle.putString("type","8");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class10:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[9]);
+		bundle.putString("type","9");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class11:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[10]);
+		bundle.putString("type","10");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;
 	case R.id.Iv_class12:
 		intent.setClass(Category.this, ClassifiedGoods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		bundle.putString("classname", classname[11]);
+		bundle.putString("type","11");
 		intent.putExtras(bundle);
 		startActivity(intent);
 		break;

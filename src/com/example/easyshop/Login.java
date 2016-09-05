@@ -83,7 +83,7 @@ public class Login extends Activity implements OnClickListener{
 					intent.putExtra("from",	"login");
 					startActivity(intent);
 				}else{
-					toast("µÇÂ½Ê§°Ü£¡");
+					toast("µÇÂ½Ê§°Ü£¡"+e.getMessage());
 				}
 			};
 		});

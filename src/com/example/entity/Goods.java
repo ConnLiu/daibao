@@ -5,6 +5,7 @@ import cn.bmob.v3.BmobObject;
 public class Goods extends BmobObject{
 	private int type;
 	private float price;
+	private float old_price;
 	private String name;
 	private String intro;
 	private int like_num;
@@ -56,5 +57,13 @@ public class Goods extends BmobObject{
 
 	public void setHead_path(String head_path) {
 		this.head_path = head_path;
+	}
+
+	public float getOld_price() {
+		return old_price;
+	}
+
+	public void setOld_price(float old_price) {
+		this.old_price = old_price;
 	}
 }
