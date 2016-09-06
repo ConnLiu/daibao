@@ -8,10 +8,12 @@ import java.util.Map;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
 
 import com.example.assist.CelllistAdapter;
 import com.example.assist.GoodslistAdapter;
@@ -25,6 +27,7 @@ import com.example.singleton.UserSingleton;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -64,7 +67,6 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
         Bmob.initialize(this, "79f7c1d79f0db04370bf7b20720440db");
-        
         SvHome = (ScrollView) findViewById(R.id.SvHome);
         IbHome_cell =(ImageButton) findViewById(R.id.IbHome_cell);
         IbHome_class =(ImageButton) findViewById(R.id.IbHome_class);
@@ -128,14 +130,39 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	      int reqHeight = getWindowManager().getDefaultDisplay().getHeight();
 	      iv.setImageBitmap(decodeSampledBitmapFromResource(getResources(), resId[index], reqWidth, reqHeight));
 	    }
-	    
 	    VpHome_hotgoods.setAdapter(new MyPagerAdapter());
 	    VpHome_hotgoods.setOnPageChangeListener(this);
 	    onPageSelected(0);
 	    Intent intent = getIntent();
 	    if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("login"))
 	    	download();
+	    else{
+		    SharedPreferences  sharedPreferences = getSharedPreferences("login", 0);
+		    String valid = sharedPreferences.getString("validate","0");
+		    if(valid.equals("1")){
+		    	String account = sharedPreferences.getString("account","0");
+		    	String passwd = sharedPreferences.getString("passwd","0");
+		    	login(account,passwd);
+		    }
+	    }
     }
+    public void login(String account,String passwd){
+		MyUser user = new MyUser();
+		user.setUsername(account);
+		user.setPassword(passwd);
+		user.login(new SaveListener<MyUser>() {
+			public void done(MyUser s, cn.bmob.v3.exception.BmobException e) {
+				if(e==null){
+					toast("登陆成功！用户："+s.getNick());
+					//通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
+		            //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
+					UserSingleton.setInstance(BmobUser.getCurrentUser(MyUser.class));
+				}else{
+					toast("登陆失败！"+e.getMessage());
+				}
+			};
+		});
+	}
     public void onRefresh()  
     {  
         // Log.e("xxx", Thread.currentThread().getName());  

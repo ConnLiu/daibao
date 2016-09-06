@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -181,37 +182,164 @@ public class Add extends Activity implements OnClickListener{
 			startActivityForResult(intent, REQUESTCODE_CLASS);
 			break;
 		case R.id.IvAdd_image1:
-			ShowAlbum(v);
-			if(IMAGECODE==0)
-	        IvAdd_image2.setImageResource(R.drawable.add);
-			IMAGECODE = 1;
+			if(IMAGECODE == 0){
+				showPopupWindow(v);
+			}
+			if(IMAGECODE > 0){
+				myshowDialog(v,0);
+			}
+			
 			break;
 		case R.id.IvAdd_image2:
-			ShowAlbum(v);
-			if(IMAGECODE==1)
-		        IvAdd_image3.setImageResource(R.drawable.add);
-			IMAGECODE = 2;
+			if(IMAGECODE == 1){
+				showPopupWindow(v);
+			}
+			if(IMAGECODE > 1){
+				myshowDialog(v,1);
+			}
 			break;
 		case R.id.IvAdd_image3:
-			ShowAlbum(v);
-			if(IMAGECODE==2)
-		        IvAdd_image4.setImageResource(R.drawable.add);
-			IMAGECODE = 3;
+			if(IMAGECODE == 2){
+				showPopupWindow(v);
+			}
+			if(IMAGECODE > 2){
+				myshowDialog(v,2);
+			}
 			break;
 		case R.id.IvAdd_image4:
-			ShowAlbum(v);
-			IMAGECODE = 4;
+			if(IMAGECODE == 3){
+				showPopupWindow(v);
+			}
+			if(IMAGECODE > 3){
+				myshowDialog(v,3);
+			}
 			break;
 		}
 	}
-	private void ShowAlbum(View view){
-        Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
-        // 如果朋友们要限制上传到服务器的图片类型时可以直接写如：image/jpeg 、 image/png等的类型
-        pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(pickIntent, REQUESTCODE_PICK);
-		
+	private void myshowDialog(final View v,final int position){
+//	    通过AlertDialog.Builder这个类来实例化我们的一个AlertDialog的对象
+        AlertDialog.Builder builder = new AlertDialog.Builder(Add.this);
+        //    设置Title的图标
+        builder.setIcon(R.drawable.login);
+        //    设置Title的内容
+        builder.setTitle("提示");
+        //    设置Content来显示一个信息
+        builder.setMessage("确认删除该张图片？");
+        //    设置一个PositiveButton
+        builder.setPositiveButton("删除", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+            	Log.d("DialogInterface","position "+position+" IMAGECODE "+IMAGECODE);
+            	for(int i=position+1;i<IMAGECODE;i++){
+            		FileInputStream localstream = null;
+            		try {
+            			localstream = openFileInput(i+IMAGE_FILE_NAME);
+            		} catch (FileNotFoundException e) {
+            			// TODO Auto-generated catch block
+            			e.printStackTrace();
+            		} 
+                    final Bitmap bm = BitmapFactory.decodeStream(localstream);
+                    switch(i-1){
+                    case 0:
+                    	IvAdd_image1.setImageBitmap(bm);
+                    	break;
+                    case 1:
+                    	IvAdd_image2.setImageBitmap(bm);
+                    	break;
+                    case 2:
+                    	IvAdd_image3.setImageBitmap(bm);
+                    	break;
+                    
+                    }
+            	}
+            	IMAGECODE--;
+            	switch(IMAGECODE){
+                case 0:
+                	IvAdd_image1.setImageResource(R.drawable.add);
+                	break;
+                case 1:
+                	IvAdd_image2.setImageResource(R.drawable.add);
+                	break;
+                case 2:
+                	IvAdd_image3.setImageResource(R.drawable.add);
+                	break;
+                case 3:
+                	IvAdd_image4.setImageResource(R.drawable.add);
+                	break;
+                }
+            	switch(IMAGECODE+1){
+                case 1:
+                	IvAdd_image2.setVisibility(View.GONE);
+                	break;
+                case 2:
+                	IvAdd_image3.setVisibility(View.GONE);
+                	break;
+                case 3:
+                	IvAdd_image4.setVisibility(View.GONE);
+                	break;
+                }
+            	
+            }
+        });
+        //    设置一个NegativeButton
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                
+            }
+        });
+       
+        //    显示出该对话框
+        builder.show();
 	}
+	private PopupWindow popupWindow;
+	private void showPopupWindow(View view) {
 
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(Add.this).inflate(
+                R.layout.headimage_popwindow, null);
+        // 设置按钮的点击事件
+        ImageView imageview1 = (ImageView) contentView.findViewById(R.id.imageView1);
+        ImageView imageview2 = (ImageView) contentView.findViewById(R.id.imageView2);
+        imageview1.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //下面这句指定调用相机拍照后的照片存储的路径
+                takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, 
+                        Uri.fromFile(new File(Environment.getExternalStorageDirectory(),IMAGECODE+IMAGE_FILE_NAME)));
+                startActivityForResult(takeIntent, REQUESTCODE_TAKE);
+                popupWindow.dismiss();
+            }
+        });
+        imageview2.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
+                // 如果朋友们要限制上传到服务器的图片类型时可以直接写如：image/jpeg 、 image/png等的类型
+                pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(pickIntent, REQUESTCODE_PICK);
+                popupWindow.dismiss();
+            }
+        });
+        popupWindow = new PopupWindow(contentView,
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(
+                R.drawable.transparent));
+        // 设置好参数之后再show
+        popupWindow.showAsDropDown(view,-20,0);
+        
+    }
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
@@ -228,6 +356,7 @@ public class Add extends Activity implements OnClickListener{
 	        break;
 	    case REQUESTCODE_CUTTING:// 取得裁剪后的图片
 	        if (data != null) {
+	        	IMAGECODE++;
 	            setPicToView(data);
 	        }
 	        break;
@@ -275,13 +404,20 @@ public class Add extends Activity implements OnClickListener{
 	        photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
 			switch(IMAGECODE){
 			case 1:
+				
 				IvAdd_image1.setImageDrawable(drawable);
+				IvAdd_image2.setVisibility(View.VISIBLE);
+				IvAdd_image2.setImageResource(R.drawable.add);
 	        break;
 			case 2:
 		        IvAdd_image2.setImageDrawable(drawable);
+		        IvAdd_image3.setVisibility(View.VISIBLE);
+		        IvAdd_image3.setImageResource(R.drawable.add);
 		        break;
 			case 3:
 		        IvAdd_image3.setImageDrawable(drawable);
+		        IvAdd_image4.setVisibility(View.VISIBLE);
+		        IvAdd_image4.setImageResource(R.drawable.add);
 		        break;
 			case 4:
 		        IvAdd_image4.setImageDrawable(drawable);

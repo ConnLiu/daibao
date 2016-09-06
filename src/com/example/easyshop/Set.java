@@ -17,6 +17,7 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 public class Set extends Activity implements OnClickListener{
 
@@ -114,6 +115,10 @@ public class Set extends Activity implements OnClickListener{
 			Toast.makeText(getApplicationContext(), "ÍË³öµÇÂ¼", Toast.LENGTH_SHORT).show();
 			File file = new File(IMAGE_FILE_NAME);
 			file.delete();
+			SharedPreferences sharedPreferences = getSharedPreferences("login", 0);
+			SharedPreferences.Editor  editor  =  sharedPreferences.edit();
+			editor.putString("validate","0");
+			editor.commit();
 			UserSingleton.setInstance(null);
 			intent.setClass(Set.this, Login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
