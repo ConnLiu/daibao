@@ -8,6 +8,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -71,6 +72,12 @@ public class Login extends Activity implements OnClickListener{
 			toast("输入信息不完整！");
 			return;
 		}
+		SharedPreferences sharedPreferences = getSharedPreferences("login", 0);
+		SharedPreferences.Editor  editor  =  sharedPreferences.edit();
+		editor.putString("account",et_account.getText().toString());
+		editor.putString("passwd",et_passwd.getText().toString());
+		editor.putString("validate","1");
+		editor.commit();
 		user.login(new SaveListener<MyUser>() {
 			public void done(MyUser s, cn.bmob.v3.exception.BmobException e) {
 				if(e==null){
@@ -90,5 +97,12 @@ public class Login extends Activity implements OnClickListener{
 	}
 	void toast(String s){
 		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+	}
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent();
+		intent.setClass(Login.this, Home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
 	}
 }

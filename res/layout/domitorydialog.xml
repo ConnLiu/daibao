@@ -50,7 +50,7 @@
                 android:layout_width="300dp"
                 android:layout_height="49dp"
                 android:gravity="center"
-                android:text="随园"
+                android:text="东区"
                 android:textSize="20dp"/>
             <View 
                 android:layout_width="260dp"
