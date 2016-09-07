@@ -4,9 +4,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.List;
 
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadBatchListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 import com.example.customview.EditDialog;
 import com.example.entity.Goods;
@@ -14,6 +22,7 @@ import com.example.entity.Goods;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -55,6 +64,8 @@ public class Add extends Activity implements OnClickListener{
 	private Button Btn_cfmbuy;
 	private EditText EtAdd_title,EtAdd_content;
 	private TextView TvAdd_oldprice,TvAdd_price,TvAdd_class;
+	private int type;
+	private Goods good = new Goods();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,6 +99,85 @@ public class Add extends Activity implements OnClickListener{
 		IvAdd_image3.setOnClickListener(this);
 		IvAdd_image4.setOnClickListener(this);
 	}
+	private Handler handler = new Handler(){
+		public void handleMessage(final android.os.Message msg) {
+			if(msg.what==0){
+				if(IMAGECODE==0){
+					
+					toast("发布成功！");
+					finish();
+				}
+				final String[] filePaths_before = new String[IMAGECODE];
+				final String[] filePaths_after = new String[IMAGECODE];
+				final String objid = (String) msg.obj;
+				for(int i=0;i<IMAGECODE;i++){
+					filePaths_before[i] = getFilesDir()+"/"+i+IMAGE_FILE_NAME;
+					filePaths_after[i] = getFilesDir()+"/"+msg.obj.toString()+"_"+i+IMAGE_FILE_NAME;
+					File file = new File(filePaths_before[i]),file_after = new File(filePaths_after[i]);
+					Log.i("sned","file before:"+file.exists()+"  file after："+file_after.exists());
+					file.renameTo(file_after);
+					Log.i("sned","file before:"+file.exists()+"  file after："+file_after.exists());
+					Log.i("sned","file before:"+(String)msg.obj+"   temo:"+msg.obj);
+				}
+				
+				
+				BmobFile.uploadBatch(filePaths_after, new UploadBatchListener() {
+
+				    @Override
+				    public void onSuccess(List<BmobFile> files,List<String> urls) {
+				        //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
+				        //2、urls-上传文件的完整url地址
+				        if(urls.size()==filePaths_after.length){//如果数量相等，则代表文件全部上传完成
+				            //do something
+				        	String str="";
+				        	for(int i=0;i<urls.size();i++)
+				        		str = str+urls.get(i)+",";
+				        	android.os.Message msg1 = new android.os.Message();
+				        	String temp[] = new String[2];
+				        	temp[0] = str;
+				        	temp[1] = objid;
+				        	msg1.obj = temp;
+				        	
+				        	msg1.what =1 ;
+				        	Log.i("sned","meici :"+(String)msg.obj+"   temo:"+objid);
+				        	handler.sendMessage(msg1);
+				        }
+				    }
+
+				    @Override
+				    public void onError(int statuscode, String errormsg) {
+				        Log.d("错误码"+statuscode,"错误描述："+errormsg);
+				    }
+
+				    @Override
+				    public void onProgress(int curIndex, int curPercent, int total,int totalPercent) {
+				        //1、curIndex--表示当前第几个文件正在上传
+				        //2、curPercent--表示当前上传文件的进度值（百分比）
+				        //3、total--表示总的上传文件数
+				        //4、totalPercent--表示总的上传进度（百分比）
+				    }
+				});
+			}else if(msg.what==1){
+				String temp[] = new String[2];
+				temp=(String[]) msg.obj;
+				good.setValue("head_path", temp[0]);
+				Log.i("bmob","temp[0] "+temp[0] );
+				good.update(temp[1], new UpdateListener() {
+
+				    @Override
+				    public void done(BmobException e) {
+				        if(e==null){
+				            Log.i("bmob","更新成功");
+				            toast("发布成功");
+				            finish();
+				        }else{
+				            Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+				        }
+				    }
+				});
+			}
+		};
+	};
 	@Override
 	public void onClick(View v) {
 		Intent intent = new Intent();
@@ -97,18 +187,21 @@ public class Add extends Activity implements OnClickListener{
 		ColorStateList backcsl = (ColorStateList) resource.getColorStateList(R.color.home); 
 		switch(v.getId()){
 		case R.id.Btn_cfmbuy:
-			Goods good = new Goods();
+			
 			good.setName(EtAdd_title.getText().toString());
 			good.setIntro(EtAdd_content.getText().toString());
-			good.setPrice(Float.valueOf(TvAdd_oldprice.getText().toString()));
+			good.setType(type);
+			good.setOld_price(Float.valueOf(TvAdd_oldprice.getText().toString()));
 			good.setPrice(Float.valueOf(TvAdd_price.getText().toString()));
 			good.save(new SaveListener<String>(){
 				@Override
 				public void done(String objectId, cn.bmob.v3.exception.BmobException e) {
 					// TODO Auto-generated method stub
 					if(e==null){
-			            toast("发布成功！");
-			            finish();
+						android.os.Message msg = new android.os.Message();
+			        	msg.obj = objectId;
+			        	msg.what=0;
+						handler.sendMessage(msg);
 			        }else{
 			            Log.i("bmob","发布失败："+e.getMessage()+","+e.getErrorCode());
 			        }
@@ -216,6 +309,7 @@ public class Add extends Activity implements OnClickListener{
 			break;
 		}
 	}
+
 	private void myshowDialog(final View v,final int position){
 //	    通过AlertDialog.Builder这个类来实例化我们的一个AlertDialog的对象
         AlertDialog.Builder builder = new AlertDialog.Builder(Add.this);
@@ -231,17 +325,51 @@ public class Add extends Activity implements OnClickListener{
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-            	Log.d("DialogInterface","position "+position+" IMAGECODE "+IMAGECODE);
+            	
             	for(int i=position+1;i<IMAGECODE;i++){
             		FileInputStream localstream = null;
+//            		try {
+//            			localstream = openFileInput("0"+IMAGE_FILE_NAME);
+//            		} catch (FileNotFoundException e) {
+//            			// TODO Auto-generated catch block
+//            			e.printStackTrace();
+//            			Log.d("DialogInterface","FileNotFoundException+ IMAGECODE "+IMAGECODE+" i: "+i);
+//            		}
+//                    Bitmap bm = BitmapFactory.decodeStream(localstream);
+//                    IvAdd_image3.setImageBitmap(bm);
+                    
+//                    
+//                    try {
+//            			localstream = openFileInput("2"+IMAGE_FILE_NAME);
+//            		} catch (FileNotFoundException e) {
+//            			// TODO Auto-generated catch block
+//            			e.printStackTrace();
+//            			Log.d("DialogInterface","FileNotFoundException+ IMAGECODE "+IMAGECODE+" i: "+i);
+//            		}
+//                     bm = BitmapFactory.decodeStream(localstream);
+//                    IvAdd_image4.setImageBitmap(bm);
+                    
+            		int temp = i-1;
+            		deleteFile(temp+IMAGE_FILE_NAME);
+            		File file = new File(getFilesDir()+"/"+i+IMAGE_FILE_NAME);
+                    File file1 = new File(getFilesDir()+"/"+temp+IMAGE_FILE_NAME);
+                    Log.d("DialogInterface","  file1 "+file1.exists()+"file ex "+file.exists());
+                    boolean suc = file.renameTo(file1);
+                    Log.d("DialogInterface","suc:"+suc+" file name "+file.getName()+" IMAGECODE "+IMAGECODE+"file1 name "+file1.getName());			
+                    Log.d("DialogInterface","after rename  file1 "+file1.exists()+"file ex "+file.exists());
+                    
+                    
+            		
             		try {
-            			localstream = openFileInput(i+IMAGE_FILE_NAME);
+            			localstream = openFileInput(temp+IMAGE_FILE_NAME);
             		} catch (FileNotFoundException e) {
             			// TODO Auto-generated catch block
             			e.printStackTrace();
-            		} 
-                    final Bitmap bm = BitmapFactory.decodeStream(localstream);
-                    switch(i-1){
+            			Log.d("DialogInterface","FileNotFoundException+ IMAGECODE "+IMAGECODE+" i: "+i);
+            		}
+            		Bitmap bm = BitmapFactory.decodeStream(localstream);
+                    Log.d("DialogInterface","after local  file1 "+file1.exists()+"file ex "+file.exists());
+                    switch(temp){
                     case 0:
                     	IvAdd_image1.setImageBitmap(bm);
                     	break;
@@ -250,9 +378,8 @@ public class Add extends Activity implements OnClickListener{
                     	break;
                     case 2:
                     	IvAdd_image3.setImageBitmap(bm);
-                    	break;
-                    
-                    }
+                    	break;               
+                    }             
             	}
             	IMAGECODE--;
             	switch(IMAGECODE){
@@ -292,11 +419,11 @@ public class Add extends Activity implements OnClickListener{
                 
             }
         });
-       
         //    显示出该对话框
         builder.show();
 	}
 	private PopupWindow popupWindow;
+	private int pic[] = new int[4]; 
 	private void showPopupWindow(View view) {
 
         // 一个自定义的布局，作为显示的内容
@@ -356,12 +483,13 @@ public class Add extends Activity implements OnClickListener{
 	        break;
 	    case REQUESTCODE_CUTTING:// 取得裁剪后的图片
 	        if (data != null) {
-	        	IMAGECODE++;
+	        	
 	            setPicToView(data);
 	        }
 	        break;
 	    case REQUESTCODE_CLASS:
 	    	TvAdd_class.setText(classname[resultCode-1]);
+	    	type=resultCode-1;
 	    	break;
 	    }
 	    super.onActivityResult(requestCode, resultCode, data);
@@ -399,16 +527,17 @@ public class Add extends Activity implements OnClickListener{
 				stream = openFileOutput(IMAGECODE+IMAGE_FILE_NAME, 0);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
-				//e.printStackTrace();
+				e.printStackTrace(); 
 			}
 	        photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+	        
+	        IMAGECODE++;
 			switch(IMAGECODE){
 			case 1:
-				
 				IvAdd_image1.setImageDrawable(drawable);
 				IvAdd_image2.setVisibility(View.VISIBLE);
 				IvAdd_image2.setImageResource(R.drawable.add);
-	        break;
+				break;
 			case 2:
 		        IvAdd_image2.setImageDrawable(drawable);
 		        IvAdd_image3.setVisibility(View.VISIBLE);

@@ -113,8 +113,7 @@ public class Set extends Activity implements OnClickListener{
 			break;
 		case R.id.Btlogout:
 			Toast.makeText(getApplicationContext(), "ÍË³öµÇÂ¼", Toast.LENGTH_SHORT).show();
-			File file = new File(IMAGE_FILE_NAME);
-			file.delete();
+			deleteFile(IMAGE_FILE_NAME);
 			SharedPreferences sharedPreferences = getSharedPreferences("login", 0);
 			SharedPreferences.Editor  editor  =  sharedPreferences.edit();
 			editor.putString("validate","0");
