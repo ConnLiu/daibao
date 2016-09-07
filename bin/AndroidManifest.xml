@@ -38,9 +38,9 @@
             android:name="com.example.easyshop.Register"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-         <activity android:name="com.example.easyshop.Order" >
+        <activity android:name="com.example.easyshop.Order" >
         </activity>
-         <activity android:name="com.example.easyshop.Order_com" >
+        <activity android:name="com.example.easyshop.Order_com" >
         </activity>
         <activity android:name="com.example.easyshop.Buy" >
         </activity>
@@ -143,6 +143,10 @@
         <activity
             android:name="com.example.easyshop.CellDetail"
             android:label="@string/title_activity_cell_detail" >
+        </activity>
+        <activity
+            android:name="com.example.easyshop.AuctionGoods"
+            android:label="@string/title_activity_auction_goods" >
         </activity>
     </application>
 

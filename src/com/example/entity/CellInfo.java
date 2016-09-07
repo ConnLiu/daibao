@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobRelation;
 
 public class CellInfo extends BmobObject{
 		private String head_path;
@@ -10,6 +11,8 @@ public class CellInfo extends BmobObject{
 	    private Integer people;  //人气
 	    private Integer add;   //新增商品数
 	    private String hostId;  //创建者id
+		private BmobRelation users; 
+		private BmobRelation goods; 
 
 		public String getHead_path() {
 			return head_path;
@@ -65,6 +68,22 @@ public class CellInfo extends BmobObject{
 
 		public void setHostId(String hostId) {
 			this.hostId = hostId;
+		}
+		
+		public BmobRelation getUsers() {
+			return users;
+		}
+
+		public void setUsers(BmobRelation users) {
+			this.users = users;
+		}
+		
+		public BmobRelation getGoods() {
+			return goods;
+		}
+
+		public void setGoods(BmobRelation goods) {
+			this.goods = goods;
 		}
 
 	}

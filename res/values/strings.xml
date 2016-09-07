@@ -26,5 +26,6 @@
     <string name="title_activity_black_name">BlackName</string>
     <string name="title_activity_search_cell">SearchCell</string>
     <string name="title_activity_cell_detail">CellDetail</string>
+    <string name="title_activity_auction_goods">AuctionGoods</string>
 
 </resources>

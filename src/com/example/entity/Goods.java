@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobRelation;
 
 public class Goods extends BmobObject{
 	private int type;
@@ -10,6 +11,9 @@ public class Goods extends BmobObject{
 	private String intro;
 	private int like_num;
 	private String head_path;
+	private int flag;    // 1-unchangeable 2-noPrice 3-auction
+	private MyUser author;    //who published the goods
+	private BmobRelation likes;  //users like that goods
 
 	public int getType() {
 		return type;
@@ -65,5 +69,29 @@ public class Goods extends BmobObject{
 
 	public void setOld_price(float old_price) {
 		this.old_price = old_price;
+	}
+	
+	public MyUser getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(MyUser author) {
+		this.author = author;
+	}
+	
+	public BmobRelation getLikes() {
+		return likes;
+	}
+
+	public void setLikes(BmobRelation likes) {
+		this.likes = likes;
+	}
+	
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}
 }
