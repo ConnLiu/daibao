@@ -21,16 +21,17 @@
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/hometop_bg">
             <TextView 
             android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/hometop_bg"/>
+            android:layout_weight="1"/>
             <LinearLayout 
             android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="horizontal">
         <TextView
             android:id="@+id/TvCell_topfind"
             android:layout_height="match_parent"
@@ -38,7 +39,7 @@
             android:layout_weight="1"
             android:text="发现"
             android:textColor="#c57257"
-            android:background="#ffffff"
+            android:background="@drawable/leftwhite_bg"
             android:gravity="center"
             android:textSize="18sp" />
         <TextView
@@ -48,7 +49,7 @@
             android:layout_weight="1"
             android:text="我的"
             android:textColor="#ffffff"
-            android:background="@drawable/hometop_bg"
+            android:background="@drawable/rightred_bg"
             android:gravity="center"
             android:textSize="18sp" />
         </LinearLayout>

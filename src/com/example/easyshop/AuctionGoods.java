@@ -1,6 +1,7 @@
 package com.example.easyshop;
 
 import com.example.customview.AddPriceDialog;
+import com.example.customview.ConfirmDialog;
 import com.example.customview.DomitoryDialog;
 
 import android.os.Bundle;
@@ -11,9 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 
 public class AuctionGoods extends Activity implements OnClickListener{
 
+	private int addprice = 0;
 	private ImageView IvAuctionGoods_head,IvAuctionGoods_rb;
 	private TextView TvAuctionGoods_name,TvAuctionGoods_rank,TvAuctionGoods_oldp,TvAuctionGoods_newp,TvAuctionGoods_title,tv_AuctionGoodsintro,TvAuctionGoods_wantuser,TvAuctionGoods_want;
 	private ImageView IvAuctionGoods_iv1,IvAuctionGoods_iv2,IvAuctionGoods_iv3,IvAuctionGoods_iv4,IvAuctionGoods_wantuser,IvAuctionGoods_zan;
@@ -22,6 +25,7 @@ public class AuctionGoods extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.auction_goods);
+		Intent intent = getIntent();
 		
 		IvAuctionGoods_rb =(ImageView) findViewById(R.id.IvAuctionGoods_rb);
 		IvAuctionGoods_head =(ImageView) findViewById(R.id.IvAuctionGoods_head);
@@ -48,7 +52,13 @@ public class AuctionGoods extends Activity implements OnClickListener{
 		IvAuctionGoods_iv4.setOnClickListener(this);
 		IvAuctionGoods_wantuser.setOnClickListener(this);
 		IvAuctionGoods_zan.setOnClickListener(this);
-		TvAuctionGoods_want.setOnClickListener(this);
+		if(intent.getIntExtra("state", 0)==2){
+			TvAuctionGoods_want.setBackgroundResource(R.drawable.back_bg);
+			TvAuctionGoods_want.setText("已结束");
+		}
+		else if(intent.getIntExtra("state", 0)==1){
+			TvAuctionGoods_want.setOnClickListener(this);
+		}
 	}
 
 	@Override
@@ -72,32 +82,54 @@ public class AuctionGoods extends Activity implements OnClickListener{
 			IvAuctionGoods_zan.setImageResource(R.drawable.zan_red);
 			break;
 		case R.id.TvAuctionGoods_want:
+			final ConfirmDialog.Builder cdialogbuilder = new ConfirmDialog.Builder(AuctionGoods.this);
+			cdialogbuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+            		dialog.dismiss();
+					addprice = 0;
+				}
+			});
+			cdialogbuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+            		dialog.dismiss();
+            		Toast.makeText(AuctionGoods.this, "此处添加信息提交"+addprice, Toast.LENGTH_SHORT).show();
+				}
+			});
 			AddPriceDialog.Builder apbuilder=new AddPriceDialog.Builder(AuctionGoods.this);
 			apbuilder.setPositiveButton(new DialogInterface.OnClickListener(){
             	public void onClick( DialogInterface dialog,int which){
             		dialog.dismiss();
-            		Toast.makeText(AuctionGoods.this, "1", Toast.LENGTH_SHORT).show();
+            		addprice = 1;
+        			cdialogbuilder.setTitle("确认加价"+addprice+"元？");
+    				cdialogbuilder.create().show();
             	}
             });
 			apbuilder.setNegativeButton(new DialogInterface.OnClickListener(){
             	public void onClick( DialogInterface dialog,int which){
             		dialog.dismiss();
-            		Toast.makeText(AuctionGoods.this, "5", Toast.LENGTH_SHORT).show();
+            		addprice = 5;
+        			cdialogbuilder.setTitle("确认加价"+addprice+"元？");
+    				cdialogbuilder.create().show();
             	}
             });
 			apbuilder.setButton10(new DialogInterface.OnClickListener(){
             	public void onClick( DialogInterface dialog,int which){
             		dialog.dismiss();
-            		Toast.makeText(AuctionGoods.this, "10", Toast.LENGTH_SHORT).show();
+            		addprice = 10;
+        			cdialogbuilder.setTitle("确认加价"+addprice+"元？");
+    				cdialogbuilder.create().show();
             	}
             });
 			apbuilder.setButton20(new DialogInterface.OnClickListener(){
             	public void onClick( DialogInterface dialog,int which){
             		dialog.dismiss();
-            		Toast.makeText(AuctionGoods.this, "20", Toast.LENGTH_SHORT).show();
+            		addprice = 20;
+        			cdialogbuilder.setTitle("确认加价"+addprice+"元？");
+    				cdialogbuilder.create().show();
             	}
             });
 			apbuilder.create().show();
+
 			break;
 		}
 		

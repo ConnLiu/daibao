@@ -138,8 +138,8 @@ public class Cell extends Activity implements OnClickListener{
 			TvCell_topmine.setTextColor(whitecsl);  
 			TvCell_topfind.setTextColor(backcsl); 
 		}  
-		TvCell_topmine.setBackgroundResource(R.drawable.hometop_bg);
-		TvCell_topfind.setBackgroundResource(R.color.white);
+		TvCell_topmine.setBackgroundResource(R.drawable.rightred_bg);
+		TvCell_topfind.setBackgroundResource(R.drawable.leftwhite_bg);
         if(CellSingleton.getInstance()!=null) 	//判断是否已经保存了数据
         {
 			CelllistAdapter celllistadapter = new CelllistAdapter(Cell.this,CellSingleton.getInstance());
@@ -155,8 +155,8 @@ public class Cell extends Activity implements OnClickListener{
 			TvCell_topfind.setTextColor(whitecsl); 
 			TvCell_topmine.setTextColor(backcsl);   
 		}  
-		TvCell_topfind.setBackgroundResource(R.drawable.hometop_bg);
-		TvCell_topmine.setBackgroundResource(R.color.white);
+		TvCell_topfind.setBackgroundResource(R.drawable.leftred_bg);
+		TvCell_topmine.setBackgroundResource(R.drawable.rightwhite_bg);
         if(MyCellSingleton.getInstance()!=null) 	//判断是否已经保存了数据
         {
 			CelllistAdapter listadapter = new CelllistAdapter(Cell.this,MyCellSingleton.getInstance());

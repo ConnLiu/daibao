@@ -26,6 +26,7 @@ import android.content.res.Resources;
 public class Auction extends Activity implements OnClickListener{
 
 	private int JOIN_CODE=1,END_CODE=2,BILL_CODE=3;
+	private int state = 1;
 	private TextView TvAuction_join,TvAuction_end,TvAuction_bill;
 	private ListView LvAuction_list;
 	private ImageView IvAuction_rb;
@@ -56,8 +57,13 @@ public class Auction extends Activity implements OnClickListener{
             // 这里的view是我们在list.xml中定义的LinearLayout对象.  
             // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 
         	Intent intent = new Intent();
+        	if(state!=3){
         	intent.setClass(Auction.this, AuctionGoods.class);
         	intent.putExtra("position", position);
+        	intent.putExtra("state",state);
+        	}else{
+        		intent.setClass(Auction.this,Order.class);
+        	}
         	startActivity(intent);
         }
 
@@ -83,6 +89,7 @@ public class Auction extends Activity implements OnClickListener{
 			TvAuction_end.setBackgroundResource(R.color.white);
 			GoodslistAdapter listadapter = new GoodslistAdapter(this,GoodsSingleton.getInstance());
 			LvAuction_list.setAdapter(listadapter);
+			state = JOIN_CODE;
 			break;
 		case R.id.TvAuction_end:
 			if (whitecsl != null && backcsl != null) {  
@@ -95,6 +102,7 @@ public class Auction extends Activity implements OnClickListener{
 			TvAuction_bill.setBackgroundResource(R.color.white);
 			GoodslistAdapter listadapter1 = new GoodslistAdapter(this, GoodsSingleton.getInstance());
 			LvAuction_list.setAdapter(listadapter1);
+			state = END_CODE;
 			break;
 		case R.id.TvAuction_bill:
 			if (whitecsl != null && backcsl != null) {  
@@ -107,6 +115,7 @@ public class Auction extends Activity implements OnClickListener{
 			TvAuction_end.setBackgroundResource(R.color.white);
 			GoodslistAdapter listadapter2 = new GoodslistAdapter(this, GoodsSingleton.getInstance());
 			LvAuction_list.setAdapter(listadapter2);
+			state = BILL_CODE;
 			break;
 		}
 	}
