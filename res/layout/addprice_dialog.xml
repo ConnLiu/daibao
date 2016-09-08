@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LlAddp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+    <TextView 
+        android:id="@+id/TvAddp_title"
+        android:layout_width="300dp"
+        android:layout_height="49dp"
+        android:text="加价                  单位：元"
+        android:textSize="18dp"
+        android:textColor="#000000"
+        android:gravity="center"/>
+    <View 
+        android:layout_width="260dp"
+        android:layout_height="1dp"
+        android:background="#50ff5555"/>
+    <TextView 
+        android:id="@+id/TvAddp_1"
+        android:layout_width="300dp"
+        android:layout_height="49dp"
+        android:text="1"
+        android:textSize="18dp"
+        android:textColor="#000000"
+        android:gravity="center"/>
+    <View 
+        android:layout_width="260dp"
+        android:layout_height="1dp"
+        android:background="#50ff5555"/>
+    <TextView 
+        android:id="@+id/TvAddp_5"
+        android:layout_width="300dp"
+        android:layout_height="49dp"
+        android:text="5"
+        android:textSize="18dp"
+        android:textColor="#000000"
+        android:gravity="center"/>
+    <View 
+        android:layout_width="260dp"
+        android:layout_height="1dp"
+        android:background="#50ff5555"/>
+    <TextView 
+        android:id="@+id/TvAddp_10"
+        android:layout_width="300dp"
+        android:layout_height="49dp"
+        android:text="10"
+        android:textSize="18dp"
+        android:textColor="#000000"
+        android:gravity="center"/>
+    <View 
+        android:layout_width="260dp"
+        android:layout_height="1dp"
+        android:background="#50ff5555"/>
+    <TextView 
+        android:id="@+id/TvAddp_20"
+        android:layout_width="300dp"
+        android:layout_height="49dp"
+        android:text="20"
+        android:textSize="18dp"
+        android:textColor="#000000"
+        android:gravity="center"/>
+
+</LinearLayout>
