@@ -89,6 +89,7 @@ public class Login extends Activity implements OnClickListener{
 					intent.setClass(Login.this, Home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					intent.putExtra("from",	"login");
 					startActivity(intent);
+					overridePendingTransition(R.anim.fade, R.anim.hold);
 				}else{
 					toast("µÇÂ½Ê§°Ü£¡"+e.getMessage());
 				}

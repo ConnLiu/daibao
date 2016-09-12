@@ -108,6 +108,7 @@ public class Message extends Activity implements OnClickListener{
     	case R.id.IbMessage_cell:
     		intent.setClass(Message.this, Cell.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbMessage_add:
     		intent.setClass(Message.this, Add.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -116,10 +117,12 @@ public class Message extends Activity implements OnClickListener{
     	case R.id.IbMessage_home:
     		intent.setClass(Message.this, Home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbMessage_mine:
     		intent.setClass(Message.this, Mine.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.img_zan:
     	case R.id.TvMessage_like:

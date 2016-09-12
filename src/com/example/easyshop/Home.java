@@ -1,10 +1,9 @@
 package com.example.easyshop;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
@@ -36,6 +35,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -227,6 +227,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         	intent.putExtra("position", position);
         	Log.d("fenlei","form:"+position);
         	startActivity(intent);
+        	overridePendingTransition(R.anim.fade, R.anim.hold);
         }
 
     };  
@@ -377,10 +378,12 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     	case R.id.IbHome_cell:
     		intent.setClass(Home.this, Cell.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbHome_class:
     		intent.setClass(Home.this, Category.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbHome_add:
     		intent.setClass(Home.this, Add.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -389,10 +392,12 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     	case R.id.IbHome_message:
     		intent.setClass(Home.this, Message.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbHome_mine:
     		intent.setClass(Home.this, Mine.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade,R.anim.hold);
     		break;
     	default:
     		break;

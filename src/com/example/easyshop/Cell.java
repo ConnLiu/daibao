@@ -169,6 +169,7 @@ public class Cell extends Activity implements OnClickListener{
     	case R.id.IbCell_message:
     		intent.setClass(Cell.this, Message.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbCell_add:
     		intent.setClass(Cell.this, Add.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -177,10 +178,12 @@ public class Cell extends Activity implements OnClickListener{
     	case R.id.IbCell_home:
     		intent.setClass(Cell.this, Home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbCell_mine:
     		intent.setClass(Cell.this, Mine.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbCell_search:
     		intent.setClass(Cell.this, SearchCell.class);

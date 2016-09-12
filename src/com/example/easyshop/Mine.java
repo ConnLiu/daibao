@@ -102,6 +102,7 @@ public class Mine extends Activity implements OnClickListener{
     	case R.id.IbMine_message:
     		intent.setClass(Mine.this, Message.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbMine_add:
     		if(!check_user())
@@ -112,10 +113,12 @@ public class Mine extends Activity implements OnClickListener{
     	case R.id.IbMine_home:
     		intent.setClass(Mine.this, Home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbMine_cell:
     		intent.setClass(Mine.this, Cell.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
+    		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.TvMine_sold:
     		if(!check_user())
