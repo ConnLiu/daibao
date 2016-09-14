@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.app.Activity;
+import android.content.Intent;
 
 public class GoodsDetail extends Activity implements OnClickListener{
 
@@ -27,7 +28,7 @@ public class GoodsDetail extends Activity implements OnClickListener{
 	private ImageView IvGoodsDetail_rb;
 	private TextView TvGoodsDetail_newp;
 	private TextView TvGoods_name;
-	private TextView TvGoodsDetail_oldp;
+	private TextView TvGoodsDetail_oldp,TvGoodsDetail_want;
 	private Goods good;
 	private TextView tv_goodsintro;	
 	@Override
@@ -49,6 +50,7 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		LvGoodsDetail =(ListViewForScrollView) findViewById(R.id.LvGoodsDetail);
 		SvGoodsDetail =(ScrollView) findViewById(R.id.SvGoodsDetail);
 		IvGoodsDetail_rb =(ImageView) findViewById(R.id.IvGoodsDetail_rb);
+		TvGoodsDetail_want =(TextView) findViewById(R.id.TvGoodsDetail_want);
 
 		SvGoodsDetail.smoothScrollTo(0, 0);
 		CommentlistAdapter listadapter = new CommentlistAdapter(this, getData());
@@ -56,6 +58,7 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		LvGoodsDetail.setAdapter(listadapter);
 		
 		IvGoodsDetail_rb.setOnClickListener(this);
+		TvGoodsDetail_want.setOnClickListener(this);
 	}
 
 	private List<Map<String,Object>> getData() {
@@ -77,9 +80,15 @@ public class GoodsDetail extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
+		Intent intent = new Intent();
 		switch(v.getId()){
 		case R.id.IvGoodsDetail_rb:
 			finish();
+		case R.id.TvGoodsDetail_want:
+			intent.setClass(GoodsDetail.this, Chat.class);
+			intent.putExtra("goodname",TvGoods_name.getText().toString());
+			intent.putExtra("price",TvGoodsDetail_newp.getText().toString());
+			startActivity(intent);
 		}
 		
 	}

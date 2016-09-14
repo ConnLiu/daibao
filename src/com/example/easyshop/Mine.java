@@ -25,8 +25,8 @@ public class Mine extends Activity implements OnClickListener{
 	private ImageButton IbMine_message,IbMine_add,IbMine_home,IbMine_cell;
 	private ImageView IvMine_head;
 	private TextView TvMine_motto,TvMine_name,TvMine_gold,TvMine_soldnum,TvMine_addnum,TvMine_boughtnum,TvMine_likenum;
-	private TextView TvMine_sold,TvMine_add,TvMine_bought,TvMine_like,TvMine_auction,TvMine_help,TvMine_about,TvMine_set;
-	private String minegoods[] = {"我发布的","我卖出的","我买到的","我赞过的"};
+	private TextView TvMine_sold,TvMine_add,TvMine_bought,TvMine_like,TvMine_auction,TvMine_help,TvMine_order,TvMine_set;
+	private String minegoods[] = {"我发布的","我卖出的","我买到的","我赞过的","我的订单"};
 	MyUser user = UserSingleton.getInstance();
 	private final String IMAGE_FILE_NAME = user.getObjectId()+"_temphead.png";
 	@Override
@@ -57,7 +57,7 @@ public class Mine extends Activity implements OnClickListener{
 	    TvMine_like =(TextView) findViewById(R.id.TvMine_like);
 	    TvMine_auction =(TextView) findViewById(R.id.TvMine_auction);
 	    TvMine_help =(TextView) findViewById(R.id.TvMine_help);
-	    TvMine_about =(TextView) findViewById(R.id.TvMine_about);
+	    TvMine_order =(TextView) findViewById(R.id.TvMine_order);
 	    TvMine_set =(TextView) findViewById(R.id.TvMine_set);
 	    IvMine_head =(ImageView) findViewById(R.id.IvMine_head);
 	    TvMine_motto =(TextView) findViewById(R.id.TvMine_motto);
@@ -81,7 +81,7 @@ public class Mine extends Activity implements OnClickListener{
         TvMine_like.setOnClickListener(this);
         TvMine_auction.setOnClickListener(this);
         TvMine_help.setOnClickListener(this);
-        TvMine_about.setOnClickListener(this);
+        TvMine_order.setOnClickListener(this);
         TvMine_set.setOnClickListener(this);
         IvMine_head.setOnClickListener(this);
         TvMine_name.setOnClickListener(this);
@@ -156,9 +156,11 @@ public class Mine extends Activity implements OnClickListener{
     		intent.setClass(Mine.this, Help.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
     		break;
-    	case R.id.TvMine_about:
-    		intent.setClass(Mine.this, About.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    		startActivity(intent);
+    	case R.id.TvMine_order:
+    		intent.setClass(Mine.this, Mine_goods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    		bundle.putString("minegoods", minegoods[4]);
+    		intent.putExtras(bundle);
+            startActivity(intent);
     		break;
     	case R.id.TvMine_auction:
     		if(!check_user())

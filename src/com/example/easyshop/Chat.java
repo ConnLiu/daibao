@@ -34,16 +34,20 @@ public class Chat extends Activity implements OnClickListener{
 	    //ÁÄÌìµÄÄÚÈÝ  
 	private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>(); 
 	private ImageView IvSet_rb;
-	private TextView tv_confrmBuy;
+	private TextView tv_confrmBuy,tv_goodName,tv_price;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
- 
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat);
+		Intent intent =getIntent();
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		LvChat_list = (ListViewForScrollView)findViewById(R.id.LvChat_list);
+		LvChat_list.setDividerHeight(0);
 		tv_confrmBuy = (TextView)findViewById(R.id.tv_confrmBuy);
+		tv_goodName = (TextView)findViewById(R.id.tv_goodName);
+		tv_goodName.setText(intent.getStringExtra("goodname"));
+		tv_price = (TextView)findViewById(R.id.tv_price);
+		tv_price.setText(intent.getStringExtra("price"));
 	    mBtnSend = (Button) findViewById(R.id.btn_send);  
 	    mBtnSend.setOnClickListener(this);  
 	    mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
@@ -131,6 +135,8 @@ public class Chat extends Activity implements OnClickListener{
 			break;
 		case R.id.tv_confrmBuy:
 			intent.setClass(Chat.this, Buy.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.putExtra("goodname",tv_goodName.getText().toString());
+			intent.putExtra("goodprice",tv_price.getText().toString());
     		startActivity(intent);
 			break;
 		default:

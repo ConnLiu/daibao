@@ -12,6 +12,7 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 import com.example.customview.DomitoryDialog;
+import com.example.customview.EditDialog;
 import com.example.customview.GenderDialog;
 import com.example.entity.MyUser;
 import com.example.singleton.UserSingleton;
@@ -50,7 +51,7 @@ import android.graphics.drawable.Drawable;
 public class Myinfo extends Activity implements OnClickListener{
 	private final int REQUESTCODE_PICK=0,REQUESTCODE_TAKE=1,REQUESTCODE_CUTTING=2;
     private Context mContext = null;
-	private TextView TvMyinfo_gender,TvMyinfo_birth,TvMyinfo_domi,TvMyinfo_id,Tv_realname,TvMyinfo_qianming;
+	private TextView TvMyinfo_gender,TvMyinfo_birth,TvMyinfo_domi,TvMyinfo_id,Tv_realname,TvMyinfo_qianming,TvMyinfo_phone;
 	private ImageView IvMyinfo_head,IbMyinfo_rb;
 	private DatePickerDialog datedialog;
 	private int year,monthOfYear,dayOfMonth;
@@ -82,11 +83,13 @@ public class Myinfo extends Activity implements OnClickListener{
 		TvMyinfo_id =(TextView) findViewById(R.id.TvMyinfo_id);
 		Tv_realname =(TextView) findViewById(R.id.TvMyinfo_name);
 		TvMyinfo_qianming =(TextView) findViewById(R.id.TvMyinfo_qianming);
+		TvMyinfo_phone =(TextView) findViewById(R.id.TvMyinfo_phone);
 		TvMyinfo_gender.setText(user.getGender());
 		TvMyinfo_birth.setText(user.getBirthday());
 		TvMyinfo_domi.setText(user.getDorm());
 		Tv_realname.setText(user.getRealname());
 		TvMyinfo_id.setText(user.getNumberID());
+		TvMyinfo_phone.setText(user.getPhone());
 		
 		IvMyinfo_head.setOnClickListener(this);
 		IbMyinfo_rb.setOnClickListener(this);
@@ -94,6 +97,7 @@ public class Myinfo extends Activity implements OnClickListener{
 		TvMyinfo_birth.setOnClickListener(this);
 		TvMyinfo_domi.setOnClickListener(this);
 		TvMyinfo_qianming.setOnClickListener(this);
+		TvMyinfo_phone.setOnClickListener(this);
 
 		if(bm != null){
 			IvMyinfo_head.setImageBitmap(bm);
@@ -107,6 +111,7 @@ public class Myinfo extends Activity implements OnClickListener{
         user.setValue("gender", TvMyinfo_gender.getText().toString());
 		user.setDorm(TvMyinfo_domi.getText().toString());
 		user.setValue("dorm", TvMyinfo_domi.getText().toString());
+		user.setPhone(TvMyinfo_phone.getText().toString());
 		Log.d("MyInfo",user.getGender());
 		user.update(user.getObjectId(),new UpdateListener() {
 			@Override
@@ -203,6 +208,20 @@ public class Myinfo extends Activity implements OnClickListener{
 			intent.setClass(Myinfo.this, SelfIntroduction.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			break;
+		case R.id.TvMyinfo_phone:
+			final EditDialog.Builder editbuilder = new EditDialog.Builder(Myinfo.this);
+			editbuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+				public void onClick( DialogInterface dialog,int which){
+            		dialog.dismiss();
+            		TvMyinfo_phone.setText(editbuilder.getEdit().toString());
+				}
+			});
+			editbuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+				public void onClick( DialogInterface dialog,int which){
+            		dialog.dismiss();
+				}
+			});
+			editbuilder.create().show();
 		}
 		
 	}
