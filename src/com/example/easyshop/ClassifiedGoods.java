@@ -25,7 +25,7 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 	private TextView TvClassfied_class;
 	private ImageView IvClass_rb,IvClassified_search;
 	private String type;
-	private String classname[] = {"书籍","首饰","玩具","鞋包","服装","化妆品","卡券","工艺品","数码","运动用品","小电器","生活用品"};
+	private String classname[] = {"书籍","饰品","玩具","鞋包","服装","化妆品","卡券","工艺品","数码","运动用品","小电器","生活用品"};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

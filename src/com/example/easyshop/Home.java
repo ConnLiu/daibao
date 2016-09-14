@@ -1,6 +1,8 @@
 package com.example.easyshop;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import java.util.List;
 
@@ -57,7 +59,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	private ListViewForScrollView LvHome_goods;
 	private ViewPager VpHome_hotgoods = null; 
 	private LinearLayout viewGroup = null;
-	private int[] resId = new int[9];
+	private String pathName[] = new String[5];
 	private ImageView[] mImageViews = null;
 	private ImageView[] mTips = null;
 	private int index = 0; 
@@ -88,19 +90,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         IbHome_message.setOnClickListener(this);
         IbHome_mine.setOnClickListener(this);
         LvHome_goods.setOnItemClickListener(itemListener);
-        //=====================================================================
-        if(GoodsSingleton.getInstance()==null) 	//判断是否已经保存了数据
-        {
-        	getNewGoods();
-        	getAllGoods();
-        }else{
-        	GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,GoodsSingleton.getTypeGoods("13"));
-    		LvHome_goods.setAdapter(goodslistadapter);
-        }
-        
-        //=================================================
-		initResources();
-		mTips = new ImageView[resId.length];
+        mTips = new ImageView[pathName.length];
 	    for(int i = 0; i < mTips.length; i++)
 	    {
 	      ImageView iv = new ImageView(this);
@@ -121,25 +111,38 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	      lp.rightMargin = 5;
 	      viewGroup.addView(iv,lp);
 	    }
-	    mImageViews = new ImageView[resId.length];
-	    for(index = 0; index < mImageViews.length; index++)
-	    {
-	      ImageView iv = new ImageView(this);
-	      mImageViews[index] = iv;
-	      int reqWidth = getWindowManager().getDefaultDisplay().getWidth();
-	      int reqHeight = getWindowManager().getDefaultDisplay().getHeight();
-	      iv.setImageBitmap(decodeSampledBitmapFromResource(getResources(), resId[index], reqWidth, reqHeight));
-	    }
+	    mImageViews = new ImageView[pathName.length];
+	    
+	    
 	    VpHome_hotgoods.setAdapter(new MyPagerAdapter());
 	    VpHome_hotgoods.setOnPageChangeListener(this);
 	    onPageSelected(0);
+        //=====================================================================
+        if(GoodsSingleton.getInstance()==null) 	//判断是否已经保存了数据
+        {
+        	Log.d("getPopGoods", "GoodsSingleton.getInstance()==null");
+        	getNewGoods();
+        	getPopGoods();
+        	getAllGoods();
+        }else{
+        	GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,GoodsSingleton.getTypeGoods("13"));
+        	Log.d("getPopGoods", "GoodsSingleton.getInstance()!=null");
+        	initResources(GoodsSingleton.getTypeGoods("13"));
+    		LvHome_goods.setAdapter(goodslistadapter);
+        }
+        
+        //=================================================
+		
+		
 	    Intent intent = getIntent();
 	    if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("login"))
 	    	download();
+	    else if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("other")){
+	    }
 	    else{
 		    SharedPreferences  sharedPreferences = getSharedPreferences("login", 0);
 		    String valid = sharedPreferences.getString("validate","0");
-		    if(valid.equals("1")){
+		    if(valid.equals("1")){   //if has valid login info
 		    	String account = sharedPreferences.getString("account","0");
 		    	String passwd = sharedPreferences.getString("passwd","0");
 		    	login(account,passwd);
@@ -202,6 +205,90 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 			}
 		});		
 	}
+    public void getPopGoods(){
+		BmobQuery<Goods> c = new BmobQuery<Goods>();
+		c.setLimit(20);
+		c.order("-createdAt");
+		c.findObjects(new FindListener<Goods>() {
+			@Override
+			public void done(List<Goods> object, BmobException e) {
+				if(e==null){
+					Log.d("getPopGoods", "findObjects success");
+					initResources(object);
+				}else{
+					Log.i("bmob----getGoods", "failed"+e.getMessage()+","+e.getErrorCode());
+				}
+			}
+		});		
+	}
+    
+    public void initResources(List<Goods> goods) {
+    	Log.d("getPopGoods", "pathName.length"+pathName.length);
+		  for(int i=0,j=-1;i<pathName.length&&j<goods.size();i++,j++){	
+			final String file_name = goods.get(i).getObjectId()+"_0image.png";
+			FileInputStream localstream = null;
+			try {
+					localstream = openFileInput(file_name);
+				} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			final Bitmap bm = BitmapFactory.decodeStream(localstream);
+			if(bm != null){
+				
+			    pathName[i] = getFilesDir()+"/"+file_name;
+			    Log.d("getPopGoods", "file exist   "+i+"pathName"+pathName[i]);
+				continue;
+			}
+			
+			String origin_path;
+			do{
+				 j++;
+				 origin_path= goods.get(j).getHead_path();
+			  }while(origin_path==null);
+			String path[] = origin_path.split(",");
+			
+			
+			BmobFile file =new BmobFile(file_name,"",
+					path[0]);
+			 //允许设置下载文件的存储路径，默认下载文件的目录为：context.getApplicationContext().getCacheDir()+"/bmob/"
+		    File saveFile = new File(getFilesDir(), file.getFilename());
+		    file.download(saveFile, new DownloadFileListener() {
+		        @Override
+		        public void onStart() {
+//		            toast("开始下载...");
+		        }
+		        @Override
+		        public void done(String savePath,cn.bmob.v3.exception.BmobException e) {
+		            if(e==null){
+		            	Log.i("getPopGoods:",savePath);
+		            	
+		                //toast("下载成功");
+		            }else{
+		//                toast("下载失败："+e.getErrorCode()+","+e.getMessage());
+		            }
+		        }
+		        @Override
+		        public void onProgress(Integer value, long newworkSpeed) {
+		//            Log.i("bmob","下载进度："+value+","+newworkSpeed);
+		        }
+		    });
+			
+		    pathName[i] = getFilesDir()+"/"+file_name;
+			
+		    Log.d("getPopGoods", "file not exist   "+i+"pathName"+pathName[i]);
+		  }
+		  		
+		  for(index = 0; index < mImageViews.length; index++)
+		    {
+		      ImageView iv = new ImageView(this);
+		      mImageViews[index] = iv;
+		      int reqWidth = getWindowManager().getDefaultDisplay().getWidth();
+		      int reqHeight = getWindowManager().getDefaultDisplay().getHeight();
+		      iv.setImageBitmap(decodeSampledBitmapFromFile(pathName[index], reqWidth, reqHeight));
+		      //iv.setImageBitmap(decodeSampledBitmapFromResource(getResources(), resId[index], reqWidth, reqHeight));
+		    } 
+	}
     public void getAllGoods(){
     	BmobQuery<Goods> c = new BmobQuery<Goods>();
 		c.setLimit(10000);
@@ -260,13 +347,12 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	        }
 	    });
 	}
-	
     class MyPagerAdapter extends PagerAdapter
     {
       @Override
       public int getCount()
       {
-        return resId.length;
+        return pathName.length;
       }
       @Override
       public boolean isViewFromObject(View arg0, Object arg1)
@@ -277,7 +363,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
       public Object instantiateItem(ViewGroup container, int position)
       {
 	      if (index < 0) {
-	        index = resId.length - 1;
+	        index = pathName.length - 1;
 	      }
         try
         {
@@ -326,50 +412,75 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     {
     }
     
-    private static Bitmap decodeSampledBitmapFromResource(Resources res,int resId,int reqWidth,int reqHeight)
-    {
-      BitmapFactory.Options opts = new BitmapFactory.Options();
-      opts.inJustDecodeBounds = true;
-      BitmapFactory.decodeResource(res, resId);
-      int inSampleSize = cacluateInSampledSize(opts, reqWidth, reqHeight);
-      opts.inSampleSize = inSampleSize;
-      opts.inJustDecodeBounds = false;
-      return BitmapFactory.decodeResource(res,resId,opts);
+    public static Bitmap decodeSampledBitmapFromFile(String pathName, int reqWidth, int reqHeight) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(pathName, options);
+        Log.i("decodeSampledBitmapFromFile:",pathName);
+        options = getBestOptions(options, reqWidth, reqHeight);
+        Bitmap src = BitmapFactory.decodeFile(pathName, options);
+        return createScaleBitmap(src, mDesiredWidth, mDesiredHeight);
+    }
+    /**
+     * @description 计算目标宽度，目标高度，inSampleSize
+     *
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     * @return BitmapFactory.Options对象
+     */
+    private static BitmapFactory.Options getBestOptions(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // 读取图片长宽
+        int actualWidth = options.outWidth;
+        int actualHeight = options.outHeight;
+        // Then compute the dimensions we would ideally like to decode to.
+        mDesiredWidth = getResizedDimension(reqWidth, reqHeight, actualWidth, actualHeight);
+        mDesiredHeight = getResizedDimension(reqHeight, reqWidth, actualHeight, actualWidth);
+        // 根据现在得到计算inSampleSize
+        options.inSampleSize = calculateBestInSampleSize(actualWidth, actualHeight, mDesiredWidth, mDesiredHeight);
+        // 使用获取到的inSampleSize值再次解析图片
+        options.inJustDecodeBounds = false;
+        return options;
+    }
+    private static int mDesiredWidth;
+    private static int mDesiredHeight;
+    private static int getResizedDimension(int maxPrimary, int maxSecondary, int actualPrimary, int actualSecondary) {
+        double ratio = (double) actualSecondary / (double) actualPrimary;
+        int resized = maxPrimary;
+        if (resized * ratio > maxSecondary) {
+            resized = (int) (maxSecondary / ratio);
+        }
+        return resized;
+    }
+    private static int calculateBestInSampleSize(int actualWidth, int actualHeight, int desiredWidth, int desiredHeight) {
+        double wr = (double) actualWidth / desiredWidth;
+        double hr = (double) actualHeight / desiredHeight;
+        double ratio = Math.min(wr, hr);
+        float inSampleSize = 1.0f;
+        while ((inSampleSize * 2) <= ratio) {
+            inSampleSize *= 2;
+        }
+
+        return (int) inSampleSize;
+    }
+    private static Bitmap createScaleBitmap(Bitmap tempBitmap, int desiredWidth, int desiredHeight) {
+        // If necessary, scale down to the maximal acceptable size.
+        if (tempBitmap != null && (tempBitmap.getWidth() > desiredWidth || tempBitmap.getHeight() > desiredHeight)) {
+            // 如果是放大图片，filter决定是否平滑，如果是缩小图片，filter无影响
+            Bitmap bitmap = Bitmap.createScaledBitmap(tempBitmap, desiredWidth, desiredHeight, true);
+            tempBitmap.recycle(); // 释放Bitmap的native像素数组
+            return bitmap;
+        } else {
+            return tempBitmap; // 如果没有缩放，那么不回收
+        }
     }
     
-    private static int cacluateInSampledSize(BitmapFactory.Options opts,int width,int height)
-    {
-      if(opts == null)
-      {
-        return 1;
-      }
-      int inSampleSize = 1;
-      int realWidth = opts.outWidth;
-      int realHeight = opts.outHeight;
-      
-      if(realWidth > width || realHeight > height)
-      {
-        int heightRatio = realHeight/height;
-        int widthRatio = realWidth/width;
-        
-        inSampleSize = (widthRatio > heightRatio) ? heightRatio : widthRatio;
-      }
-      return inSampleSize;
-    }
+    //before before before
     
-	  public void initResources() {
-		    resId[0] = R.drawable.news4;
-		    resId[1] = R.drawable.news2;
-		    resId[2] = R.drawable.news3;
-		    resId[3] = R.drawable.news5;
-		    resId[4] = R.drawable.news1;
-		    resId[5] = R.drawable.news7;
-		    resId[6] = R.drawable.news2;
-		    resId[7] = R.drawable.news8;
-		    resId[8] = R.drawable.news6;
-		  }
+  
+	 
 	
-	
+
     @Override
     public void onClick(View v) {
     	// TODO Auto-generated method stub

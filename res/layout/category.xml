@@ -85,7 +85,7 @@
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:text="首饰"/>
+                android:text="饰品"/>
             
             </LinearLayout>
             <LinearLayout 

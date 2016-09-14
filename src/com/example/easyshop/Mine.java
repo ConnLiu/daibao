@@ -112,6 +112,7 @@ public class Mine extends Activity implements OnClickListener{
     		break;
     	case R.id.IbMine_home:
     		intent.setClass(Mine.this, Home.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    		intent.putExtra("from",	"other");
     		startActivity(intent);
     		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;

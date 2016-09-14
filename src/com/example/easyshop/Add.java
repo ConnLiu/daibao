@@ -58,7 +58,7 @@ public class Add extends Activity implements OnClickListener{
 	private final String IMAGE_FILE_NAME = "image.png";
 	private int IMAGECODE=0;
 	private final int REQUESTCODE_PICK=0,REQUESTCODE_TAKE=1,REQUESTCODE_CUTTING=2,REQUESTCODE_CLASS=3;
-	private String classname[] = {"书籍","首饰","玩具","鞋包","服装","化妆品","卡券","工艺品","数码","运动用品","小电器","生活用品"};
+	private String classname[] = {"书籍","饰品","玩具","鞋包","服装","化妆品","卡券","工艺品","数码","运动用品","小电器","生活用品"};
     private ImageView IvAdd_rb,IvAdd_image1,IvAdd_image2,IvAdd_image3,IvAdd_image4;
 	private RadioButton RbAdd_price,RbAdd_auction,RbAdd_noprice;
 	private Button Btn_cfmbuy;
@@ -139,7 +139,7 @@ public class Add extends Activity implements OnClickListener{
 				        	msg1.obj = temp;
 				        	
 				        	msg1.what =1 ;
-				        	Log.i("sned","meici :"+(String)msg.obj+"   temo:"+objid);
+				        	Log.i("sned","temp0 :"+temp[0]+"   temp1:"+temp[1]);
 				        	handler.sendMessage(msg1);
 				        }
 				    }
@@ -161,7 +161,7 @@ public class Add extends Activity implements OnClickListener{
 				String temp[] = new String[2];
 				temp=(String[]) msg.obj;
 				good.setValue("head_path", temp[0]);
-				Log.i("bmob","temp[0] "+temp[0] );
+				Log.i("bmob","temp[0] "+temp[0]+" temp[1]:"+temp[1] );
 				good.update(temp[1], new UpdateListener() {
 
 				    @Override
