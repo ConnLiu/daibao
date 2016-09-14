@@ -48,7 +48,7 @@ public class Mine_goods extends Activity implements OnClickListener{
 	        public void onItemClick(AdapterView<?> parent, View view, int position,  
 	                long id) {  
 	            // 这里的view是我们在list.xml中定义的LinearLayout对象.  
-	            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 
+	            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 	
 	        	Intent intent = new Intent();
 	        	intent.setClass(Mine_goods.this, Order.class);
 	        	intent.putExtra("position", position);

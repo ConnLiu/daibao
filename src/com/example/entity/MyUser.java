@@ -16,6 +16,7 @@ public class MyUser extends BmobUser{
     private Integer credit;
     private String grade;
     private Integer gold;
+    private String phone;
     public MyUser(String nick,String moto){
     	this.nickname=nick;
     	this.motto=moto;
@@ -125,5 +126,13 @@ public class MyUser extends BmobUser{
 
 	public void setGold(Integer gold) {
 		this.gold = gold;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

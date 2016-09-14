@@ -28,7 +28,7 @@
         <activity
             android:name="com.example.easyshop.Home"
             android:label="@string/app_name" >
-             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -47,7 +47,6 @@
         <activity android:name="com.example.easyshop.Chat" >
         </activity>
         <activity android:name="com.example.easyshop.Login" >
-           
         </activity>
         <activity android:name="com.example.easyshop.Words" >
         </activity>
@@ -148,6 +147,10 @@
         <activity
             android:name="com.example.easyshop.AuctionGoods"
             android:label="@string/title_activity_auction_goods" >
+        </activity>
+        <activity
+            android:name="com.example.easyshop.MyOrder"
+            android:label="@string/title_activity_my_order" >
         </activity>
     </application>
 
