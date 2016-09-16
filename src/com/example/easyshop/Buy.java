@@ -1,10 +1,13 @@
 package com.example.easyshop;
 
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.SaveListener;
 
 import com.example.customview.EditDialog;
+import com.example.entity.Goods;
 import com.example.entity.MyUser;
+import com.example.entity.OrderAll;
+import com.example.singleton.GoodsSingleton;
 import com.example.singleton.UserSingleton;
 
 import android.os.Bundle;
@@ -12,7 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
@@ -22,13 +24,17 @@ import android.content.Intent;
 public class Buy extends Activity implements OnClickListener{
 	private Button btn_buy;
 	private TextView TvBuy_phone,tvBuy_goodName,tvBuy_price;
-	private MyUser user;
+	private MyUser user,seller;
+	private Goods good;
+	private OrderAll order;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.buy);
 		Intent intent = getIntent();
 		user = UserSingleton.getInstance();
+		good = GoodsSingleton.getInstance().get(getIntent().getIntExtra("position", 0));
+		seller = good.getAuthor();
 
 		tvBuy_goodName =(TextView) findViewById(R.id.tvBuy_goodName);
 		tvBuy_goodName.setText(intent.getStringExtra("goodname"));
@@ -63,6 +69,20 @@ public class Buy extends Activity implements OnClickListener{
 			editbuilder.create().show();
 			break;
 		case R.id.btn_buy:
+			order.setBuyer(user);
+			order.setSeller(seller);
+			order.setGood(good);
+			order.save(new SaveListener<String>() {
+
+				@Override
+				public void done(String objectId, BmobException e) {
+					if(e == null){
+						Toast.makeText(Buy.this, "提交订单成功", Toast.LENGTH_SHORT).show();
+					}else{
+						Log.i("order","fail");
+					}
+				}
+			});
 			toast("购买成功!");
 			finish();
 			break;
