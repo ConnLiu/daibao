@@ -88,6 +88,7 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			intent.setClass(GoodsDetail.this, Chat.class);
 			intent.putExtra("goodname",TvGoods_name.getText().toString());
 			intent.putExtra("price",TvGoodsDetail_newp.getText().toString());
+			intent.putExtra("position",getIntent().getIntExtra("position",0));
 			startActivity(intent);
 		}
 		

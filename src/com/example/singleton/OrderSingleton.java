@@ -34,6 +34,13 @@ public class OrderSingleton {
 					}
 					temp.add(i);
 					SingletonHolder.user.put(String.valueOf(order.getBuyer()),temp);
+					
+					temp=SingletonHolder.user.get(String.valueOf(order.getSeller().getObjectId()));
+					if(temp==null){
+						temp=new ArrayList<Integer>();
+					}
+					temp.add(i);
+					SingletonHolder.user.put(String.valueOf(order.getSeller()),temp);
 					Log.d("fenlei","type:"+order.getBuyer());
 				}
 				Log.d("fenlei",""+SingletonHolder.user.get("0"));
@@ -43,18 +50,10 @@ public class OrderSingleton {
 		t.start();
 	}
 	 
-	public static List<OrderAll> getOrder(String user){
+	public static List<OrderAll> getOrder(String userId){
 		
-		List<OrderAll> list = new ArrayList<OrderAll>();/*
-		if(user.equals("13")){
-			if(SingletonHolder.instance.size()<=20)
-				return SingletonHolder.instance;
-			else{
-				list=SingletonHolder.instance.subList(0,20);
-				return list;
-			}
-		}*/
-		for(int i:SingletonHolder.user.get(user)){
+		List<OrderAll> list = new ArrayList<OrderAll>();
+		for(int i:SingletonHolder.user.get(userId)){
 			list.add(SingletonHolder.instance.get(i));
 		}
 		return list;

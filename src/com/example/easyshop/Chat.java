@@ -137,6 +137,7 @@ public class Chat extends Activity implements OnClickListener{
 			intent.setClass(Chat.this, Buy.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.putExtra("goodname",tv_goodName.getText().toString());
 			intent.putExtra("goodprice",tv_price.getText().toString());
+			intent.putExtra("position",getIntent().getIntExtra("position",0));
     		startActivity(intent);
 			break;
 		default:

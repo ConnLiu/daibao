@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.assist.GoodslistAdapter;
+import com.example.assist.OrderAdapter;
+import com.example.entity.MyUser;
 import com.example.singleton.GoodsSingleton;
+import com.example.singleton.OrderSingleton;
+import com.example.singleton.UserSingleton;
 
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +28,7 @@ public class Mine_goods extends Activity implements OnClickListener{
 	private ListView LvMineGoods;
 	private TextView TvMinegoods_top;
 	private ImageView IvMinegoods_rb,IvMinegoods_search;
+	private MyUser user = UserSingleton.getInstance();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,8 +42,8 @@ public class Mine_goods extends Activity implements OnClickListener{
 		IvMinegoods_rb.setOnClickListener(this);
 		IvMinegoods_search.setOnClickListener(this);
 
-		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, GoodsSingleton.getInstance());
-		LvMineGoods.setAdapter(goodslistadapter);
+		OrderAdapter orderadapter = new OrderAdapter(this, OrderSingleton.getOrder(user.getObjectId().toString()));
+		LvMineGoods.setAdapter(orderadapter);
 		LvMineGoods.setOnItemClickListener(itemListener);
 		TvMinegoods_top.setText(getIntent().getExtras().getString("minegoods"));
 		

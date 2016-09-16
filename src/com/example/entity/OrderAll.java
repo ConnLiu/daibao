@@ -6,12 +6,21 @@ import cn.bmob.v3.BmobUser;
 public class OrderAll extends BmobUser{
 	private String goodname;
 	private String intro;
+	private Goods good;
 	private float price;
 	private String head_path;
 	private MyUser seller;
 	private MyUser buyer;
 	private integer time;
 	private int state;  //0=待发货 1=待收货  2=已结束
+
+	public Goods getGood(){
+		return good;
+	}
+	
+	public void setGood(Goods good){
+		this.good = good;
+	}
 
 	public String getGoodname(){
 		return goodname;
