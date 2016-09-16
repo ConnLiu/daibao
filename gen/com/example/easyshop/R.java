@@ -695,9 +695,9 @@ public final class R {
         public static final int TvDom_yi=0x7f0b0080;
         public static final int TvGender_boy=0x7f0b0086;
         public static final int TvGender_girl=0x7f0b0087;
-        public static final int TvGoodsDetail_name=0x7f0b008b;
         public static final int TvGoodsDetail_newp=0x7f0b008e;
         public static final int TvGoodsDetail_oldp=0x7f0b008d;
+        public static final int TvGoodsDetail_ownername=0x7f0b008b;
         public static final int TvGoodsDetail_rank=0x7f0b008c;
         public static final int TvGoodsDetail_scanNum=0x7f0b0096;
         public static final int TvGoodsDetail_want=0x7f0b009a;

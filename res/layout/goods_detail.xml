@@ -55,11 +55,11 @@
                     android:src="@drawable/ic_launcher"
                     android:layout_marginLeft="10dp"/>
                 <TextView 
-                    android:id="@+id/TvGoodsDetail_name"
+                    android:id="@+id/TvGoodsDetail_ownername"
                     android:layout_height="match_parent"
                     android:layout_width="wrap_content"
                     android:text="用户名"
-                    android:textSize="12dp"
+                    android:textSize="15dp"
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"/>
                 <TextView 
@@ -69,6 +69,7 @@
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/home"
                     android:text="V3"
+                    android:textSize="13dp"
                     android:layout_gravity="center_vertical"/>
                 <TextView 
                     android:layout_height="match_parent"

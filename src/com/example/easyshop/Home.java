@@ -27,6 +27,8 @@ import com.example.singleton.GoodsSingleton;
 import com.example.singleton.UserSingleton;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -112,8 +114,6 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	      viewGroup.addView(iv,lp);
 	    }
 	    mImageViews = new ImageView[pathName.length];
-	    
-	    
 	    VpHome_hotgoods.setAdapter(new MyPagerAdapter());
 	    VpHome_hotgoods.setOnPageChangeListener(this);
 	    onPageSelected(0);
@@ -127,7 +127,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         }else{
         	GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,GoodsSingleton.getTypeGoods("13"));
         	Log.d("getPopGoods", "GoodsSingleton.getInstance()!=null");
-        	initResources(GoodsSingleton.getTypeGoods("13"));
+        	initResources(GoodsSingleton.getTypeGoods("13"));  
     		LvHome_goods.setAdapter(goodslistadapter);
         }
         
@@ -235,12 +235,10 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 				} 
 			final Bitmap bm = BitmapFactory.decodeStream(localstream);
 			if(bm != null){
-				
 			    pathName[i] = getFilesDir()+"/"+file_name;
 			    Log.d("getPopGoods", "file exist   "+i+"pathName"+pathName[i]);
 				continue;
 			}
-			
 			String origin_path;
 			do{
 				 j++;
@@ -293,6 +291,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     	BmobQuery<Goods> c = new BmobQuery<Goods>();
 		c.setLimit(10000);
 		c.order("-createdAt");
+		c.include("author");	//get point "author" info when query 
 		c.findObjects(new FindListener<Goods>() {
 			@Override
 			public void done(List<Goods> object, BmobException e) {
@@ -497,6 +496,8 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     		overridePendingTransition(R.anim.fast_fade, R.anim.hold);
     		break;
     	case R.id.IbHome_add:
+    		if(!check_user())
+    			return;
     		intent.setClass(Home.this, Add.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
     		break;
@@ -514,6 +515,30 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     		break;
     	}
     }
+    public boolean check_user(){
+		
+		if(user.getNick().equals("当前是游客登陆")){
+			  new AlertDialog.Builder(Home.this).setTitle("系统提示")//设置对话框标题  		  
+			     .setMessage("当前未登录，是否跳转到登陆页面？")//设置显示的内容  			  
+			     .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮  		  
+			         @Override  			  
+			         public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件  			  
+			             // TODO Auto-generated method stub  	
+			        	 Intent intent = new Intent();
+			        	 intent.setClass(Home.this, Login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			        	 startActivity(intent);	
+			        	 finish();
+			         }  		  
+			     }).setNegativeButton("取消",new DialogInterface.OnClickListener() {//添加返回按钮    
+			         @Override  
+			         public void onClick(DialogInterface dialog, int which) {//响应事件  
+			             // TODO Auto-generated method stub  		  
+			         }  
+			     }).show();//在按键响应事件中显示此对话框 
+			return false;
+		}
+		return true;
+	}
     void toast(String s){
 		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
 	}

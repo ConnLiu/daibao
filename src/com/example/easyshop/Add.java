@@ -18,6 +18,8 @@ import cn.bmob.v3.listener.UploadFileListener;
 
 import com.example.customview.EditDialog;
 import com.example.entity.Goods;
+import com.example.entity.MyUser;
+import com.example.singleton.UserSingleton;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -65,12 +67,12 @@ public class Add extends Activity implements OnClickListener{
 	private EditText EtAdd_title,EtAdd_content;
 	private TextView TvAdd_oldprice,TvAdd_price,TvAdd_class;
 	private int type;
+	MyUser user = UserSingleton.getInstance();
 	private Goods good = new Goods();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add);
-		
 		IvAdd_rb =(ImageView) findViewById(R.id.IvAdd_rb);
 		EtAdd_title = (EditText)findViewById(R.id.EtAdd_title);
 		EtAdd_content = (EditText)findViewById(R.id.EtAdd_content);
@@ -191,6 +193,7 @@ public class Add extends Activity implements OnClickListener{
 			good.setName(EtAdd_title.getText().toString());
 			good.setIntro(EtAdd_content.getText().toString());
 			good.setType(type);
+			good.setAuthor(user);
 			good.setOld_price(Float.valueOf(TvAdd_oldprice.getText().toString()));
 			good.setPrice(Float.valueOf(TvAdd_price.getText().toString()));
 			good.save(new SaveListener<String>(){
