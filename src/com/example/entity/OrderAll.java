@@ -1,9 +1,9 @@
 package com.example.entity;
 
 import android.R.integer;
-import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.BmobObject;
 
-public class OrderAll extends BmobUser{
+public class OrderAll extends BmobObject{
 	private String goodname;
 	private String intro;
 	private Goods good;

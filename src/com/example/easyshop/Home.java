@@ -71,6 +71,24 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
         Bmob.initialize(this, "79f7c1d79f0db04370bf7b20720440db");
+        //=================================================
+		
+		
+	    Intent intent = getIntent();
+	    if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("login"))
+	    	download();
+	    else if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("other")){
+	    }
+	    else{
+		    SharedPreferences  sharedPreferences = getSharedPreferences("login", 0);
+		    String valid = sharedPreferences.getString("validate","0");
+		    if(valid.equals("1")){   //if has valid login info
+		    	String account = sharedPreferences.getString("account","0");
+		    	String passwd = sharedPreferences.getString("passwd","0");
+		    	login(account,passwd);
+		    }
+	    }
+	    
         SvHome = (ScrollView) findViewById(R.id.SvHome);
         IbHome_cell =(ImageButton) findViewById(R.id.IbHome_cell);
         IbHome_class =(ImageButton) findViewById(R.id.IbHome_class);
@@ -131,23 +149,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     		LvHome_goods.setAdapter(goodslistadapter);
         }
         
-        //=================================================
-		
-		
-	    Intent intent = getIntent();
-	    if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("login"))
-	    	download();
-	    else if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("other")){
-	    }
-	    else{
-		    SharedPreferences  sharedPreferences = getSharedPreferences("login", 0);
-		    String valid = sharedPreferences.getString("validate","0");
-		    if(valid.equals("1")){   //if has valid login info
-		    	String account = sharedPreferences.getString("account","0");
-		    	String passwd = sharedPreferences.getString("passwd","0");
-		    	login(account,passwd);
-		    }
-	    }
+       
     }
     public void login(String account,String passwd){
 		MyUser user = new MyUser();
@@ -516,7 +518,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     	}
     }
     public boolean check_user(){
-		
+    	user = UserSingleton.getInstance();
 		if(user.getNick().equals("当前是游客登陆")){
 			  new AlertDialog.Builder(Home.this).setTitle("系统提示")//设置对话框标题  		  
 			     .setMessage("当前未登录，是否跳转到登陆页面？")//设置显示的内容  			  

@@ -98,21 +98,29 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		IvGoodsDetail_iv2 = (ImageView)findViewById(R.id.IvGoodsDetail_iv2);
 		IvGoodsDetail_iv3 = (ImageView)findViewById(R.id.IvGoodsDetail_iv3);
 		IvGoodsDetail_iv4 = (ImageView)findViewById(R.id.IvGoodsDetail_iv4);
-		String path[] = good.getHead_path().split(",");
-		int num_pic = path.length;
+		int num_pic;
+		String path[]=null;
+		if(good.getHead_path()==null)
+			num_pic=0;
+		else{
+			path = good.getHead_path().split(",");
+			num_pic = path.length;
+		}
+			
+		
 		for(int i=0;i<num_pic;i++){
 			switch(i){
 			case 0:
-				download(path[i],good.getObjectId(),IvGoodsDetail_iv1);
+				download(path[i],good.getObjectId()+"_0image.png",IvGoodsDetail_iv1);
 				break;
 			case 1:
-				download(path[i],good.getObjectId(),IvGoodsDetail_iv2);
+				download(path[i],good.getObjectId()+"_1image.png",IvGoodsDetail_iv2);
 				break;
 			case 2:
-				download(path[i],good.getObjectId(),IvGoodsDetail_iv3);
+				download(path[i],good.getObjectId()+"_2image.png",IvGoodsDetail_iv3);
 				break;
 			case 3:
-				download(path[i],good.getObjectId(),IvGoodsDetail_iv4);
+				download(path[i],good.getObjectId()+"_3image.png",IvGoodsDetail_iv4);
 				break;
 			}
 		}
@@ -134,8 +142,8 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			}
 		}
 	}
-	void download(String path,final String id,final ImageView img){
-		final String file_name = id+"_0image.png";
+	void download(String path,String img_name,final ImageView img){
+		final String file_name = img_name;
 		FileInputStream localstream = null;
 			try {
 				localstream = openFileInput(file_name);
@@ -187,7 +195,7 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		}
 		Log.i("path:",owner.getHead_path());
 		BmobFile file =new BmobFile(owner.getObjectId()+"_temphead.png","",
-				user.getHead_path());
+				owner.getHead_path());
 		 //允许设置下载文件的存储路径，默认下载文件的目录为：context.getApplicationContext().getCacheDir()+"/bmob/"
 	    File saveFile = new File(getFilesDir(), file.getFilename());
 	    file.download(saveFile, new DownloadFileListener() {
@@ -244,12 +252,14 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		switch(v.getId()){
 		case R.id.IvGoodsDetail_rb:
 			finish();
+			break;
 		case R.id.TvGoodsDetail_want:
 			intent.setClass(GoodsDetail.this, Chat.class);
 			intent.putExtra("goodname",TvGoods_name.getText().toString());
 			intent.putExtra("price",TvGoodsDetail_newp.getText().toString());
 			intent.putExtra("position",getIntent().getIntExtra("position",0));
 			startActivity(intent);
+			break;
 		}
 		
 	}
