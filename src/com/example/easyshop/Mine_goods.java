@@ -43,8 +43,9 @@ public class Mine_goods extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mine_goods);
 		Bmob.initialize(this, "79f7c1d79f0db04370bf7b20720440db");
-		init_order();
+		
 		LvMineGoods =(ListView) findViewById(R.id.LvMineGoods);
+		init_order();
 		TvMinegoods_top =(TextView) findViewById(R.id.TvMinegoods_top);
 		IvMinegoods_rb =(ImageView) findViewById(R.id.IvMinegoods_rb);
 		IvMinegoods_search =(ImageView) findViewById(R.id.IvMinegoods_search);
