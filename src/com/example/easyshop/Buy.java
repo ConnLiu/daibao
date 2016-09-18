@@ -26,7 +26,7 @@ public class Buy extends Activity implements OnClickListener{
 	private TextView TvBuy_phone,tvBuy_goodName,tvBuy_price;
 	private MyUser user,seller;
 	private Goods good;
-	private OrderAll order;
+	private OrderAll order = new OrderAll();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,8 +34,9 @@ public class Buy extends Activity implements OnClickListener{
 		Intent intent = getIntent();
 		user = UserSingleton.getInstance();
 		good = GoodsSingleton.getInstance().get(getIntent().getIntExtra("position", 0));
+		
 		seller = good.getAuthor();
-
+		Log.i("buy_order","good:"+good+" seller:"+seller+" user"+user);
 		tvBuy_goodName =(TextView) findViewById(R.id.tvBuy_goodName);
 		tvBuy_goodName.setText(intent.getStringExtra("goodname"));
 		tvBuy_price = (TextView)findViewById(R.id.tvBuy_price);
@@ -71,7 +72,9 @@ public class Buy extends Activity implements OnClickListener{
 		case R.id.btn_buy:
 			order.setBuyer(user);
 			order.setSeller(seller);
-			order.setGood(good);
+			order.setPrice(Float.valueOf(tvBuy_price.getText().toString()));
+			//order.setGood(good);
+			order.setGoodname(tvBuy_goodName.getText().toString());
 			order.save(new SaveListener<String>() {
 
 				@Override
@@ -79,7 +82,8 @@ public class Buy extends Activity implements OnClickListener{
 					if(e == null){
 						Toast.makeText(Buy.this, "提交订单成功", Toast.LENGTH_SHORT).show();
 					}else{
-						Log.i("order","fail");
+						Toast.makeText(Buy.this, "提交订单失败", Toast.LENGTH_SHORT).show();
+						Log.i("buy_order","fail:"+e.getMessage());
 					}
 				}
 			});

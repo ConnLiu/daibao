@@ -74,7 +74,7 @@ public class Mine_goods extends Activity implements OnClickListener{
 						OrderSingleton.setInstance(object);   //将得到数据保存到单例对象中，后面数据量大可以考虑保存到本地数据库
 						order_all = OrderSingleton.getInstance();
 						Log.d("OrderSingleton","user.getObjectId():"+user.getObjectId());
-						object = OrderSingleton.getOrder_Seller(user.getObjectId().toString());
+						object = OrderSingleton.getOrder_Undone(user.getObjectId().toString());
 						Log.d("OrderSingleton","3success_object:"+object);
 						if(object==null){
 							return;
@@ -88,6 +88,10 @@ public class Mine_goods extends Activity implements OnClickListener{
 					}
 				}
 			});	
+		}else{   //如果 本机已经保存了order的数据
+			OrderAdapter orderadapter = new OrderAdapter(Mine_goods.this,OrderSingleton.getOrder_Undone(user.getObjectId().toString()));
+			Log.d("OrderSingleton","1success_order_all:"+order_all);
+			LvMineGoods.setAdapter(orderadapter);
 		}
 	}
 	 OnItemClickListener itemListener = new OnItemClickListener() {  
@@ -104,22 +108,6 @@ public class Mine_goods extends Activity implements OnClickListener{
 
 	    };  
 
-	private List<Map<String,Object>> getData() {
-		
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		
-		for(int i = 0 ; i <4; i ++ )
-		{
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("goodsname", "商品名称");
-			map.put("goodsmoney", "0.00");
-			map.put("goodslikenum", "88");
-			map.put("goodsimage", R.drawable.tip_selected);
-			map.put("goodslike", R.drawable.tip_selected);
-			list.add(map);
-		}
-		return list;
-	}
 	
     @Override
     public void onClick(View v) {

@@ -41,12 +41,13 @@ public class GoodsDetail extends Activity implements OnClickListener{
 	private TextView tv_goodsintro;	
 	MyUser user = UserSingleton.getInstance();
 	MyUser owner = null ;
+	int position;
 	String AUTHOR_IMAGE_NAME;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.goods_detail);
-		int position = getIntent().getIntExtra("position",0);
+		position = getIntent().getIntExtra("position",0);
 		//Log.d("gooddetail","come:"+position);
 		good = GoodsSingleton.getInstance().get(position);
 		owner = good.getAuthor();
@@ -257,7 +258,7 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			intent.setClass(GoodsDetail.this, Chat.class);
 			intent.putExtra("goodname",TvGoods_name.getText().toString());
 			intent.putExtra("price",TvGoodsDetail_newp.getText().toString());
-			intent.putExtra("position",getIntent().getIntExtra("position",0));
+			intent.putExtra("position",position);
 			startActivity(intent);
 			break;
 		}
