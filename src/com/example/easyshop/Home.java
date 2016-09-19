@@ -66,14 +66,18 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	private ImageView[] mTips = null;
 	private int index = 0; 
 	MyUser user = UserSingleton.getInstance();
+	//下面是公告图片的网络地址
+	private String path_notic[] = new String[]{"http://a2.qpic.cn/psb?/V13GUzi82nFFur/8iZUGPsyVNn6UYCAgw.nUrr3ruOtPFIwd9U12chnNRk!/b/dAkBAAAAAAAA&bo=iQOAAgAAAAAFACs!&rf=viewer_4",
+			"http://a2.qpic.cn/psb?/V13GUzi82nFFur/0x52w.6.huwmjcigiOx.h8vCyglTJD7HjJkiPpvDb2A!/b/dAkBAAAAAAAA&bo=iQOAAgAAAAAFACs!&rf=viewer_4",
+			"http://a2.qpic.cn/psb?/V13GUzi82nFFur/ZM9aJfOeKGRLDV9Ij5F9pLSq4MaC2Nom599WR56NyIU!/b/dAkBAAAAAAAA&bo=iQOAAgAAAAAFACs!&rf=viewer_4",
+			"http://a3.qpic.cn/psb?/V13GUzi82nFFur/vaXErn7E7kRBLWS8XCY4Moo4bEuo5yY44k40POGFnaY!/b/dAoBAAAAAAAA&bo=iQOAAgAAAAAFACs!&rf=viewer_4",
+			"http://a1.qpic.cn/psb?/V13GUzi82nFFur/RBF6yrUXKmxBVETT6b4gBH7YLU7.dBFl9w2XKqyafA8!/b/dHQBAAAAAAAA&bo=iQOAAgAAAAAFACs!&rf=viewer_4"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
         Bmob.initialize(this, "79f7c1d79f0db04370bf7b20720440db");
         //=================================================
-		
-		
 	    Intent intent = getIntent();
 	    if(intent.getStringExtra("from")!=null&&intent.getStringExtra("from").equals("login"))
 	    	download();
@@ -135,6 +139,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	    VpHome_hotgoods.setAdapter(new MyPagerAdapter());
 	    VpHome_hotgoods.setOnPageChangeListener(this);
 	    onPageSelected(0);
+	    initResources(); 
         //=====================================================================
         if(GoodsSingleton.getInstance()==null) 	//判断是否已经保存了数据
         {
@@ -145,7 +150,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         }else{
         	GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,GoodsSingleton.getTypeGoods("13"));
         	Log.d("getPopGoods", "GoodsSingleton.getInstance()!=null");
-        	initResources(GoodsSingleton.getTypeGoods("13"));  
+        	 
     		LvHome_goods.setAdapter(goodslistadapter);
         }
         
@@ -216,7 +221,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 			public void done(List<Goods> object, BmobException e) {
 				if(e==null){
 					Log.d("getPopGoods", "findObjects success");
-					initResources(object);
+					
 				}else{
 					Log.i("bmob----getGoods", "failed"+e.getMessage()+","+e.getErrorCode());
 				}
@@ -224,10 +229,11 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 		});		
 	}
     
-    public void initResources(List<Goods> goods) {
+    public void initResources() {
     	Log.d("getPopGoods", "pathName.length"+pathName.length);
-		  for(int i=0,j=-1;i<pathName.length&&j<goods.size();i++,j++){	
-			final String file_name = goods.get(i).getObjectId()+"_0image.png";
+    	int i;
+		  for(i=0,index=0;i<pathName.length;i++){	
+			final String file_name = "notice"+i+"_image.png";
 			FileInputStream localstream = null;
 			try {
 					localstream = openFileInput(file_name);
@@ -239,18 +245,16 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 			if(bm != null){
 			    pathName[i] = getFilesDir()+"/"+file_name;
 			    Log.d("getPopGoods", "file exist   "+i+"pathName"+pathName[i]);
+			    ImageView iv = new ImageView(Home.this);
+	   		    mImageViews[index] = iv;
+	   		    int reqWidth = getWindowManager().getDefaultDisplay().getWidth();
+	   		    int reqHeight = getWindowManager().getDefaultDisplay().getHeight();
+	   		    iv.setImageBitmap(decodeSampledBitmapFromFile(pathName[index], reqWidth, reqHeight));
+	   		    index++;
 				continue;
-			}
-			String origin_path;
-			do{
-				 j++;
-				 origin_path= goods.get(j).getHead_path();
-			  }while(origin_path==null);
-			String path[] = origin_path.split(",");
-			
-			
+			}			
 			BmobFile file =new BmobFile(file_name,"",
-					path[0]);
+					path_notic[i]);
 			 //允许设置下载文件的存储路径，默认下载文件的目录为：context.getApplicationContext().getCacheDir()+"/bmob/"
 		    File saveFile = new File(getFilesDir(), file.getFilename());
 		    file.download(saveFile, new DownloadFileListener() {
@@ -261,11 +265,17 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 		        @Override
 		        public void done(String savePath,cn.bmob.v3.exception.BmobException e) {
 		            if(e==null){
-		            	Log.i("getPopGoods:",savePath);
-		            	
+		            	Log.i("getNotice:",savePath);
+		            	 ImageView iv = new ImageView(Home.this);
+		   		      mImageViews[index] = iv;
+		   		      int reqWidth = getWindowManager().getDefaultDisplay().getWidth();
+		   		      int reqHeight = getWindowManager().getDefaultDisplay().getHeight();
+		   		      iv.setImageBitmap(decodeSampledBitmapFromFile(pathName[index], reqWidth, reqHeight));
+		   		      index++;
 		                //toast("下载成功");
 		            }else{
 		//                toast("下载失败："+e.getErrorCode()+","+e.getMessage());
+		            	Log.i("getNotice:","下载失败："+e.getErrorCode()+","+e.getMessage());
 		            }
 		        }
 		        @Override
@@ -279,15 +289,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 		    Log.d("getPopGoods", "file not exist   "+i+"pathName"+pathName[i]);
 		  }
 		  		
-		  for(index = 0; index < mImageViews.length; index++)
-		    {
-		      ImageView iv = new ImageView(this);
-		      mImageViews[index] = iv;
-		      int reqWidth = getWindowManager().getDefaultDisplay().getWidth();
-		      int reqHeight = getWindowManager().getDefaultDisplay().getHeight();
-		      iv.setImageBitmap(decodeSampledBitmapFromFile(pathName[index], reqWidth, reqHeight));
-		      //iv.setImageBitmap(decodeSampledBitmapFromResource(getResources(), resId[index], reqWidth, reqHeight));
-		    } 
+		 
 	}
     public void getAllGoods(){
     	BmobQuery<Goods> c = new BmobQuery<Goods>();
@@ -319,7 +321,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         }
 
     };  
-    void download(){
+    void download(){  //下载用户头像
 		if(user.getHead_path()==null||user.getHead_path().equals("")){
 			return;
 		}
