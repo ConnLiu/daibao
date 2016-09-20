@@ -36,6 +36,7 @@ public class LeavewordSingleton {
 					temp.add(i);     //将序号加入list
 					SingletonHolder.goodId.put(String.valueOf(lword.getGoodId()),temp); //添加list
 					Log.i("GoodId","GoodId:"+lword.getGoodId());
+					Log.i("GoodId","GoodId:"+lword.getGoodId()+"tmp2"+temp.get(0).toString());
 				}
 			}
 		});
@@ -44,18 +45,18 @@ public class LeavewordSingleton {
 	 
 	public static List<LeaveWord> getGoodsLWord(String goodId){//获取goodId的list
 
-	     Log.i("GoodId","getGoodsLWord:begin");
 		List<LeaveWord> list = new ArrayList<LeaveWord>();
-	     Log.i("GoodId","getGoodsLWord:begin1:"+goodId);
+		if(SingletonHolder.goodId.get(goodId) == null){
+			return null;
+		}
 		for(int i:SingletonHolder.goodId.get(goodId)){
-		     Log.i("GoodId","getGoodsLWord:begin2");
 			list.add(SingletonHolder.instance.get(i));
-			Log.d("GoodId","GoodId:"+goodId);
 		}
 		return list;
 	}
 	public static int getCentGood(String goodId,int position){
-		
+
+		Log.d("GoodId","getcentgood");
 		Log.d("fenlei","xuhao:"+SingletonHolder.goodId.get(goodId).get(position));
 		return SingletonHolder.goodId.get(goodId).get(position);
 	}

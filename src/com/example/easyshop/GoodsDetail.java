@@ -114,13 +114,14 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		BtGooddt_send =(Button) findViewById(R.id.BtGooddt_send);
 
 		SvGoodsDetail.smoothScrollTo(0, 0);
-		Log.i("ObjectId", good.getObjectId());
+		//Log.i("ObjectId", good.getObjectId());
 		if(LeavewordSingleton.getInstance()==null){
-		     Log.i("GoodId","getword:begin");
+		     //Log.i("GoodId","getword:begin");
 			getword();
+		}else{
+			lword_list = LeavewordSingleton.getGoodsLWord(good.getObjectId());
 		}
-		/*
-	    lword_list = LeavewordSingleton.getGoodsLWord(good.getObjectId());
+		
 		if(lword_list != null){
 		     Log.i("GoodId","CommentlistAdapter:begin");
 			CommentlistAdapter listadapter = new CommentlistAdapter(this,lword_list);
@@ -130,7 +131,7 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		}else{
 			LvGoodsDetail.setVisibility(View.GONE);
 			TvGooddt_hotm.setText("‘›Œﬁ¡Ù—‘");
-		}*/
+		}
 		
 		IvGoodsDetail_rb.setOnClickListener(this);
 		TvGoodsDetail_want.setOnClickListener(this);
@@ -278,10 +279,14 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		BmobQuery<LeaveWord> w = new BmobQuery<LeaveWord>();
 		w.setLimit(20);
 		w.include("user");
+		Log.i("GoodId", "setinstance begin");
 		w.findObjects(new FindListener<LeaveWord>() {
 			@Override
 			public void done(List<LeaveWord> object, BmobException e) {
 				if(e==null){
+					Log.i("GoodId", "setinstance begin2");
+					LeavewordSingleton.setInstance(object);
+					lword_list = LeavewordSingleton.getGoodsLWord(good.getObjectId());
 					CommentlistAdapter listadapter = new CommentlistAdapter(GoodsDetail.this,object);
 					LvGoodsDetail.setAdapter(listadapter);
 		    		
@@ -347,6 +352,7 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			});
 			LlGoodDt_tv.setVisibility(View.GONE);
 			LlGoodDt.setVisibility(View.VISIBLE);
+			getword();
 			break;
 		case R.id.IvGoodsDetail_zan:
 			break;

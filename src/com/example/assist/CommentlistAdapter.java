@@ -68,7 +68,7 @@ public class CommentlistAdapter extends BaseAdapter{
 		
 		viewholder.username.setText(list.get(position).getUser().getUsername().toString());
 		viewholder.comment.setText(list.get(position).getContent().toString());
-		//viewholder.time.setText(list.get(position).get("time").toString());String origin_path = list.get(position).getHead_path();
+		//viewholder.time.setText(list.get(position).get("time").toString());//String origin_path = list.get(position).getHead_path();
 		String origin_path = list.get(position).getUser().getHead_path();
 		Log.d("commentlistAdapter","origin_path:"+origin_path);
 		if(origin_path==null){
@@ -132,7 +132,7 @@ public class CommentlistAdapter extends BaseAdapter{
 	class ViewHolder{
 		public TextView username;
 		public TextView comment;
-		//public TextView time;
+		public TextView time;
 		public ImageView headimage;
 	}
 }
