@@ -1,6 +1,9 @@
 package com.example.easyshop;
 
+import java.util.List;
+
 import com.example.assist.GoodslistAdapter;
+import com.example.entity.Goods;
 import com.example.singleton.GoodsSingleton;
 
 import android.os.Bundle;
@@ -10,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +24,7 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 	private TextView TvClassfied_class;
 	private ImageView IvClass_rb,IvClassified_search;
 	private String type;
+	private List<Goods> goods;
 	private String classname[] = {"书籍","饰品","玩具","鞋包","服装","化妆品","卡券","工艺品","数码","运动用品","小电器","生活用品"};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +41,19 @@ public class ClassifiedGoods extends Activity implements OnClickListener{
 		IvClassified_search.setOnClickListener(this);
 		LvClassified.setOnItemClickListener(itemListener);
 		type=getIntent().getExtras().getString("type");
-		GoodslistAdapter goodslistadapter = new GoodslistAdapter(this, GoodsSingleton.getTypeGoods(type));
-		LvClassified.setAdapter(goodslistadapter);
-		
+		goods = GoodsSingleton.getTypeGoods(type);
+		if(goods!=null){
+			GoodslistAdapter goodslistadapter = new GoodslistAdapter(this,goods);
+			LvClassified.setAdapter(goodslistadapter);
+		}else{
+			toast("当前没有该类商品");
+		}
 		TvClassfied_class.setText(classname[Integer.valueOf(type)]);
 		
 	}
-		
+	 void toast(String s){
+			Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+		}	
 
 	    OnItemClickListener itemListener = new OnItemClickListener() {  
 	        

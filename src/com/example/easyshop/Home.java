@@ -67,11 +67,11 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	private int index = 0; 
 	MyUser user = UserSingleton.getInstance();
 	//下面是公告图片的网络地址
-	private String path_notic[] = new String[]{"http://a2.qpic.cn/psb?/V13GUzi82nFFur/8iZUGPsyVNn6UYCAgw.nUrr3ruOtPFIwd9U12chnNRk!/b/dAkBAAAAAAAA&bo=iQOAAgAAAAAFACs!&rf=viewer_4",
-			"http://a2.qpic.cn/psb?/V13GUzi82nFFur/0x52w.6.huwmjcigiOx.h8vCyglTJD7HjJkiPpvDb2A!/b/dAkBAAAAAAAA&bo=iQOAAgAAAAAFACs!&rf=viewer_4",
-			"http://a2.qpic.cn/psb?/V13GUzi82nFFur/ZM9aJfOeKGRLDV9Ij5F9pLSq4MaC2Nom599WR56NyIU!/b/dAkBAAAAAAAA&bo=iQOAAgAAAAAFACs!&rf=viewer_4",
-			"http://a3.qpic.cn/psb?/V13GUzi82nFFur/vaXErn7E7kRBLWS8XCY4Moo4bEuo5yY44k40POGFnaY!/b/dAoBAAAAAAAA&bo=iQOAAgAAAAAFACs!&rf=viewer_4",
-			"http://a1.qpic.cn/psb?/V13GUzi82nFFur/RBF6yrUXKmxBVETT6b4gBH7YLU7.dBFl9w2XKqyafA8!/b/dHQBAAAAAAAA&bo=iQOAAgAAAAAFACs!&rf=viewer_4"};
+	private String path_notic[] = new String[]{"http://a3.qpic.cn/psb?/V13GUzi82nFFur/OdyprfjByHy2aZjXeIrbJE6Zb8vZSBeZWSIMDGIPSuE!/b/dAoBAAAAAAAA&bo=aAHIAAAAAAADB4M!&rf=viewer_4",
+			"http://a2.qpic.cn/psb?/V13GUzi82nFFur/glN4dE8BbI0qMHvsZswdCPaJeqSW7n.IAH*FTSBYad4!/b/dAwBAAAAAAAA&bo=aAHIAAAAAAADAIQ!&rf=viewer_4",
+			"http://a3.qpic.cn/psb?/V13GUzi82nFFur/BuiCpv2Z4KVRIFvnaHe*GgVaYtA.j*f5XOp2XUR9sJg!/b/dI8AAAAAAAAA&bo=aAHIAAAAAAADAIQ!&rf=viewer_4",
+			"http://a3.qpic.cn/psb?/V13GUzi82nFFur/QHamHhi9QO9bh0kd4a6JY91Mj4jpyBT96Cv7f83gE2E!/b/dI8AAAAAAAAA&bo=aAHIAAAAAAADAIQ!&rf=viewer_4",
+			"http://a2.qpic.cn/psb?/V13GUzi82nFFur/fEssTp0b1XazZTTxNvh9bsKAryEDB67U3etbRnR1jfw!/b/dAkBAAAAAAAA&bo=aAHIAAAAAAADAIQ!&rf=viewer_4"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,9 +128,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	      {
 	        iv.setBackgroundResource(R.drawable.back_bg);
 	      }
-	      
 	      LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
-	      
 	      lp.leftMargin = 5;
 	      lp.rightMargin = 5;
 	      viewGroup.addView(iv,lp);
@@ -143,14 +141,12 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
         //=====================================================================
         if(GoodsSingleton.getInstance()==null) 	//判断是否已经保存了数据
         {
-        	Log.d("getPopGoods", "GoodsSingleton.getInstance()==null");
-        	getNewGoods();
+        	Log.d("getPopGoods", "GoodsSingleton.getInstance()==null");        	
         	getPopGoods();
         	getAllGoods();
         }else{
-        	GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,GoodsSingleton.getTypeGoods("13"));
+        	GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,GoodsSingleton.getTypeGoods("12"));
         	Log.d("getPopGoods", "GoodsSingleton.getInstance()!=null");
-        	 
     		LvHome_goods.setAdapter(goodslistadapter);
         }
         
@@ -195,23 +191,6 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 		});
     	getAllGoods();
     }  
-    public void getNewGoods(){
-		BmobQuery<Goods> c = new BmobQuery<Goods>();
-		c.setLimit(20);
-		c.order("-createdAt");
-		c.findObjects(new FindListener<Goods>() {
-			@Override
-			public void done(List<Goods> object, BmobException e) {
-				if(e==null){
-					GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,object);
-		    		LvHome_goods.setAdapter(goodslistadapter);
-		    		
-				}else{
-					Log.i("bmob----getGoods", "failed"+e.getMessage()+","+e.getErrorCode());
-				}
-			}
-		});		
-	}
     public void getPopGoods(){
 		BmobQuery<Goods> c = new BmobQuery<Goods>();
 		c.setLimit(20);
@@ -221,7 +200,8 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 			public void done(List<Goods> object, BmobException e) {
 				if(e==null){
 					Log.d("getPopGoods", "findObjects success");
-					
+					GoodslistAdapter goodslistadapter = new GoodslistAdapter(Home.this,object);
+		    		LvHome_goods.setAdapter(goodslistadapter);
 				}else{
 					Log.i("bmob----getGoods", "failed"+e.getMessage()+","+e.getErrorCode());
 				}
@@ -237,7 +217,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 			FileInputStream localstream = null;
 			try {
 					localstream = openFileInput(file_name);
-				} catch (FileNotFoundException e) {
+				}catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
@@ -342,6 +322,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	                //toast("下载成功");
 	            }else{
 	//                toast("下载失败："+e.getErrorCode()+","+e.getMessage());
+	            	Log.i("download:",+e.getErrorCode()+" "+e.getMessage());
 	            }
 	        }
 	        @Override
@@ -477,13 +458,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
             return tempBitmap; // 如果没有缩放，那么不回收
         }
     }
-    
     //before before before
-    
-  
-	 
-	
-
     @Override
     public void onClick(View v) {
     	// TODO Auto-generated method stub
@@ -544,6 +519,6 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 		return true;
 	}
     void toast(String s){
-		Toast.makeText(this, s, Toast.LENGTH_LONG).show();
+		Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
 	}
 }

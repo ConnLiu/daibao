@@ -2,8 +2,16 @@ package com.example.easyshop;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+
+import com.example.assist.OrderAdapter;
 import com.example.entity.MyUser;
+import com.example.entity.OrderAll;
+import com.example.singleton.OrderSingleton;
 import com.example.singleton.UserSingleton;
 
 import android.os.Bundle;
@@ -13,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,10 +38,12 @@ public class Mine extends Activity implements OnClickListener{
 	private String minegoods[] = {"我发布的","我卖出的","我买到的","我赞过的","我的订单"};
 	MyUser user = UserSingleton.getInstance();
 	private final String IMAGE_FILE_NAME = user.getObjectId()+"_temphead.png";
+	private List<OrderAll> order_all;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mine);
+		init_order();
         FileInputStream localstream = null;
 		try {
 			localstream = openFileInput(IMAGE_FILE_NAME);
@@ -93,6 +104,35 @@ public class Mine extends Activity implements OnClickListener{
 		else IvMine_head.setImageResource(R.drawable.tip_selected);
 	}
 
+	private void init_order(){
+		Log.d("OrderSingleton","order_all:"+order_all);
+		if(order_all==null){
+			BmobQuery<OrderAll> query = new BmobQuery<OrderAll>();
+			query.setLimit(10000);
+//			query.addWhereEqualTo("buyer", user);    // 查询当前用户的所有订单
+//			query.addWhereEqualTo("seller", user);    // 查询当前用户的所有订单
+			query.order("-createdAt");
+			query.include("buyer");	//get point "author" info when query 
+			query.findObjects(new FindListener<OrderAll>() {
+				@Override
+				public void done(List<OrderAll> object, BmobException e) {
+					if(e==null){
+						Log.d("OrderSingleton","done_object nick:"+object.get(0).getBuyer().getNick());
+						OrderSingleton.setInstance(object);   //将得到数据保存到单例对象中，后面数据量大可以考虑保存到本地数据库
+						order_all = OrderSingleton.getInstance();
+						Log.d("OrderSingleton","user.getObjectId():"+user.getObjectId());
+						Log.d("OrderSingleton","success_order_all:"+order_all);
+					}else{
+						Log.i("OrderSingleton", "findObjects_failed"+e.getMessage()+","+e.getErrorCode());
+					}
+				}
+			});	
+		}else{   //如果 本机已经保存了order的数据		
+		}
+	}
+	
+	
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -158,6 +198,8 @@ public class Mine extends Activity implements OnClickListener{
     		startActivity(intent);
     		break;
     	case R.id.TvMine_order:
+    		if(!check_user())
+    			return;
     		intent.setClass(Mine.this, Mine_goods.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		bundle.putString("minegoods", minegoods[4]);
     		intent.putExtras(bundle);
