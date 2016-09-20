@@ -14,10 +14,10 @@ public class OrderSingleton {
 	    }
 	 private static class SingletonHolder{//设置默认的单例对象
 		 private static List<OrderAll> instance = null;
-		 private static Map<String,ArrayList<Integer>> buy_user=new HashMap<String,ArrayList<Integer>>();
-		 private static Map<String,ArrayList<Integer>> sell_user=new HashMap<String,ArrayList<Integer>>();
-		 private static Map<String,ArrayList<Integer>> undone_sell=new HashMap<String,ArrayList<Integer>>();
-		 private static Map<String,ArrayList<Integer>> undone_buy=new HashMap<String,ArrayList<Integer>>();
+		 private static Map<String,ArrayList<Integer>> buy_user=null;
+		 private static Map<String,ArrayList<Integer>> sell_user=null;
+		 private static Map<String,ArrayList<Integer>> undone_sell=null;
+		 private static Map<String,ArrayList<Integer>> undone_buy=null;
 		 //private static String test = null;
 		 //用arraylist保存某一个买家的所有order的序号
 	 }
@@ -26,6 +26,10 @@ public class OrderSingleton {
 	 }
 	 public static void setInstance(final List<OrderAll> m){//设置自定义单例对象
 		 SingletonHolder.instance = m;
+		 SingletonHolder.buy_user=null;
+		 SingletonHolder.sell_user=null;
+		 SingletonHolder.undone_sell=null;
+		 SingletonHolder.undone_buy=null;
 				// TODO Auto-generated method stub
 				for(int i=0;i<m.size();i++){
 					OrderAll order = m.get(i); 
