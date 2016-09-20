@@ -2,6 +2,7 @@ package com.example.easyshop;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 import com.example.customview.EditDialog;
 import com.example.entity.Goods;
@@ -27,13 +28,15 @@ public class Buy extends Activity implements OnClickListener{
 	private MyUser user,seller;
 	private Goods good;
 	private OrderAll order = new OrderAll();
+	private int position;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.buy);
 		Intent intent = getIntent();
 		user = UserSingleton.getInstance();
-		good = GoodsSingleton.getInstance().get(getIntent().getIntExtra("position", 0));
+		position=getIntent().getIntExtra("position", 0);
+		good = GoodsSingleton.getInstance().get(position);
 		
 		seller = good.getAuthor();
 		Log.i("buy_order","good:"+good+" seller:"+seller+" user"+user);
@@ -80,19 +83,32 @@ public class Buy extends Activity implements OnClickListener{
 				@Override
 				public void done(String objectId, BmobException e) {
 					if(e == null){
-						Toast.makeText(Buy.this, "提交订单成功", Toast.LENGTH_SHORT).show();
+						
+						delGood();
 					}else{
 						Toast.makeText(Buy.this, "提交订单失败", Toast.LENGTH_SHORT).show();
 						Log.i("buy_order","fail:"+e.getMessage());
 					}
 				}
 			});
-			toast("购买成功!");
 			finish();
 			break;
 		}
 	}
-		
+	void delGood(){
+		good.delete(new UpdateListener() {
+
+		    @Override
+		    public void done(BmobException e) {
+		        if(e==null){
+		        	Toast.makeText(Buy.this, "提交订单成功", Toast.LENGTH_SHORT).show();
+		            Log.i("bmob","成功");
+		        }else{
+		            Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+		        }
+		    }
+		});
+	}
 	 void toast(String s){
 			Toast.makeText(this, s, Toast.LENGTH_LONG).show();
 		}

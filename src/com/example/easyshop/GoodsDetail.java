@@ -24,7 +24,10 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -255,6 +258,8 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			finish();
 			break;
 		case R.id.TvGoodsDetail_want:
+			if(!check_user())
+    			return;
 			intent.setClass(GoodsDetail.this, Chat.class);
 			intent.putExtra("goodname",TvGoods_name.getText().toString());
 			intent.putExtra("price",TvGoodsDetail_newp.getText().toString());
@@ -262,6 +267,34 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;
 		}
-		
 	}
+	public boolean check_user(){
+		if(user.getNick().equals("当前是游客登陆")){
+			  new AlertDialog.Builder(GoodsDetail.this).setTitle("系统提示")//设置对话框标题  		  
+			     .setMessage("当前未登录，是否跳转到登陆页面？")//设置显示的内容  			  
+			     .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮  		  
+			         @Override  			  
+			         public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件  			  
+			             // TODO Auto-generated method stub  	
+			        	 Intent intent = new Intent();
+			        	 intent.setClass(GoodsDetail.this, Login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			        	 startActivity(intent);	
+			        	 finish();
+			         }  		  
+			     }).setNegativeButton("取消",new DialogInterface.OnClickListener() {//添加返回按钮    
+			         @Override  
+			         public void onClick(DialogInterface dialog, int which) {//响应事件  
+			             // TODO Auto-generated method stub  		  
+			         }  
+			     }).show();//在按键响应事件中显示此对话框 
+			return false;
+		}else if(user.getObjectId().equals(good.getAuthor().getObjectId())){
+			toast("当前商品是您自己发布的，不能购买");
+			return false;
+		}
+		return true;
+	}
+	  void toast(String s){
+			Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+		}
 }

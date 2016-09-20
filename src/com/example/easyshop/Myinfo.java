@@ -120,7 +120,7 @@ public class Myinfo extends Activity implements OnClickListener{
 				if(e==null){
 					Log.i("Myinfo","onstop,更新成功");
 				}else{
-					Log.i("Myinfo","onstop,更新失败");
+					Log.i("Myinfo","onstop,更新失败"+e.getMessage()+e.getErrorCode());
 				}
 			}
 		});

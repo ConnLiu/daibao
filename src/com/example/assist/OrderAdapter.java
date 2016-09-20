@@ -80,10 +80,10 @@ public class OrderAdapter extends BaseAdapter{
 			viewholder.state.setImageResource(R.drawable.state_finish); 
 		}
 		else if(list.get(position).getState()==1){
-			viewholder.state.setImageResource(R.drawable.state_finish); 
+			viewholder.state.setImageResource(R.drawable.state_fetch); 
 		}
 		else{
-			viewholder.state.setImageResource(R.drawable.state_finish);
+			viewholder.state.setImageResource(R.drawable.state_send);
 		}
 		return convertview;
 	}

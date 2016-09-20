@@ -14,7 +14,7 @@ public class MyUser extends BmobUser{
     private String dorm;
     private String birthday;
     private Integer credit;
-    private String grade;
+    private Integer grade;
     private Integer gold;
     private String phone;
     public MyUser(String nick,String moto){
@@ -112,11 +112,11 @@ public class MyUser extends BmobUser{
 		this.credit = credit;
 	}
 
-	public String getGrade() {
+	public Integer getGrade() {
 		return grade;
 	}
 
-	public void setGrade(String grade) {
+	public void setGrade(Integer grade) {
 		this.grade = grade;
 	}
 
