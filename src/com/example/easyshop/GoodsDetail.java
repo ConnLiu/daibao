@@ -8,22 +8,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
+
 import com.example.assist.CommentlistAdapter;
+import com.example.assist.GoodslistAdapter;
 import com.example.customview.ListViewForScrollView;
 import com.example.entity.Goods;
+import com.example.entity.LeaveWord;
 import com.example.entity.MyUser;
 import com.example.singleton.GoodsSingleton;
+import com.example.singleton.LeavewordSingleton;
 import com.example.singleton.UserSingleton;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -34,11 +47,16 @@ public class GoodsDetail extends Activity implements OnClickListener{
 	private ListViewForScrollView LvGoodsDetail;
 	private ScrollView SvGoodsDetail;
 	private ImageView IvGoodsDetail_rb,IvGoodsDetail_head,IvGoodsDetail_iv1,IvGoodsDetail_iv2,IvGoodsDetail_iv3,IvGoodsDetail_iv4;
+	private ImageView IvGoodsDetail_zan,IvGoodsDetail_comment;
 	private TextView TvGoodsDetail_newp,TvGoodsDetail_ownername,TvGoodsDetail_rank;
-	private TextView TvGoods_name;
+	private TextView TvGoods_name,TvGooddt_hotm;
 	private TextView TvGoodsDetail_oldp,TvGoodsDetail_want;
+	private LinearLayout LlGoodDt_tv,LlGoodDt;
+	private EditText EtGooddt_com;
+	private Button BtGooddt_send;
 	private Goods good;
 	private TextView tv_goodsintro;	
+	private List<LeaveWord> lword_list = null;
 	MyUser user = UserSingleton.getInstance();
 	MyUser owner = null ;
 	int position;
@@ -72,6 +90,7 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		TvGoodsDetail_newp = (TextView) findViewById(R.id.TvGoodsDetail_newp);
 		TvGoodsDetail_newp.setText(String.valueOf(good.getPrice()));
 		TvGoodsDetail_oldp = (TextView) findViewById(R.id.TvGoodsDetail_oldp);
+		TvGooddt_hotm =(TextView) findViewById(R.id.TvGooddt_hotm);
 		TvGoodsDetail_ownername = (TextView) findViewById(R.id.TvGoodsDetail_ownername);
 		TvGoodsDetail_rank = (TextView) findViewById(R.id.TvGoodsDetail_rank);
 		TvGoodsDetail_ownername.setText(owner.getNick());
@@ -85,14 +104,37 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		SvGoodsDetail =(ScrollView) findViewById(R.id.SvGoodsDetail);
 		IvGoodsDetail_rb =(ImageView) findViewById(R.id.IvGoodsDetail_rb);
 		TvGoodsDetail_want =(TextView) findViewById(R.id.TvGoodsDetail_want);
+		IvGoodsDetail_zan =(ImageView) findViewById(R.id.IvGoodsDetail_zan);
+		IvGoodsDetail_comment =(ImageView) findViewById(R.id.IvGoodsDetail_comment);
+		LlGoodDt =(LinearLayout) findViewById(R.id.LlGoodDt);
+		LlGoodDt_tv =(LinearLayout) findViewById(R.id.LlGoodDt_tv);
+		EtGooddt_com =(EditText) findViewById(R.id.EtGooddt_com);
+		BtGooddt_send =(Button) findViewById(R.id.BtGooddt_send);
 
 		SvGoodsDetail.smoothScrollTo(0, 0);
-		CommentlistAdapter listadapter = new CommentlistAdapter(this, getData());
-		LvGoodsDetail.setDividerHeight(0);
-		LvGoodsDetail.setAdapter(listadapter);
+		Log.i("ObjectId", good.getObjectId());
+		if(LeavewordSingleton.getInstance()==null){
+		     Log.i("GoodId","getword:begin");
+			getword();
+		}
+		/*
+	    lword_list = LeavewordSingleton.getGoodsLWord(good.getObjectId());
+		if(lword_list != null){
+		     Log.i("GoodId","CommentlistAdapter:begin");
+			CommentlistAdapter listadapter = new CommentlistAdapter(this,lword_list);
+			LvGoodsDetail.setDividerHeight(0);
+			LvGoodsDetail.setAdapter(listadapter);
+			TvGooddt_hotm.setText("»»√≈¡Ù—‘");
+		}else{
+			LvGoodsDetail.setVisibility(View.GONE);
+			TvGooddt_hotm.setText("‘›Œﬁ¡Ù—‘");
+		}*/
 		
 		IvGoodsDetail_rb.setOnClickListener(this);
 		TvGoodsDetail_want.setOnClickListener(this);
+		IvGoodsDetail_zan.setOnClickListener(this);
+		IvGoodsDetail_comment.setOnClickListener(this);
+		BtGooddt_send.setOnClickListener(this);
 	}
 	void init_pic(){
 		IvGoodsDetail_iv1 = (ImageView)findViewById(R.id.IvGoodsDetail_iv1);
@@ -230,6 +272,23 @@ public class GoodsDetail extends Activity implements OnClickListener{
 	    });
 	}
 	
+	public void getword(){
+		BmobQuery<LeaveWord> w = new BmobQuery<LeaveWord>();
+		w.setLimit(20);
+		w.include("user");
+		w.findObjects(new FindListener<LeaveWord>() {
+			@Override
+			public void done(List<LeaveWord> object, BmobException e) {
+				if(e==null){
+					CommentlistAdapter listadapter = new CommentlistAdapter(GoodsDetail.this,object);
+					LvGoodsDetail.setAdapter(listadapter);
+		    		
+				}else{
+					Log.i("bmob----getcomment", "failed"+e.getMessage()+","+e.getErrorCode());
+				}
+			}
+		});		
+	}
 	
 	private List<Map<String,Object>> getData() {
 		
@@ -260,6 +319,36 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			intent.putExtra("price",TvGoodsDetail_newp.getText().toString());
 			intent.putExtra("position",position);
 			startActivity(intent);
+			break;
+		case R.id.IvGoodsDetail_comment:
+			LlGoodDt_tv.setVisibility(View.VISIBLE);
+			LlGoodDt.setVisibility(View.GONE);
+			break;
+		case R.id.BtGooddt_send:
+			LeaveWord leave_word = new LeaveWord();
+			leave_word.setContent(EtGooddt_com.getText().toString());
+			leave_word.setGoodId(good.getObjectId().toString());
+			leave_word.setUser(user);
+			leave_word.save(new SaveListener<String>() {
+				
+				@Override
+				public void done(String objectId, cn.bmob.v3.exception.BmobException e) {
+					// TODO Auto-generated method stub
+					if(e==null){
+						Toast.makeText(GoodsDetail.this, "∆¿¬€≥…π¶", Toast.LENGTH_SHORT).show();
+			        }else{
+			            Log.i("bmob","¡Ù—‘ ß∞‹£∫"+e.getMessage()+","+e.getErrorCode());
+			        }
+				}
+			});
+			LlGoodDt_tv.setVisibility(View.GONE);
+			LlGoodDt.setVisibility(View.VISIBLE);
+			break;
+		case R.id.IvGoodsDetail_zan:
+			break;
+		default:
+			LlGoodDt_tv.setVisibility(View.GONE);
+			LlGoodDt.setVisibility(View.VISIBLE);
 			break;
 		}
 		
