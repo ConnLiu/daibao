@@ -26,9 +26,9 @@ public class GoodsSingleton {
 		 final MyUser user = UserSingleton.getInstance();
 		 SingletonHolder.type.clear();
 		 SingletonHolder.type = new HashMap<String,ArrayList<Integer>>();
-		 Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
+//		 Thread t = new Thread(new Runnable() {
+//			@Override
+//			public void run() {
 				// TODO Auto-generated method stub
 				for(int i=0;i<m.size();i++){
 					Goods good = m.get(i); 
@@ -53,9 +53,9 @@ public class GoodsSingleton {
 				}
 				Log.d("fenlei",""+SingletonHolder.type);
 				//m.get(SingletonHolder.type.get(0).get(0)).getName()
-			}
-		});
-		t.start();
+//			}
+//		});
+//		t.start();
 	}
 	 
 	public static List<Goods> getTypeGoods(String type){
