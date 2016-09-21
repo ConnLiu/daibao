@@ -32,7 +32,7 @@ public class Buy extends Activity implements OnClickListener{
 	private Button btn_buy;
 	private TextView TvBuy_phone,tvBuy_goodName,tvBuy_price,origin_price,real_price;
 	private MyUser user,seller;
-	private ImageView img_good;
+	private ImageView img_good,IvBuy_rb;
 	private Goods good;
 	private OrderAll order = new OrderAll();
 	private int position;
@@ -51,6 +51,7 @@ public class Buy extends Activity implements OnClickListener{
 		tvBuy_goodName.setText(intent.getStringExtra("goodname"));
 		tvBuy_price = (TextView)findViewById(R.id.tvBuy_price);
 		img_good = (ImageView)findViewById(R.id.img_good);
+		IvBuy_rb =(ImageView) findViewById(R.id.IvBuy_rb);
 		real_price = (TextView)findViewById(R.id.real_price);
 		origin_price = (TextView)findViewById(R.id.origin_price);
 		real_price.setText(String.valueOf(good.getPrice()));
@@ -62,6 +63,7 @@ public class Buy extends Activity implements OnClickListener{
 		SetView(img_good,good.getObjectId()+"_0image.png");
 		btn_buy.setOnClickListener(this);
 		TvBuy_phone.setOnClickListener(this);
+		IvBuy_rb.setOnClickListener(this);
 	}
 	private void SetView(ImageView img,String file_name){
     	FileInputStream localstream = null;
@@ -81,6 +83,8 @@ public class Buy extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
+		case R.id.IvBuy_rb:
+			finish();
 		case R.id.TvBuy_phone:
 			final EditDialog.Builder editbuilder = new EditDialog.Builder(Buy.this);
 			editbuilder.setPositiveButton("È·¶¨", new DialogInterface.OnClickListener() {

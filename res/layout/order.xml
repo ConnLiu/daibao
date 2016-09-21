@@ -42,14 +42,15 @@
         android:layout_weight="3.5"
         android:background="#ffffff"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:padding="5dp"
         >
         <ImageView 
         android:id="@+id/img_good"
         android:layout_weight="1.5"
         android:layout_height="match_parent"
         android:layout_width="0dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="5dp"
         android:src="@drawable/ic_launcher"/>
     	<LinearLayout 
         android:layout_width="0dp"
@@ -151,7 +152,7 @@
 		    <TextView 
 		        android:id="@+id/TvSet_quality"
 		        android:layout_width="0dp"
-		        android:layout_weight="6"
+		        android:layout_weight="1"
 		        android:layout_height="match_parent"
 		        android:gravity="center_vertical"
 		        android:paddingLeft="20dp"
@@ -159,11 +160,10 @@
 		        android:text="原价"/>
 		     <TextView 
 		        android:layout_width="0dp"
-		        android:layout_weight="1"
-		        android:layout_height="20dp"
-		        android:layout_gravity="center_vertical"
+	            android:layout_weight="2.5"
+	            android:layout_height="match_parent"
+	            android:gravity="center"
 		        android:text="30"
-		        android:gravity="center"
 		        android:textSize="15sp"
 		        android:id="@+id/origin_price"
 		        android:textColor="@color/home"
@@ -177,7 +177,7 @@
 	    <TextView 
 	        android:id="@+id/TvSet_quality"
 	        android:layout_width="0dp"
-	        android:layout_weight="6"
+	        android:layout_weight="1"
 	        android:layout_height="match_parent"
 	        android:gravity="center_vertical"
 	        android:paddingLeft="20dp"
@@ -186,8 +186,8 @@
 	    <TextView 
 	        android:id="@+id/TvOrder_price"
 	        android:layout_width="0dp"
-	        android:layout_weight="1"
-	        android:layout_height="20dp"
+	        android:layout_weight="2.5"
+	        android:layout_height="match_parent"
 	        android:layout_gravity="center_vertical"
 	        android:text="30"
 	        android:gravity="center"
@@ -203,7 +203,7 @@
 	    <TextView 
 	        android:id="@+id/TvSet_quality"
 	        android:layout_width="0dp"
-	        android:layout_weight="5"
+	        android:layout_weight="1"
 	        android:layout_height="match_parent"
 	        android:gravity="center_vertical"
 	        android:paddingLeft="20dp"
@@ -212,8 +212,8 @@
 	    <TextView 
 	        android:id="@+id/TvOrder_state"
 	        android:layout_width="0dp"
-	        android:layout_weight="1"
-	        android:layout_height="20dp"
+	        android:layout_weight="2.5"
+	        android:layout_height="match_parent"
 	        android:layout_gravity="center_vertical"
 	        android:text="待收货"
 	        android:gravity="center"
