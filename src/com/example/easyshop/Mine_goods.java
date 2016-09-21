@@ -1,15 +1,7 @@
 package com.example.easyshop;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-
 import com.example.assist.GoodslistAdapter;
 import com.example.assist.OrderAdapter;
 import com.example.entity.Goods;
@@ -40,6 +32,10 @@ public class Mine_goods extends Activity implements OnClickListener{
 	private MyUser user = UserSingleton.getInstance(); //当前用户
 	private List<OrderAll> order_all = OrderSingleton.getInstance();
 	private String minegoods_name = null;
+	private List<OrderAll> order = null;
+	private OrderAll curorder = null;
+	private Goods curgood = null;
+	private List<Goods> goods = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,6 +56,23 @@ public class Mine_goods extends Activity implements OnClickListener{
 		TvMinegoods_top.setText(minegoods_name);
 		
 	}
+	 OnItemClickListener itemListener = new OnItemClickListener() {  
+	        
+	        public void onItemClick(AdapterView<?> parent, View view, int position,  
+	                long id) {  
+	            // 这里的view是我们在list.xml中定义的LinearLayout对象.  
+	            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 	
+	        	Intent intent = new Intent();
+	        	if(order!=null){
+		        	intent.setClass(Mine_goods.this, Order.class);
+	        		intent.putExtra("orderId", order.get(position).getObjectId());
+	        	}else{
+		        	intent.setClass(Mine_goods.this, GoodsDetail.class);
+	        		intent.putExtra("goodId", goods.get(position).getObjectId());
+	        	}
+	        	startActivity(intent);
+	        }
+	    };  
 	private void init_order(){
 		Log.d("OrderSingleton","order_all:"+order_all);
 		if(order_all==null){
@@ -94,7 +107,7 @@ public class Mine_goods extends Activity implements OnClickListener{
 //			});	
 		}else{   //如果 本机已经保存了order的数据
 			if(minegoods_name.equals("我发布的")){
-				List<Goods> goods = GoodsSingleton.getTypeGoods("13");
+				goods = GoodsSingleton.getTypeGoods("13");
 				if(goods==null){
 					toast("您当前没有发布商品");
 					return;
@@ -103,7 +116,7 @@ public class Mine_goods extends Activity implements OnClickListener{
 				Log.d("OrderSingleton","1success_order_all:"+order_all);
 				LvMineGoods.setAdapter(goodslistadapter);
 			}else if(minegoods_name.equals("我卖出的")){
-				List<OrderAll> order = OrderSingleton.getOrder_Seller(user.getObjectId().toString());
+				order = OrderSingleton.getOrder_Seller(user.getObjectId().toString());
 				if(order==null){
 					toast("您当前没有卖出商品");
 					
@@ -113,7 +126,7 @@ public class Mine_goods extends Activity implements OnClickListener{
 				Log.d("OrderSingleton","1success_order_all:"+order_all);
 				LvMineGoods.setAdapter(orderadapter);
 			}else if(minegoods_name.equals("我买到的")){
-				List<OrderAll> order = OrderSingleton.getOrder_Buyer(user.getObjectId().toString());
+				order = OrderSingleton.getOrder_Buyer(user.getObjectId().toString());
 				if(order==null){
 					toast("您当前没有买到商品");
 					return;
@@ -125,7 +138,7 @@ public class Mine_goods extends Activity implements OnClickListener{
 				toast("待完成");
 				return;
 			}else if(minegoods_name.equals("我的订单")){
-				List<OrderAll> order = OrderSingleton.getOrder_Undone(user.getObjectId().toString());
+				order = OrderSingleton.getOrder_Undone(user.getObjectId().toString());
 				if(order==null){
 					toast("您当前没有订单");
 					return;
@@ -136,18 +149,6 @@ public class Mine_goods extends Activity implements OnClickListener{
 			}
 		}
 	}
-	 OnItemClickListener itemListener = new OnItemClickListener() {  
-	        
-	        public void onItemClick(AdapterView<?> parent, View view, int position,  
-	                long id) {  
-	            // 这里的view是我们在list.xml中定义的LinearLayout对象.  
-	            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 	
-	        	Intent intent = new Intent();
-	        	intent.setClass(Mine_goods.this, Order.class);
-	        	intent.putExtra("position", position);
-	        	startActivity(intent);
-	        }
-	    };  
     @Override
     public void onClick(View v) {
 		Intent intent = new Intent();
