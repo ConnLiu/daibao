@@ -11,6 +11,7 @@ public class OrderAll extends BmobObject{
 	private String head_path;
 	private MyUser seller;
 	private MyUser buyer;
+	private String phone;
 	private integer time;
 	private int state;  //0=待发货 1=待收货  2=已结束
 
@@ -84,5 +85,13 @@ public class OrderAll extends BmobObject{
 	
 	public void setState(int state){
 		this.state = state;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

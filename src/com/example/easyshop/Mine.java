@@ -112,7 +112,7 @@ public class Mine extends Activity implements OnClickListener{
 //			query.addWhereEqualTo("buyer", user);    // 查询当前用户的所有订单
 //			query.addWhereEqualTo("seller", user);    // 查询当前用户的所有订单
 			query.order("-createdAt");
-			query.include("buyer");	//get point "author" info when query 
+			query.include("good,buyer");	//get point "author" info when query
 			query.findObjects(new FindListener<OrderAll>() {
 				@Override
 				public void done(List<OrderAll> object, BmobException e) {

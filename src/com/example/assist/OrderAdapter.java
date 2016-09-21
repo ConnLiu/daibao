@@ -1,6 +1,6 @@
 package com.example.assist;
 
-import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -66,16 +66,8 @@ public class OrderAdapter extends BaseAdapter{
 		Log.i("bmob----goodsadapter", "goods getName:"+list.get(position).getGoodname());
 		viewholder.goodsname.setText(list.get(position).getGoodname());
 		viewholder.goodsmoney.setText(String.valueOf(list.get(position).getPrice()));
-		String origin_path = list.get(position).getHead_path();
 		//Log.d("GoodslistAdapter","origin_path:"+origin_path);
-		if(origin_path==null){
-			viewholder.goodsimage.setImageResource(R.drawable.tip_selected); 
-		}else{
-			String path[]=origin_path.split(",");
-			for(int i=0;i<path.length;i++)
-				Log.d("GoodslistAdapter","path :"+path[i]);
-			download(path[0],list.get(position).getObjectId(),viewholder);
-		}
+		SetView(viewholder.goodsimage,list.get(position).getGood().getObjectId()+"_0image.png");
 		if(list.get(position).getState()==2){
 			viewholder.state.setImageResource(R.drawable.state_finish); 
 		}
@@ -87,53 +79,21 @@ public class OrderAdapter extends BaseAdapter{
 		}
 		return convertview;
 	}
-	void download(String path,final String id,final ViewHolder viewholder){
-		final String file_name = id+"_0image.png";
-		FileInputStream localstream = null;
-			try {
-				localstream = context.openFileInput(file_name);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-	    final Bitmap bm = BitmapFactory.decodeStream(localstream);
-	    if(bm != null){
-	    	viewholder.goodsimage.setImageBitmap(bm);
-			return;
+	private void SetView(ImageView img,String file_name){
+    	FileInputStream localstream = null;
+		try {
+			localstream = context.openFileInput(file_name);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		BmobFile file =new BmobFile(file_name,"",
-				path);
-		 //允许设置下载文件的存储路径，默认下载文件的目录为：context.getApplicationContext().getCacheDir()+"/bmob/"
-	    File saveFile = new File(context.getFilesDir(), file.getFilename());
-	    file.download(saveFile, new DownloadFileListener() {
-	        @Override
-	        public void onStart() {
-//	            toast("开始下载...");
-	        }
-	        @Override
-	        public void done(String savePath,cn.bmob.v3.exception.BmobException e) {
-	            if(e==null){
-	            	Log.i("download:",savePath);
-	            	FileInputStream localstream = null;
-	        		try {
-	        			localstream = context.openFileInput(file_name);
-	        		} catch (FileNotFoundException e1) {
-	        			// TODO Auto-generated catch block
-	        			e1.printStackTrace();
-	        		} 
-	                final Bitmap bm = BitmapFactory.decodeStream(localstream);
-	            	viewholder.goodsimage.setImageBitmap(bm);
-	                //toast("下载成功");
-	            }else{
-	//                toast("下载失败："+e.getErrorCode()+","+e.getMessage());
-	            }
-	        }
-	        @Override
-	        public void onProgress(Integer value, long newworkSpeed) {
-	//            Log.i("bmob","下载进度："+value+","+newworkSpeed);
-	        }
-	    });
-	}
+		Bitmap bm = BitmapFactory.decodeStream(localstream);
+		if(bm != null){
+			img.setImageBitmap(bm);
+		}else{
+			img.setImageResource(R.drawable.tip_selected);
+		}
+    }
 	class ViewHolder{
 		public TextView goodsname;
 		public TextView goodsmoney;

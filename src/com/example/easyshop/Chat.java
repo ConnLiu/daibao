@@ -116,7 +116,7 @@ public class Chat extends Activity implements OnClickListener{
     	    @Override
     	    public void done(List<ChatMsg> object, BmobException e) {
     	        if(e==null){
-    	            toast("查询成功：共"+object.size()+"条数据。");
+    	           // toast("查询成功：共"+object.size()+"条数据。");
     	            for (ChatMsg gameScore : object) {
     	            	{
     	            		chatMsg = gameScore;
@@ -238,6 +238,7 @@ public class Chat extends Activity implements OnClickListener{
 			intent.putExtra("goodprice",tv_price.getText().toString());
 			intent.putExtra("position",getIntent().getIntExtra("position",0));
     		startActivity(intent);
+    		finish();
 			break;
 		default:
 			break;

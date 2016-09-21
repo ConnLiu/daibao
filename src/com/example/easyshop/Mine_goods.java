@@ -61,14 +61,20 @@ public class Mine_goods extends Activity implements OnClickListener{
 	        public void onItemClick(AdapterView<?> parent, View view, int position,  
 	                long id) {  
 	            // 这里的view是我们在list.xml中定义的LinearLayout对象.  
-	            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 	
+	            // 所以可以通过findViewById方法可以找到list.xml中定义的它的子对象,如下: 
 	        	Intent intent = new Intent();
-	        	if(order!=null){
-		        	intent.setClass(Mine_goods.this, Order.class);
-	        		intent.putExtra("orderId", order.get(position).getObjectId());
+	        	if(minegoods_name.equals("我发布的")){
+	        		int weizhi = GoodsSingleton.getPosition("13",position);
+	        		intent.setClass(Mine_goods.this, GoodsDetail.class);
+	        		intent.putExtra("position", weizhi);
 	        	}else{
-		        	intent.setClass(Mine_goods.this, GoodsDetail.class);
-	        		intent.putExtra("goodId", goods.get(position).getObjectId());
+		        	if(order!=null){
+			        	intent.setClass(Mine_goods.this, Order.class);
+		        		intent.putExtra("orderId", order.get(position).getObjectId());
+		        	}else{
+			        	intent.setClass(Mine_goods.this, GoodsDetail.class);
+		        		intent.putExtra("goodId", goods.get(position).getObjectId());
+		        	}
 	        	}
 	        	startActivity(intent);
 	        }
@@ -76,35 +82,7 @@ public class Mine_goods extends Activity implements OnClickListener{
 	private void init_order(){
 		Log.d("OrderSingleton","order_all:"+order_all);
 		if(order_all==null){
-			toast("订单获取失败！");
-//			BmobQuery<OrderAll> query = new BmobQuery<OrderAll>();
-//			query.setLimit(10000);
-////			query.addWhereEqualTo("buyer", user);    // 查询当前用户的所有订单
-////			query.addWhereEqualTo("seller", user);    // 查询当前用户的所有订单
-//			query.order("-createdAt");
-//			query.include("buyer");	//get point "author" info when query 
-//			query.findObjects(new FindListener<OrderAll>() {
-//				@Override
-//				public void done(List<OrderAll> object, BmobException e) {
-//					if(e==null){
-//						Log.d("OrderSingleton","done_object nick:"+object.get(0).getBuyer().getNick());
-//						OrderSingleton.setInstance(object);   //将得到数据保存到单例对象中，后面数据量大可以考虑保存到本地数据库
-//						order_all = OrderSingleton.getInstance();
-//						Log.d("OrderSingleton","user.getObjectId():"+user.getObjectId());
-//						object = OrderSingleton.getOrder_Undone(user.getObjectId().toString());
-//						Log.d("OrderSingleton","3success_object:"+object);
-//						if(object==null){
-//							return;
-//						}
-//						OrderAdapter orderadapter = new OrderAdapter(Mine_goods.this,object);
-//						Log.d("OrderSingleton","1success_order_all:"+order_all);
-//						LvMineGoods.setAdapter(orderadapter);
-//						Log.d("OrderSingleton","success_order_all:"+order_all);
-//					}else{
-//						Log.i("OrderSingleton", "findObjects_failed"+e.getMessage()+","+e.getErrorCode());
-//					}
-//				}
-//			});	
+			toast("订单为空！");
 		}else{   //如果 本机已经保存了order的数据
 			if(minegoods_name.equals("我发布的")){
 				goods = GoodsSingleton.getTypeGoods("13");

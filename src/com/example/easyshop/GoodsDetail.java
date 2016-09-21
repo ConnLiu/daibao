@@ -328,6 +328,7 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			intent.putExtra("price",TvGoodsDetail_newp.getText().toString());
 			intent.putExtra("position",position);
 			startActivity(intent);
+			finish();
 			break;
 		case R.id.IvGoodsDetail_comment:
 			LlGoodDt_tv.setVisibility(View.VISIBLE);

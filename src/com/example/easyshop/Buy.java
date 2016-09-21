@@ -1,5 +1,8 @@
 package com.example.easyshop;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -16,16 +19,20 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class Buy extends Activity implements OnClickListener{
 	private Button btn_buy;
-	private TextView TvBuy_phone,tvBuy_goodName,tvBuy_price;
+	private TextView TvBuy_phone,tvBuy_goodName,tvBuy_price,origin_price,real_price;
 	private MyUser user,seller;
+	private ImageView img_good;
 	private Goods good;
 	private OrderAll order = new OrderAll();
 	private int position;
@@ -43,15 +50,34 @@ public class Buy extends Activity implements OnClickListener{
 		tvBuy_goodName =(TextView) findViewById(R.id.tvBuy_goodName);
 		tvBuy_goodName.setText(intent.getStringExtra("goodname"));
 		tvBuy_price = (TextView)findViewById(R.id.tvBuy_price);
+		img_good = (ImageView)findViewById(R.id.img_good);
+		real_price = (TextView)findViewById(R.id.real_price);
+		origin_price = (TextView)findViewById(R.id.origin_price);
+		real_price.setText(String.valueOf(good.getPrice()));
+		origin_price.setText(String.valueOf(good.getOld_price()));
 		tvBuy_price.setText(intent.getStringExtra("goodprice"));
 		TvBuy_phone = (TextView)findViewById(R.id.TvBuy_phone);
 		TvBuy_phone.setText(user.getPhone().toString());
 		btn_buy = (Button) findViewById(R.id.btn_buy);
-		
+		SetView(img_good,good.getObjectId()+"_0image.png");
 		btn_buy.setOnClickListener(this);
 		TvBuy_phone.setOnClickListener(this);
 	}
-	
+	private void SetView(ImageView img,String file_name){
+    	FileInputStream localstream = null;
+		try {
+			localstream = openFileInput(file_name);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Bitmap bm = BitmapFactory.decodeStream(localstream);
+		if(bm != null){
+			img.setImageBitmap(bm);
+		}else{
+			img.setImageResource(R.drawable.tip_selected);
+		}
+    }
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
@@ -76,14 +102,13 @@ public class Buy extends Activity implements OnClickListener{
 			order.setBuyer(user);
 			order.setSeller(seller);
 			order.setPrice(Float.valueOf(tvBuy_price.getText().toString()));
-			//order.setGood(good);
+			order.setGood(good);
+			order.setPhone(TvBuy_phone.getText().toString());
 			order.setGoodname(tvBuy_goodName.getText().toString());
-			order.save(new SaveListener<String>() {
-
+			order.save(new SaveListener<String>(){
 				@Override
 				public void done(String objectId, BmobException e) {
 					if(e == null){
-						
 						delGood();
 					}else{
 						Toast.makeText(Buy.this, "Ã·Ωª∂©µ• ß∞‹", Toast.LENGTH_SHORT).show();
@@ -96,7 +121,8 @@ public class Buy extends Activity implements OnClickListener{
 		}
 	}
 	void delGood(){
-		good.delete(new UpdateListener() {
+		good.setType(13);
+		good.update(new UpdateListener() {
 
 		    @Override
 		    public void done(BmobException e) {

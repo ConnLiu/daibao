@@ -123,4 +123,7 @@ public class GoodsSingleton {
 		Log.d("delCentGood","type :"+SingletonHolder.type);
 		
 	}
+	public static int getPosition(String type,int positon){
+		return SingletonHolder.type.get(type).get(positon);
+	}
 }

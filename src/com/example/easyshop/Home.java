@@ -176,6 +176,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     	BmobQuery<Goods> c = new BmobQuery<Goods>();
 		c.setLimit(20);
 		c.order("-createdAt");
+		c.addWhereLessThan("type", 12);
 		c.findObjects(new FindListener<Goods>() {
 			@Override
 			public void done(List<Goods> object, BmobException e) {
@@ -195,6 +196,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 		BmobQuery<Goods> c = new BmobQuery<Goods>();
 		c.setLimit(20);
 		c.order("-createdAt");
+		c.addWhereLessThan("type", 12);
 		c.findObjects(new FindListener<Goods>() {
 			@Override
 			public void done(List<Goods> object, BmobException e) {
@@ -275,6 +277,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     	BmobQuery<Goods> c = new BmobQuery<Goods>();
 		c.setLimit(10000);
 		c.order("-createdAt");
+		c.addWhereLessThan("type", 12);
 		c.include("author");	//get point "author" info when query 
 		c.findObjects(new FindListener<Goods>() {
 			@Override

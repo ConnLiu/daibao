@@ -139,7 +139,8 @@
 	        android:layout_marginTop="5dp"
 	        android:layout_marginBottom="5dp"
 	        android:layout_height="match_parent"
-	        android:layout_gravity="center_vertical"
+	        android:gravity="center"
+	        
 	        />      
 	    </LinearLayout>
 	       <LinearLayout 
@@ -155,7 +156,7 @@
 		        android:gravity="center_vertical"
 		        android:paddingLeft="20dp"
 		        android:textColor="@color/textcolor"
-		        android:text="运费"/>
+		        android:text="原价"/>
 		     <TextView 
 		        android:layout_width="0dp"
 		        android:layout_weight="1"
@@ -164,6 +165,7 @@
 		        android:text="30"
 		        android:gravity="center"
 		        android:textSize="15sp"
+		        android:id="@+id/origin_price"
 		        android:textColor="@color/home"
 		        />
 	       </LinearLayout>
