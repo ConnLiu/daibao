@@ -1,20 +1,40 @@
 package com.example.easyshop;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobRealTimeData;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.ValueEventListener;
+
 import com.example.assist.ChatMsgViewAdapater;
 import com.example.assist.MessagelistAdapter;
 import com.example.assist.ZanslistAdapter;
 import com.example.customview.ListViewForScrollView;
+import com.example.entity.ChatMsg;
 import com.example.entity.ChatMsgEntity;
+import com.example.entity.Goods;
+import com.example.entity.MyUser;
+import com.example.singleton.GoodsSingleton;
+import com.example.singleton.UserSingleton;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -33,13 +53,18 @@ public class Chat extends Activity implements OnClickListener{
 	private ListView LvChat_list;  
 	    //聊天的内容  
 	private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>(); 
-	private ImageView IvSet_rb;
+	private ImageView IvSet_rb,img_good;
 	private TextView tv_confrmBuy,tv_goodName,tv_price;
+	private Goods good;
+	private ChatMsg chatMsg;
+	private MyUser user= UserSingleton.getInstance();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat);
 		Intent intent =getIntent();
+		int position = getIntent().getIntExtra("position",0);
+		good = GoodsSingleton.getInstance().get(position);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		LvChat_list = (ListViewForScrollView)findViewById(R.id.LvChat_list);
 		LvChat_list.setDividerHeight(0);
@@ -52,60 +77,134 @@ public class Chat extends Activity implements OnClickListener{
 	    mBtnSend.setOnClickListener(this);  
 	    mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
 		IvSet_rb = (ImageView)findViewById(R.id.IvSet_rb);
+		img_good = (ImageView)findViewById(R.id.img_good);
 		IvSet_rb.setOnClickListener(this);
 		tv_confrmBuy.setOnClickListener(this);
 		initData();
 		
 	}
-    private String[] msgArray = new String[]{"  孩子们，要好好学习，天天向上！要好好听课，不要翘课！不要挂科，多拿奖学金！三等奖学金的争取拿二等，二等的争取拿一等，一等的争取拿励志！",   
-            "姚妈妈还有什么吩咐...",   
-            "还有，明天早上记得跑操啊，不来的就扣德育分！",   
-            "德育分是什么？扣了会怎么样？",   
-            "德育分会影响奖学金评比，严重的话，会影响毕业",   
-            "哇！学院那么不人道？",  
-            "你要是你不听话，我当场让你不能毕业！",   
-            "姚妈妈，我知错了(- -我错在哪了...)"};  
-  
-    private String[]dataArray = new String[]{"2012-09-01 18:00", "2012-09-01 18:10",   
-            "2012-09-01 18:11", "2012-09-01 18:20",   
-            "2012-09-01 18:30", "2012-09-01 18:35",   
-            "2012-09-01 18:40", "2012-09-01 18:50"};  
-    private final static int COUNT = 8;  
+    private String[] msgArray = new String[]{"亲爱的呆宝用户，您好！",   
+            };  
+    private String[]dataArray = new String[]{" 系统默认信息 "};  
+    private final static int COUNT = 1;  
       
+    private void SetView(ImageView img,String file_name){
+    	FileInputStream localstream = null;
+		try {
+			localstream = openFileInput(file_name);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Bitmap bm = BitmapFactory.decodeStream(localstream);
+		if(bm != null){
+			img.setImageBitmap(bm);
+		}else{
+			img.setImageResource(R.drawable.tip_selected);
+		}
+    }
     //初始化要显示的数据   
-    private void initData() {  
+    private void initData() {
+    	SetView(img_good,good.getObjectId()+"_0image.png");
+    	BmobQuery<ChatMsg> query = new BmobQuery<ChatMsg>();
+    	//查询playerName叫“比目”的数据
+    	query.addWhereEqualTo("goodsObject", good.getObjectId());
+    	//返回50条数据，如果不加上这条语句，默认返回10条数据
+    	query.setLimit(1);
+    	//执行查询方法
+    	query.findObjects(new FindListener<ChatMsg>() {
+    	    @Override
+    	    public void done(List<ChatMsg> object, BmobException e) {
+    	        if(e==null){
+    	            toast("查询成功：共"+object.size()+"条数据。");
+    	            for (ChatMsg gameScore : object) {
+    	            	{
+    	            		chatMsg = gameScore;
+    	            		
+    	            		return;
+    	            	}
+    	            }
+    	        }
+    	            Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+    	            chatMsg = new ChatMsg(user,good.getAuthor());
+    	            chatMsg.setGoodsObject(good.getObjectId());
+    	            chatMsg.save(new SaveListener<String>() {
+    	    			@Override
+    	    			public void done(String objectId, BmobException e) {
+    	    				// TODO Auto-generated method stub
+    	    				 if(e==null){
+    	    	                    //toast("创建数据成功：" + objectId);
+    	    	                    Log.i("bmob","objectId："+objectId+"   "+chatMsg.getObjectId());
+    	    	                }else{
+    	    	                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+    	    	                }
+    	    			}
+    	            });
+    	        }
+    	});
+    	
         for(int i = 0; i < COUNT; i++) {  
             ChatMsgEntity entity = new ChatMsgEntity();  
-            entity.setDate(dataArray[i]);  
-            if (i % 2 == 0)  
+            entity.setDate(dataArray[i]);  //
+            if (i == 0)  
             {  
-                entity.setName("姚妈妈");  
+                entity.setPath(good.getAuthor().getObjectId()+"_temphead.png");  
                 entity.setMsgType(true);  
             }else{  
-                entity.setName("Shamoo");  
+                entity.setPath("Shamoo");  
                 entity.setMsgType(false);  
             }  
-              
-            entity.setText(msgArray[i]);  
+            entity.setText(msgArray[i]);  //
             mDataArrays.add(entity);  
         }  
         mAdapter = new ChatMsgViewAdapater(this, mDataArrays);  
         LvChat_list.setAdapter(mAdapter);  
-    }  
+        
+        data.start(new ValueEventListener() { 	//有时候没用
+			@Override
+			public void onDataChange(JSONObject data) {
+				// TODO Auto-generated method stub
+				//if(BmobRealTimeData.ACTION_UPDATETABLE.equals(arg0.optString("action"))){
+					
+					//chatMsg.add(new ChatMsg(data.optString("name"), data.optString("content")));
+					Log.d("onDataChange", "("+data+")"
+					+"数据："+data.opt("msg_send")+" "+data.optString("msg_send"));
+				//}
+			}
+			@Override
+			public void onConnectCompleted(Exception e) {
+				// TODO Auto-generated method stub
+				if(e==null){
+					if(data.isConnected()){
+						Log.i("onDataChange","成功：");
+						data.subRowUpdate("ChatMsg", chatMsg.getObjectId());
+					}
+					Log.i("onDataChange","成功：");
+				}else{
+					Log.i("onDataChange","失败："+e.getMessage());
+				}
+				
+			}
+		});
+        
+    } 
+    BmobRealTimeData data = new BmobRealTimeData();
     private void send()  
     {  
         String contString = mEditTextContent.getText().toString();  
         if (contString.length() > 0)  
         {  
             ChatMsgEntity entity = new ChatMsgEntity();  
-            entity.setDate(getDate());  
-            entity.setName("");  
+            entity.setDate(getDate()); 
+            entity.setPath(user.getObjectId()+"_temphead.png");
             entity.setMsgType(false);  
             entity.setText(contString);  
-            mDataArrays.add(entity);  
-            mAdapter.notifyDataSetChanged();  
+            mDataArrays.add(entity);
+            mAdapter.notifyDataSetChanged();
             mEditTextContent.setText("");  
-            LvChat_list.setSelection(LvChat_list.getCount() - 1);  
+            LvChat_list.setSelection(LvChat_list.getCount() - 1);
+            // 上面是显示数据，下面是传送数据到数据库
+            chatMsg.SendMsg(contString,entity.getDate(),user);
         }  
     }  
       

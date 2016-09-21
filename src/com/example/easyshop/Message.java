@@ -78,7 +78,7 @@ public class Message extends Activity implements OnClickListener{
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		
-		for(int i = 0 ; i <7; i ++ )
+		for(int i = 0 ; i <0; i ++ )
 		{
 			Map<String, Object> map = new HashMap<String, Object>();
 			/*try {
@@ -89,7 +89,6 @@ public class Message extends Activity implements OnClickListener{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}*/
-			
 			map.put("name", "Davi");
 			map.put("time", "12:00");
 			map.put("rank", "V4");

@@ -2,8 +2,8 @@ package com.example.entity;
 
 public class ChatMsgEntity {
     private static final String TAG = ChatMsgEntity.class.getSimpleName();
-    //名字
-    private String name;
+    //文件名字
+    private String path;
     //日期
     private String date;
     //聊天内容
@@ -11,12 +11,12 @@ public class ChatMsgEntity {
     //是否为对方发来的信息
     private boolean isComMeg = true;
 
-    public String getName() {
-        return name;
+    public String getPath() {
+        return path;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPath(String name) {
+        this.path = name;
     }
 
     public String getDate() {
@@ -47,7 +47,7 @@ public class ChatMsgEntity {
     }
 
     public ChatMsgEntity(String name, String date, String text, boolean isComMsg) {
-        this.name = name;
+        this.path = name;
         this.date = date;
         this.text = text;
         this.isComMeg = isComMsg;
