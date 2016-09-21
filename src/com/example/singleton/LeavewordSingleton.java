@@ -22,6 +22,7 @@ public class LeavewordSingleton {
 	 public static void setInstance(final List<LeaveWord> m){//设置自定义单例对象
 		 SingletonHolder.instance = m;
 	     Log.i("GoodId","GoodId:begin");
+	     SingletonHolder.goodId = new HashMap<String,ArrayList<Integer>>();
 		 Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {

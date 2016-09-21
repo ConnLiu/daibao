@@ -32,6 +32,7 @@ public class GoodsSingleton {
 				// TODO Auto-generated method stub
 				for(int i=0;i<m.size();i++){
 					Goods good = m.get(i); 
+					
 					ArrayList<Integer> temp=SingletonHolder.type.get(String.valueOf(good.getType()));					
 					if(temp==null){
 						temp=new ArrayList<Integer>();
