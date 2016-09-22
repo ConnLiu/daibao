@@ -908,6 +908,7 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f080001;
         public static final int app_name=0x7f080000;
+        public static final int book=0x7f08001b;
         public static final int hello_world=0x7f080002;
         public static final int title_activity_about=0x7f08000f;
         public static final int title_activity_add=0x7f08000e;

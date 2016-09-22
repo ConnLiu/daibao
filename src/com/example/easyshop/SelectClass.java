@@ -17,7 +17,6 @@ public class SelectClass extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.category);
-		
 		Iv_class1 = (ImageView)findViewById(R.id.Iv_class1);
 		Iv_class2 = (ImageView)findViewById(R.id.Iv_class2);
 		Iv_class3 = (ImageView)findViewById(R.id.Iv_class3);

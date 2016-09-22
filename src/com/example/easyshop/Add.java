@@ -145,7 +145,6 @@ public class Add extends Activity implements OnClickListener{
 				        	handler.sendMessage(msg1);
 				        }
 				    }
-
 				    @Override
 				    public void onError(int statuscode, String errormsg) {
 				        Log.d("错误码"+statuscode,"错误描述："+errormsg);
@@ -157,6 +156,7 @@ public class Add extends Activity implements OnClickListener{
 				        //2、curPercent--表示当前上传文件的进度值（百分比）
 				        //3、total--表示总的上传文件数
 				        //4、totalPercent--表示总的上传进度（百分比）
+				    	
 				    }
 				});
 			}else if(msg.what==1){
@@ -204,6 +204,7 @@ public class Add extends Activity implements OnClickListener{
 						android.os.Message msg = new android.os.Message();
 			        	msg.obj = objectId;
 			        	msg.what=0;
+			        	toast("正在上传数据......");
 						handler.sendMessage(msg);
 			        }else{
 			            Log.i("bmob","发布失败："+e.getMessage()+","+e.getErrorCode());

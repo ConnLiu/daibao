@@ -64,7 +64,7 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
 	private String pathName[] = new String[5];
 	private ImageView[] mImageViews = null;
 	private ImageView[] mTips = null;
-	private int index = 0; 
+	private int index = 0;
 	MyUser user = UserSingleton.getInstance();
 	//下面是公告图片的网络地址
 	private String path_notic[] = new String[]{"http://a3.qpic.cn/psb?/V13GUzi82nFFur/OdyprfjByHy2aZjXeIrbJE6Zb8vZSBeZWSIMDGIPSuE!/b/dAoBAAAAAAAA&bo=aAHIAAAAAAADB4M!&rf=viewer_4",

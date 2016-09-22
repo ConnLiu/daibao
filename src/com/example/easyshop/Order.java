@@ -48,9 +48,7 @@ public class Order extends Activity implements OnClickListener{
 		TvOrder_state =(TextView) findViewById(R.id.TvOrder_state);
 		Intent intent = getIntent();
 		Init(intent);
-		if(order.getState()==2){
-			btn_cfm_get.setVisibility(View.GONE);
-		}
+		
 		btn_cfm_get.setOnClickListener(this);
 		IvOrder_rb.setOnClickListener(this);
 	}
@@ -87,12 +85,15 @@ public class Order extends Activity implements OnClickListener{
 			TvOrder_tel.setText(order.getPhone());
 			if(order.getState()==2){
 				TvOrder_state.setText("已结束"); 
+				btn_cfm_get.setVisibility(View.GONE);
 			}
 			else if(order.getState()==1){
 				TvOrder_state.setText("待收货"); 
+				btn_cfm_get.setText("确认收货"); 
 			}
 			else{
-				TvOrder_state.setText("待发货"); 
+				TvOrder_state.setText("待发货");
+				btn_cfm_get.setText("确认发货");
 			}
 		}
 	}

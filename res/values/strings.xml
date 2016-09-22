@@ -28,5 +28,6 @@
     <string name="title_activity_cell_detail">CellDetail</string>
     <string name="title_activity_auction_goods">AuctionGoods</string>
     <string name="title_activity_my_order">MyOrder</string>
+    <string name="book">文具</string>
 
 </resources>
