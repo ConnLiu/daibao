@@ -93,7 +93,7 @@ public class Order extends Activity implements OnClickListener{
 			}
 			else{
 				TvOrder_state.setText("待发货");
-				btn_cfm_get.setText("确认发货");
+				btn_cfm_get.setText("确认收货");
 			}
 		}
 	}

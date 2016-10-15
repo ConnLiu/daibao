@@ -331,28 +331,7 @@ public class Add extends Activity implements OnClickListener{
             {
             	
             	for(int i=position+1;i<IMAGECODE;i++){
-            		FileInputStream localstream = null;
-//            		try {
-//            			localstream = openFileInput("0"+IMAGE_FILE_NAME);
-//            		} catch (FileNotFoundException e) {
-//            			// TODO Auto-generated catch block
-//            			e.printStackTrace();
-//            			Log.d("DialogInterface","FileNotFoundException+ IMAGECODE "+IMAGECODE+" i: "+i);
-//            		}
-//                    Bitmap bm = BitmapFactory.decodeStream(localstream);
-//                    IvAdd_image3.setImageBitmap(bm);
-                    
-//                    
-//                    try {
-//            			localstream = openFileInput("2"+IMAGE_FILE_NAME);
-//            		} catch (FileNotFoundException e) {
-//            			// TODO Auto-generated catch block
-//            			e.printStackTrace();
-//            			Log.d("DialogInterface","FileNotFoundException+ IMAGECODE "+IMAGECODE+" i: "+i);
-//            		}
-//                     bm = BitmapFactory.decodeStream(localstream);
-//                    IvAdd_image4.setImageBitmap(bm);
-                    
+            		FileInputStream localstream = null;    
             		int temp = i-1;
             		deleteFile(temp+IMAGE_FILE_NAME);
             		File file = new File(getFilesDir()+"/"+i+IMAGE_FILE_NAME);
@@ -491,7 +470,7 @@ public class Add extends Activity implements OnClickListener{
 	            setPicToView(data);
 	        }
 	        break;
-	    case REQUESTCODE_CLASS:
+	    case REQUESTCODE_CLASS://如果没有选择code就返回了
 	    	TvAdd_class.setText(classname[resultCode-1]);
 	    	type=resultCode-1;
 	    	break;

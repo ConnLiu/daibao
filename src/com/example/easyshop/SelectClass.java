@@ -45,11 +45,17 @@ public class SelectClass extends Activity implements OnClickListener{
 		Iv_class12.setOnClickListener(this);
 		IvSelectc_rb.setOnClickListener(this);
 	}
-
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		setResult(1);  //设置默认返回值
+		super.onBackPressed();
+	}
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.IvCategory_rb:
+			setResult(1);  //设置默认返回值
 			finish();
 			break;
 		case R.id.Iv_class1:

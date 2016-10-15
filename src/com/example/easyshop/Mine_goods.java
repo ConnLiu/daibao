@@ -67,7 +67,7 @@ public class Mine_goods extends Activity implements OnClickListener{
 	        		int weizhi = GoodsSingleton.getPosition("13",position);
 	        		intent.setClass(Mine_goods.this, GoodsDetail.class);
 	        		intent.putExtra("position", weizhi);
-	        	}else{
+	        	}else if(minegoods_name.equals("我的订单")){
 		        	if(order!=null){
 			        	intent.setClass(Mine_goods.this, Order.class);
 		        		intent.putExtra("orderId", order.get(position).getObjectId());
@@ -79,6 +79,8 @@ public class Mine_goods extends Activity implements OnClickListener{
 	        	startActivity(intent);
 	        }
 	    };  
+	    
+	//一个界面的复用
 	private void init_order(){
 		Log.d("OrderSingleton","order_all:"+order_all);
 		if(order_all==null){
