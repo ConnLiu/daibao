@@ -3,11 +3,7 @@ package com.example.easyshop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
@@ -16,7 +12,6 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 import com.example.assist.CommentlistAdapter;
-import com.example.assist.GoodslistAdapter;
 import com.example.customview.ListViewForScrollView;
 import com.example.entity.Goods;
 import com.example.entity.LeaveWord;
@@ -26,6 +21,7 @@ import com.example.singleton.LeavewordSingleton;
 import com.example.singleton.UserSingleton;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +29,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -114,6 +109,15 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		BtGooddt_send =(Button) findViewById(R.id.BtGooddt_send);
 
 		SvGoodsDetail.smoothScrollTo(0, 0);
+		updateLword();    //初始化留言
+		
+		IvGoodsDetail_rb.setOnClickListener(this);
+		TvGoodsDetail_want.setOnClickListener(this);
+		IvGoodsDetail_zan.setOnClickListener(this);
+		IvGoodsDetail_comment.setOnClickListener(this);
+		BtGooddt_send.setOnClickListener(this);
+	}
+	public void updateLword(){
 		//Log.i("ObjectId", good.getObjectId());
 		if(LeavewordSingleton.getInstance()==null){
 		     //Log.i("GoodId","getword:begin");
@@ -132,12 +136,6 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			LvGoodsDetail.setVisibility(View.GONE);
 			TvGooddt_hotm.setText("暂无留言");
 		}
-		
-		IvGoodsDetail_rb.setOnClickListener(this);
-		TvGoodsDetail_want.setOnClickListener(this);
-		IvGoodsDetail_zan.setOnClickListener(this);
-		IvGoodsDetail_comment.setOnClickListener(this);
-		BtGooddt_send.setOnClickListener(this);
 	}
 	void init_pic(){
 		IvGoodsDetail_iv1 = (ImageView)findViewById(R.id.IvGoodsDetail_iv1);
@@ -279,16 +277,27 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		BmobQuery<LeaveWord> w = new BmobQuery<LeaveWord>();
 		w.setLimit(20);
 		w.include("user");
-		Log.i("GoodId", "setinstance begin");
+		//Log.i("GoodId", "setinstance begin");
 		w.findObjects(new FindListener<LeaveWord>() {
 			@Override
-			public void done(List<LeaveWord> object, BmobException e) {
+			public void done(final List<LeaveWord> object, BmobException e) {
 				if(e==null){
-					Log.i("GoodId", "setinstance begin2");
+					//Log.i("GoodId", "setinstance begin2");
 					LeavewordSingleton.setInstance(object);
-					lword_list = LeavewordSingleton.getGoodsLWord(good.getObjectId());
-					CommentlistAdapter listadapter = new CommentlistAdapter(GoodsDetail.this,object);
-					LvGoodsDetail.setAdapter(listadapter);
+					Log.i("GoodId", "object"+object);
+					//Log.i("GoodId", "good.getObjectId()"+good.getObjectId());
+					new Handler().postDelayed(new Runnable(){   
+
+					    public void run() {   
+							lword_list = LeavewordSingleton.getGoodsLWord(good.getObjectId());
+							if(lword_list != null){
+								CommentlistAdapter listadapter = new CommentlistAdapter(GoodsDetail.this,lword_list);
+								LvGoodsDetail.setAdapter(listadapter);
+							}
+					    }   
+
+					 }, 3000);
+					Log.i("GoodId", "lword_list"+lword_list);
 		    		
 				}else{
 					Log.i("bmob----getcomment", "failed"+e.getMessage()+","+e.getErrorCode());
@@ -297,22 +306,6 @@ public class GoodsDetail extends Activity implements OnClickListener{
 		});		
 	}
 	
-	private List<Map<String,Object>> getData() {
-		
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		
-		for(int i = 0 ; i <4; i ++ )
-		{
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("username", "username");
-			map.put("comment", "comment");
-			map.put("time", "time");
-			map.put("headimage", R.drawable.tip_selected);
-			list.add(map);
-		}
-		return list;
-	}
-
 	@Override
 	public void onClick(View v) {
 		Intent intent = new Intent();
@@ -335,6 +328,9 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			LlGoodDt.setVisibility(View.GONE);
 			break;
 		case R.id.BtGooddt_send:
+			if(EtGooddt_com.getText().toString().isEmpty()){
+				Toast.makeText(GoodsDetail.this, "发送内容不能为空！", Toast.LENGTH_SHORT).show();
+			}else{
 			LeaveWord leave_word = new LeaveWord();
 			leave_word.setContent(EtGooddt_com.getText().toString());
 			leave_word.setGoodId(good.getObjectId().toString());
@@ -353,9 +349,25 @@ public class GoodsDetail extends Activity implements OnClickListener{
 			});
 			LlGoodDt_tv.setVisibility(View.GONE);
 			LlGoodDt.setVisibility(View.VISIBLE);
-			getword();
+			/*//LeavewordSingleton.setInstance(null);
+			new Handler().postDelayed(new Runnable(){   
+
+			    public void run() {   
+			    }   
+
+			 }, 2000);*/
+	    	getword();
+			new Handler().postDelayed(new Runnable(){   
+
+			    public void run() { 
+			    	updateLword();
+			    }   
+
+			 }, 5000); 
+			}
 			break;
 		case R.id.IvGoodsDetail_zan:
+			IvGoodsDetail_zan.setImageResource(R.drawable.zan_red);
 			break;
 		default:
 			LlGoodDt_tv.setVisibility(View.GONE);

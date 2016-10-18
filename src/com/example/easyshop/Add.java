@@ -457,7 +457,7 @@ public class Add extends Activity implements OnClickListener{
 	        try {
 	            startPhotoZoom(data.getData());
 	        } catch (NullPointerException e) {
-	            //e.printStackTrace();// 用户点击取消操作
+	            e.printStackTrace();// 用户点击取消操作
 	        }
 	        break;
 	    case REQUESTCODE_TAKE:// 调用相机拍照

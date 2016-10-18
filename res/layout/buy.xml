@@ -63,7 +63,7 @@
             android:layout_height="45dp"
             android:textSize="20sp"
             android:layout_marginTop="10dp"
-            android:text="书籍13254654书籍13254654书籍13254654书籍13254654书籍13254654书籍13254654"/>
+            android:text="书籍"/>
 	         <LinearLayout 
 		         android:layout_width="wrap_content"
 	            android:layout_height="19dp"
@@ -138,7 +138,7 @@
 	        android:layout_weight="5"
 	        android:layout_height="match_parent"
 	        android:gravity="center"
-	        
+	        android:phoneNumber="true"
 	        android:textColor="@color/textcolor"/>      
     <ImageView 
         android:layout_width="0dp"
@@ -204,6 +204,7 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="0dp"
 	    android:layout_weight="1.5"	  
+	    android:background="#ffffff"
 	    >
 	   
         <Button 

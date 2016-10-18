@@ -38,8 +38,8 @@
         android:orientation="vertical"
         android:layout_weight="13">
 	<LinearLayout
-	     android:layout_width="match_parent"
-        android:layout_height="match_parent"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
 	    >
         <EditText
@@ -97,7 +97,7 @@
         </LinearLayout>
         <View 
             android:layout_width="match_parent"
-            android:layout_height="10dp"/>
+            android:layout_height="5dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -133,7 +133,7 @@
         </LinearLayout>
         <View 
             android:layout_width="match_parent"
-            android:layout_height="10dp"/>
+            android:layout_height="5dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -154,7 +154,7 @@
                 android:layout_weight="4.5"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="0"
+                android:hint="0"
                 android:textSize="18dp"
                 android:textColor="#000000"/>
             <ImageView 
@@ -166,7 +166,7 @@
         </LinearLayout>
         <View 
             android:layout_width="match_parent"
-            android:layout_height="5dp"/>
+            android:layout_height="2dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -187,7 +187,7 @@
                 android:layout_weight="4.5"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="0"
+                android:hint="0"
                 android:textSize="18dp"
                 android:textColor="#000000"/>
             <ImageView 
@@ -199,7 +199,7 @@
         </LinearLayout>
         <View 
             android:layout_width="match_parent"
-            android:layout_height="5dp"/>
+            android:layout_height="2dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -231,11 +231,17 @@
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/jiantou_grey"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#ffffff"
+            android:gravity="center_horizontal"
+            android:paddingTop="15dp">
 		<Button 
         android:id="@+id/Btn_cfmbuy"
         android:layout_width="270dp"
         android:layout_height="45dp"
-        android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="8dp"
@@ -243,6 +249,7 @@
         android:textColor="#ffffff"
         android:textSize="20dp"
         android:text="确认发布"/>
+		</LinearLayout>		
 		</LinearLayout>		
     </ScrollView>
 </LinearLayout>

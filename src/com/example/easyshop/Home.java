@@ -17,13 +17,16 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 import com.example.assist.CelllistAdapter;
+import com.example.assist.CommentlistAdapter;
 import com.example.assist.GoodslistAdapter;
 import com.example.customview.ListViewForScrollView;
 import com.example.entity.CellInfo;
 import com.example.entity.Goods;
+import com.example.entity.LeaveWord;
 import com.example.entity.MyUser;
 import com.example.manager.GoodsManager;
 import com.example.singleton.GoodsSingleton;
+import com.example.singleton.LeavewordSingleton;
 import com.example.singleton.UserSingleton;
 import android.os.Bundle;
 import android.app.Activity;
@@ -150,8 +153,23 @@ public class Home extends Activity implements OnPageChangeListener,OnClickListen
     		LvHome_goods.setAdapter(goodslistadapter);
         }
         
-       
+       getword();
     }
+	public void getword(){
+		BmobQuery<LeaveWord> w = new BmobQuery<LeaveWord>();
+		w.setLimit(20);
+		w.include("user");
+		w.findObjects(new FindListener<LeaveWord>() {
+			@Override
+			public void done(final List<LeaveWord> object, BmobException e) {
+				if(e==null){
+					LeavewordSingleton.setInstance(object);
+				}else{
+					Log.i("bmob----getcomment", "failed"+e.getMessage()+","+e.getErrorCode());
+				}
+			}
+		});		
+	}
     public void login(String account,String passwd){
 		MyUser user = new MyUser();
 		user.setUsername(account);

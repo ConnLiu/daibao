@@ -277,7 +277,7 @@ public class Myinfo extends Activity implements OnClickListener{
 	        try {
 	            startPhotoZoom(data.getData());
 	        } catch (NullPointerException e) {
-	            //e.printStackTrace();// 用户点击取消操作
+	            e.printStackTrace();// 用户点击取消操作
 	        }
 	        break;
 	    case REQUESTCODE_TAKE:// 调用相机拍照
@@ -326,7 +326,7 @@ public class Myinfo extends Activity implements OnClickListener{
 				stream = openFileOutput(IMAGE_FILE_NAME, 0);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
-				//e.printStackTrace();
+				e.printStackTrace();
 			}
 	        photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
 	        IvMyinfo_head.setImageDrawable(drawable);

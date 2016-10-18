@@ -91,7 +91,11 @@ public class Buy extends Activity implements OnClickListener{
 				@Override
 				public void onClick(DialogInterface builder, int which) {
 					builder.dismiss();
-					TvBuy_phone.setText(editbuilder.getEdit().toString());
+					if(editbuilder.getEdit().isEmpty()){
+						Toast.makeText(Buy.this, "电话号码不得为空!", Toast.LENGTH_SHORT).show();
+					}else{
+						TvBuy_phone.setText(editbuilder.getEdit().toString());
+					}
 				}
 			});
 			editbuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {

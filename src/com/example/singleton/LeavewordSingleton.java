@@ -48,6 +48,7 @@ public class LeavewordSingleton {
 
 		List<LeaveWord> list = new ArrayList<LeaveWord>();
 		if(SingletonHolder.goodId.get(goodId) == null){
+			Log.i("GoodId", "SingletonHolder.goodId"+SingletonHolder.goodId);
 			return null;
 		}
 		for(int i:SingletonHolder.goodId.get(goodId)){

@@ -33,8 +33,6 @@ public class Mine_goods extends Activity implements OnClickListener{
 	private List<OrderAll> order_all = OrderSingleton.getInstance();
 	private String minegoods_name = null;
 	private List<OrderAll> order = null;
-	private OrderAll curorder = null;
-	private Goods curgood = null;
 	private List<Goods> goods = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
