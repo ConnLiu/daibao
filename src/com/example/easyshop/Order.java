@@ -92,11 +92,11 @@ public class Order extends Activity implements OnClickListener{
 				if(order.getBuyer().getObjectId().equals(user.getObjectId())){
 					btn_cfm_get.setText("确认收货"); 
 				}else{
-					btn_cfm_get.setText("已发货"); 
+					btn_cfm_get.setText("等待收货"); 
 				}
 			}
 			else{
-				TvOrder_state.setText("待发货");
+				TvOrder_state.setText("等待发货");
 				if(order.getBuyer().getObjectId().equals(user.getObjectId())){
 					btn_cfm_get.setText("等待发货"); 
 				}else{
@@ -139,7 +139,8 @@ public class Order extends Activity implements OnClickListener{
 					toast("请等待确认发货!");
 					return;
 				}
-				toast("确认发货成功!");
+				finish();
+				//toast("确认发货成功!");
 				order.setState(1);
 				order.update(new UpdateListener() {
 					@Override
@@ -152,6 +153,8 @@ public class Order extends Activity implements OnClickListener{
 						}
 					}
 				});
+				btn_cfm_get.setText("等待收货");
+				TvOrder_state.setText("已发货");
 			}
 			
 		}
